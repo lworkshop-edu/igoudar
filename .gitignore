@@ -68,6 +68,7 @@ Thumbs.db
 sysinfo.txt
 
 mono_crash.*
+
 crashlytics-build.properties
 InitTestScene*.unity*
 [Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
