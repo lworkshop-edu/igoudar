@@ -451,18 +451,18 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
     {
         if (changecanfiance < 100)
         {
-            changecanfiance = Mathf.Min(changecanfiance + 10f, 100f);
+            changecanfiance = Mathf.Min(changecanfiance + 1f, 100f);
         }
-            ShowSliderChangeText("+10");
+            ShowSliderChangeText("+1");
     }
 
     private void DecreaseSliderCanfiance()
     {
         if (changecanfiance > 0)
         {
-            changecanfiance = Mathf.Max(changecanfiance - 10f, 0f);
+            changecanfiance = Mathf.Max(changecanfiance - 1f, 0f);
         }
-            ShowSliderChangeText("-10");
+            ShowSliderChangeText("-1");
     }
 
     private void ShowSliderChangeText(string text)

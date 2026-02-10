@@ -430,21 +430,21 @@ public class level1 : MonoBehaviour
 
     private void IncreaseSliderCanfiance()
     {
-            ShowSliderChangeText("+10");
+            ShowSliderChangeText("+1");
 
         if (changecanfiance < 100)
         {
-            changecanfiance = Mathf.Min(changecanfiance + 10f, 100f);
+            changecanfiance = Mathf.Min(changecanfiance + 1f, 100f);
         }
     }
 
     private void DecreaseSliderCanfiance()
     {
-            ShowSliderChangeText("-10");
+            ShowSliderChangeText("-1");
 
         if (changecanfiance > 0)
         {
-            changecanfiance = Mathf.Max(changecanfiance - 10f, 0f);
+            changecanfiance = Mathf.Max(changecanfiance - 1f, 0f);
         }
     }
 
