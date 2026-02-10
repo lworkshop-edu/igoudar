@@ -24,7 +24,7 @@
 # --- IDE & Build System Files ---
 .vs/
 .gradle/
-.idea/
+.idea/x
 .consulo/
 *.csproj
 *.unityproj

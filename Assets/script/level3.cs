@@ -55,6 +55,9 @@ public class level3 : MonoBehaviour
     public float changereserves;
     [Range(0,100)]
     public float changecanfiance;
+    
+    public GameObject textfloat;
+    public GameObject textfloatplace;
 
     public GameObject midlebookopen;
     public GameObject midleideaopen;
@@ -443,6 +446,45 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
+
+    private void IncreaseSliderCanfiance()
+    {
+        if (changecanfiance < 100)
+        {
+            changecanfiance = Mathf.Min(changecanfiance + 10f, 100f);
+        }
+            ShowSliderChangeText("+10");
+    }
+
+    private void DecreaseSliderCanfiance()
+    {
+        if (changecanfiance > 0)
+        {
+            changecanfiance = Mathf.Max(changecanfiance - 10f, 0f);
+        }
+            ShowSliderChangeText("-10");
+    }
+
+    private void ShowSliderChangeText(string text)
+    {
+        if (textfloat == null || textfloatplace == null) return;
+
+        GameObject floatingText = Instantiate(textfloat, textfloatplace.transform.parent);
+        floatingText.transform.position = textfloatplace.transform.position;
+        
+        TextMeshProUGUI tmp = floatingText.GetComponent<TextMeshProUGUI>();
+        if (tmp == null)
+        {
+            tmp = floatingText.GetComponentInChildren<TextMeshProUGUI>();
+        }
+        
+        if (tmp != null)
+        {
+            tmp.text = text;
+        }
+
+        Destroy(floatingText, 2f);
+    }
     
     public void cathelpbtntest(GameObject obj)
     {
@@ -468,6 +510,17 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
                     });
             }
         }
+        
+        // Update slider based on correct or wrong answer
+        if (obj == catrcorect)
+        {
+            IncreaseSliderCanfiance();
+        }
+        else if (obj == catwrong)
+        {
+            DecreaseSliderCanfiance();
+        }
+        
         obj.SetActive(true);
         if (obj.transform.GetChild(1).gameObject != null)
         {

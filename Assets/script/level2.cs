@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 public class level2 : MonoBehaviour
 {
     public GameObject obj1;
@@ -41,6 +42,9 @@ public class level2 : MonoBehaviour
     public float changereserves;
     [Range(0,100)]
     public float changecanfiance;
+    
+    public GameObject textfloat;
+    public GameObject textfloatplace;
     // Call this method when FAQ is activated
     public GameObject midlebookopen;
     public GameObject midleideaopen;
@@ -474,6 +478,45 @@ public class level2 : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
+
+    private void IncreaseSliderCanfiance()
+    {
+            ShowSliderChangeText("+10");
+        if (changecanfiance < 100)
+        {
+            changecanfiance = Mathf.Min(changecanfiance + 10f, 100f);
+        }
+    }
+
+    private void DecreaseSliderCanfiance()
+    {
+        if (changecanfiance > 0)
+        {
+            changecanfiance = Mathf.Max(changecanfiance - 10f, 0f);
+        }
+            ShowSliderChangeText("-10");
+    }
+
+    private void ShowSliderChangeText(string text)
+    {
+        if (textfloat == null || textfloatplace == null) return;
+
+        GameObject floatingText = Instantiate(textfloat, textfloatplace.transform.parent);
+        floatingText.transform.position = textfloatplace.transform.position;
+        
+        TextMeshProUGUI tmp = floatingText.GetComponent<TextMeshProUGUI>();
+        if (tmp == null)
+        {
+            tmp = floatingText.GetComponentInChildren<TextMeshProUGUI>();
+        }
+        
+        if (tmp != null)
+        {
+            tmp.text = text;
+        }
+
+        Destroy(floatingText, 2f);
+    }
     
     public void cathelpbtntest(GameObject obj)
     {
@@ -498,6 +541,17 @@ public class level2 : MonoBehaviour
                     });
             }
         }
+        
+        // Update slider based on correct or wrong answer
+        if (obj == catrcorect)
+        {
+            IncreaseSliderCanfiance();
+        }
+        else if (obj == catwrong)
+        {
+            DecreaseSliderCanfiance();
+        }
+        
         obj.SetActive(true);
         if (obj.transform.GetChild(0).gameObject != null)
         {

@@ -68,6 +68,10 @@ public class level4 : MonoBehaviour
     public GameObject continueRightBtn;
 
     public TMPro.TextMeshProUGUI weektext;
+
+    public GameObject textfloat;
+    public GameObject textfloatplace;
+
     void Start()
     {
         bookopen.SetActive(false);
@@ -178,7 +182,20 @@ public class level4 : MonoBehaviour
     }
     void Update()
     {
-
+            if (sliderBarcanfiance != null && percentageTexcanfiance != null)
+        {
+            float displayValue = changecanfiance < 3f ? 0.03f : changecanfiance / 100f;
+            sliderBarcanfiance.value = displayValue;
+            int percent = changecanfiance < 3f ? 0 : Mathf.RoundToInt(sliderBarcanfiance.value * 100f);
+            percentageTexcanfiance.text = changecanfiance + "%";
+        }
+        if (sliderBarreserves != null && percentageTextreserves != null)
+        {
+            float displayValue = changereserves < 3f ? 0.03f : changereserves / 100f;
+            sliderBarreserves.value = displayValue;
+            int percent = changereserves < 3f ? 0 : Mathf.RoundToInt(sliderBarreserves.value * 100f);
+            percentageTextreserves.text = changereserves + "%";
+        }
     }
 
     public void KeyClicked(int keyIndex)
@@ -637,6 +654,45 @@ public class level4 : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
+
+    private void IncreaseSliderCanfiance()
+    {
+        if (changecanfiance < 100)
+        {
+            changecanfiance = Mathf.Min(changecanfiance + 10f, 100f);
+        }
+            ShowSliderChangeText("+10");
+    }
+
+    private void DecreaseSliderCanfiance()
+    {
+        if (changecanfiance > 0)
+        {
+            changecanfiance = Mathf.Max(changecanfiance - 10f, 0f);
+        }
+            ShowSliderChangeText("-10");
+    }
+
+    private void ShowSliderChangeText(string text)
+    {
+        if (textfloat == null || textfloatplace == null) return;
+
+        GameObject floatingText = Instantiate(textfloat, textfloatplace.transform.parent);
+        floatingText.transform.position = textfloatplace.transform.position;
+        
+        TextMeshProUGUI tmp = floatingText.GetComponent<TextMeshProUGUI>();
+        if (tmp == null)
+        {
+            tmp = floatingText.GetComponentInChildren<TextMeshProUGUI>();
+        }
+        
+        if (tmp != null)
+        {
+            tmp.text = text;
+        }
+
+        Destroy(floatingText, 2f);
+    }
     
     public void cathelpbtntest(GameObject obj)
     {
@@ -661,6 +717,17 @@ public class level4 : MonoBehaviour
                     });
             }
         }
+        
+        // Update slider based on correct or wrong answer
+        if (obj == catrcorect)
+        {
+            IncreaseSliderCanfiance();
+        }
+        else if (obj == catwrong)
+        {
+            DecreaseSliderCanfiance();
+        }
+        
         obj.SetActive(true);
         if (obj.transform.GetChild(0).gameObject != null)
         {
