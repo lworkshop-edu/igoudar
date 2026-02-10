@@ -73,3 +73,6 @@ mono_crash.*
 crashlytics-build.properties
 InitTestScene*.unity*
 [Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+build ipa
+build mac
+build apk
