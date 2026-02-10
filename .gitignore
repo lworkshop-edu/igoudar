@@ -66,6 +66,7 @@ Thumbs.db
 
 # --- Crash & Test Reports ---
 sysinfo.txt
+
 mono_crash.*
 crashlytics-build.properties
 InitTestScene*.unity*
