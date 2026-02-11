@@ -525,7 +525,6 @@ public class level2 : MonoBehaviour
         obj4.SetActive(true);
     }
 
-
     public void returntointro()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
@@ -643,7 +642,6 @@ public class level2 : MonoBehaviour
         }
     }
 
-
     public void continiuertest(GameObject obj)
     {
         if (catbtn != null)
@@ -725,6 +723,5 @@ public class level2 : MonoBehaviour
             }
         }
     }
-
 }
 

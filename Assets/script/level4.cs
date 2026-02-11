@@ -542,7 +542,6 @@ public class level4 : MonoBehaviour
 
         });
     }
-
     public void openbook()
     {
         obj1.SetActive(true);
@@ -565,7 +564,6 @@ public class level4 : MonoBehaviour
             ideaopen.SetActive(false);
         });
     }
-    
 
     public void openidea()
     {
