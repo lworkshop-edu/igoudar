@@ -91,6 +91,9 @@ public class level3 : MonoBehaviour
         catrcorect.SetActive(false);
         if (quest != null) quest.SetActive(false);
 
+        // Load saved slider value
+        changecanfiance = PlayerPrefs.GetFloat("changecanfiance", changecanfiance);
+
         if (questions != null && questions.Count > 0)
         {
             if (feedbacks == null) feedbacks = new List<ChoiceFeedback>();
@@ -449,18 +452,24 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
 
     private void IncreaseSliderCanfiance()
     {
+        changecanfiance = PlayerPrefs.GetFloat("changecanfiance", changecanfiance);
         if (changecanfiance < 100)
         {
             changecanfiance = Mathf.Min(changecanfiance + 1f, 100f);
+            PlayerPrefs.SetFloat("changecanfiance", changecanfiance);
+            PlayerPrefs.Save();
         }
             ShowSliderChangeText("+1");
     }
 
     private void DecreaseSliderCanfiance()
     {
+        changecanfiance = PlayerPrefs.GetFloat("changecanfiance", changecanfiance);
         if (changecanfiance > 0)
         {
             changecanfiance = Mathf.Max(changecanfiance - 1f, 0f);
+            PlayerPrefs.SetFloat("changecanfiance", changecanfiance);
+            PlayerPrefs.Save();
         }
             ShowSliderChangeText("-1");
     }

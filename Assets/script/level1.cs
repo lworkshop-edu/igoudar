@@ -67,6 +67,9 @@ public class level1 : MonoBehaviour
         catwrong.SetActive(false);
         catrcorect.SetActive(false);
 
+        // Load saved slider value
+        changecanfiance = PlayerPrefs.GetFloat("changecanfiance", changecanfiance);
+
         if (keys != null && keys.Count > 0 && keys[0].key != null)
         {
             SetKeyChildActive(keys[0].key, "hovered");
@@ -430,22 +433,26 @@ public class level1 : MonoBehaviour
 
     private void IncreaseSliderCanfiance()
     {
-            ShowSliderChangeText("+1");
-
+        changecanfiance = PlayerPrefs.GetFloat("changecanfiance", changecanfiance);
         if (changecanfiance < 100)
         {
             changecanfiance = Mathf.Min(changecanfiance + 1f, 100f);
+            PlayerPrefs.SetFloat("changecanfiance", changecanfiance);
+            PlayerPrefs.Save();
         }
+        ShowSliderChangeText("+1");
     }
 
     private void DecreaseSliderCanfiance()
     {
-            ShowSliderChangeText("-1");
-
+        changecanfiance = PlayerPrefs.GetFloat("changecanfiance", changecanfiance);
         if (changecanfiance > 0)
         {
             changecanfiance = Mathf.Max(changecanfiance - 1f, 0f);
+            PlayerPrefs.SetFloat("changecanfiance", changecanfiance);
+            PlayerPrefs.Save();
         }
+        ShowSliderChangeText("-1");
     }
 
     private void ShowSliderChangeText(string text)

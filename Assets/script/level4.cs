@@ -81,7 +81,11 @@ public class level4 : MonoBehaviour
         catbtn.SetActive(false);
         catwrong.SetActive(false);
         catrcorect.SetActive(false);
-       leftObj.SetActive(false); 
+       leftObj.SetActive(false);
+        
+        // Load saved slider value
+        changecanfiance = PlayerPrefs.GetFloat("changecanfiance", changecanfiance);
+        
         if (rightObj != null) rightObj.SetActive(true);
         for (int i = 0; i < rightBtnInfos.Count; i++)
         {
@@ -657,18 +661,24 @@ public class level4 : MonoBehaviour
 
     private void IncreaseSliderCanfiance()
     {
+        changecanfiance = PlayerPrefs.GetFloat("changecanfiance", changecanfiance);
         if (changecanfiance < 100)
         {
             changecanfiance = Mathf.Min(changecanfiance + 1f, 100f);
+            PlayerPrefs.SetFloat("changecanfiance", changecanfiance);
+            PlayerPrefs.Save();
         }
             ShowSliderChangeText("+1");
     }
 
     private void DecreaseSliderCanfiance()
     {
+        changecanfiance = PlayerPrefs.GetFloat("changecanfiance", changecanfiance);
         if (changecanfiance > 0)
         {
             changecanfiance = Mathf.Max(changecanfiance - 1f, 0f);
+            PlayerPrefs.SetFloat("changecanfiance", changecanfiance);
+            PlayerPrefs.Save();
         }
             ShowSliderChangeText("-1");
     }

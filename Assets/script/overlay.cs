@@ -38,6 +38,8 @@ public class overlay : MonoBehaviour
         bookopen.SetActive(false);
         cathelp.SetActive(false);
 
+        // Load saved slider value
+        changecanfiance = PlayerPrefs.GetFloat("changecanfiance", changecanfiance);
     }
 
 
