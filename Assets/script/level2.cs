@@ -29,6 +29,8 @@ public class level2 : MonoBehaviour
     private bool leftObjActive = false;
     public GameObject leftObj; // assign in inspector: contains corectBtn, wrongBtn, text1-4
     public List<GameObject> leftTexts; // assign in inspector: text1, text2, text3, text4
+    private int countdown = 3;
+    private Coroutine countdownCoroutine;
 
 
     public UnityEngine.UI.Slider sliderBarcanfiance;
@@ -57,7 +59,8 @@ public class level2 : MonoBehaviour
 
 
     public List<string> corectext; // have corect , wrong as child 
-        
+
+    public TMPro.TextMeshProUGUI contertext;
 
 
     void Start()
@@ -102,6 +105,18 @@ public class level2 : MonoBehaviour
 
     public void KeyClicked(int keyIndex)
     {
+        if (catwrong != null && catwrong.activeSelf)
+        {
+            OnWrongCloseClicked();
+            return;
+        }
+        
+        if (catrcorect != null && catrcorect.activeSelf)
+        {
+            OnContinueClicked();
+            return;
+        }
+        
         if (leftObjActive) return;
         continiuer();
         if (keys == null || keyIndex < 0 || keyIndex >= keys.Count) return;
@@ -121,6 +136,17 @@ public class level2 : MonoBehaviour
             {
                 leftTexts[i].gameObject.SetActive(i == keyIndex);
             }
+            
+            countdown = 3;
+            if (contertext != null)
+            {
+                contertext.text = "0" + countdown.ToString();
+            }
+            if (countdownCoroutine != null)
+            {
+                StopCoroutine(countdownCoroutine);
+            }
+            countdownCoroutine = StartCoroutine(CountdownTimer());
         }
     }
 
@@ -130,6 +156,12 @@ public class level2 : MonoBehaviour
         if (keys == null || currentKeyIndex >= keys.Count) return;
         var key = keys[currentKeyIndex];
         if (key == null || key.key == null) return;
+
+        if (countdownCoroutine != null)
+        {
+            StopCoroutine(countdownCoroutine);
+            countdownCoroutine = null;
+        }
 
         if (key.value) 
         {
@@ -152,7 +184,6 @@ public class level2 : MonoBehaviour
         }
         else
         {
-            // Wrong, hide leftObj and show catwrong
             if (leftObj != null)
             {
                 LeanTween.scale(leftObj, Vector3.zero, 0.2f).setOnComplete(() => {
@@ -171,6 +202,12 @@ public class level2 : MonoBehaviour
         if (keys == null || currentKeyIndex >= keys.Count) return;
         var key = keys[currentKeyIndex];
         if (key == null || key.key == null) return;
+
+        if (countdownCoroutine != null)
+        {
+            StopCoroutine(countdownCoroutine);
+            countdownCoroutine = null;
+        }
 
         if (!key.value) 
         {
@@ -235,6 +272,12 @@ public class level2 : MonoBehaviour
     {
         continiuertest(catwrong);
  
+        if (countdownCoroutine != null)
+        {
+            StopCoroutine(countdownCoroutine);
+            countdownCoroutine = null;
+        }
+
         if (leftObj != null)
         {
             LeanTween.scale(leftObj, Vector3.zero, 0.2f).setOnComplete(() => {
@@ -252,6 +295,12 @@ public class level2 : MonoBehaviour
     {
         continiuertest(catrcorect);
       
+        if (countdownCoroutine != null)
+        {
+            StopCoroutine(countdownCoroutine);
+            countdownCoroutine = null;
+        }
+
         if (leftObj != null)
         {
             LeanTween.scale(leftObj, Vector3.zero, 0.2f).setOnComplete(() => {
@@ -550,8 +599,7 @@ public class level2 : MonoBehaviour
                     });
             }
         }
-        
-        // Update slider based on correct or wrong answer
+
         if (obj == catrcorect)
         {
             IncreaseSliderCanfiance();
@@ -647,6 +695,33 @@ public class level2 : MonoBehaviour
                         }
                          obj.SetActive(false);
                     });
+            }
+        }
+    }
+
+    private IEnumerator CountdownTimer()
+    {
+        while (countdown > 0)
+        {
+            yield return new WaitForSeconds(1f);
+            countdown--;
+            
+            if (contertext != null)
+            {
+                contertext.text = "0" + countdown.ToString();
+            }
+            
+            if (countdown == 0)
+            {
+                if (leftObj != null)
+                {
+                    LeanTween.scale(leftObj, Vector3.zero, 0.2f).setOnComplete(() => {
+                        leftObj.SetActive(false);
+                    });
+                }
+                leftObjActive = false;
+                cathelpbtntest(catwrong);
+                countdownCoroutine = null;
             }
         }
     }

@@ -361,7 +361,6 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
                         cathelp.transform.GetChild(1).gameObject.SetActive(true);
                         cathelp.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(true);
                         cathelp.SetActive(false);
-                        // Show the question UI and allow answer selection
                         if (quest != null)
                         {
                             quest.SetActive(true);
@@ -520,7 +519,6 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
             }
         }
         
-        // Update slider based on correct or wrong answer
         if (obj == catrcorect)
         {
             IncreaseSliderCanfiance();

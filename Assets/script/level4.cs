@@ -71,22 +71,46 @@ public class level4 : MonoBehaviour
 
     public GameObject textfloat;
     public GameObject textfloatplace;
+ 
+    public TMPro.TextMeshProUGUI cathelptext;
+    public TMPro.TextMeshProUGUI cathelptexttop;
+    public GameObject topimagerighthide;
+    private int initialSequenceStep = 0;
 
+    public GameObject introobj;
+    private int currentIntroIndex = 0;
+    private bool showingFixText = true;
+
+    [System.Serializable]
+    public class textcangedwithweek
+    {
+        public string texttop;
+       
+        public string textbottom;
+    }
+    public List<textcangedwithweek> textchnagedwithweeks ;
+
+    public string toptextfix;
+    public string bottomtextfix;
+
+    public GameObject ideabtn;
+
+    
     void Start()
     {
         bookopen.SetActive(false);
         ideaopen.SetActive(false);
         congrats.SetActive(false);
-        cathelp.SetActive(true);
+        cathelp.SetActive(false);
         catbtn.SetActive(false);
         catwrong.SetActive(false);
         catrcorect.SetActive(false);
-       leftObj.SetActive(false);
+        leftObj.SetActive(false);
+        ideabtn.SetActive(false);
         
-        // Load saved slider value
         changecanfiance = PlayerPrefs.GetFloat("changecanfiance", changecanfiance);
         
-        if (rightObj != null) rightObj.SetActive(true);
+        if (rightObj != null) rightObj.SetActive(false);
         for (int i = 0; i < rightBtnInfos.Count; i++)
         {
             Transform indicator = rightBtnInfos[i].btnObj.transform.Find("indicator level");
@@ -107,6 +131,21 @@ public class level4 : MonoBehaviour
         if (continueRightBtn != null)
             continueRightBtn.SetActive(false);
         UpdateWeekText();
+        initialSequenceStep = 0;
+        
+        if (introobj != null)
+        {
+            for (int i = 0; i < introobj.transform.childCount; i++)
+            {
+                introobj.transform.GetChild(i).gameObject.SetActive(false);
+            }
+            
+            if (introobj.transform.childCount > 0)
+            {
+                currentIntroIndex = 0;
+                introobj.transform.GetChild(0).gameObject.SetActive(true);
+            }
+        }
     }
 
     private void UpdateJarText(int btnIndex)
@@ -228,6 +267,20 @@ public class level4 : MonoBehaviour
             ResetAllJars();
             ResetAllLeftObjImages();
             UpdateWeekText();
+            
+            showingFixText = true;
+            if (cathelptexttop != null)
+            {
+                cathelptexttop.text = toptextfix;
+            }
+            if (cathelptext != null)
+            {
+                cathelptext.text = bottomtextfix;
+            }
+            
+            cathelpbtn();
+            leftObj.SetActive(false);
+            
             continiuertest(catrcorect);
                    if (catwrong != null)
             catwrong.SetActive(false);
@@ -536,6 +589,63 @@ public class level4 : MonoBehaviour
     }
     public void continiuer()
     {
+        if (initialSequenceStep == 0)
+        {
+            initialSequenceStep = 1;
+            showingFixText = false;
+            
+            if (textchnagedwithweeks != null && currentWeek < textchnagedwithweeks.Count)
+            {
+                if (cathelptexttop != null)
+                {
+                    cathelptexttop.text = textchnagedwithweeks[currentWeek].texttop;
+                }
+                if (cathelptext != null)
+                {
+                    cathelptext.text = textchnagedwithweeks[currentWeek].textbottom;
+                }
+            }
+            
+            cathelpbtn();
+            if (rightObj != null)
+            {
+                rightObj.SetActive(true);
+            }
+            return;
+        }
+        else if (initialSequenceStep == 1)
+        {
+            initialSequenceStep = 2;
+        }
+        
+        if (showingFixText)
+        {
+            showingFixText = false;
+            
+            if (textchnagedwithweeks != null && currentWeek < textchnagedwithweeks.Count)
+            {
+                if (cathelptexttop != null)
+                {
+                    cathelptexttop.text = textchnagedwithweeks[currentWeek].texttop;
+                }
+                if (cathelptext != null)
+                {
+                    cathelptext.text = textchnagedwithweeks[currentWeek].textbottom;
+                }
+            }
+            
+            cathelpbtn();
+            if (rightObj != null && !rightObj.activeSelf)
+            {
+                rightObj.SetActive(true);
+            }
+            return;
+        }
+        
+        if (topimagerighthide.activeSelf)
+        {
+            topimagerighthide.SetActive(false);
+        }
         if (catbtn != null)
         {
             RawImage rawImg = catbtn.GetComponent<RawImage>();
@@ -659,6 +769,41 @@ public class level4 : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
+    public void CloseIntroObj()
+    {
+        if (introobj == null) return;
+        
+        if (currentIntroIndex < introobj.transform.childCount)
+        {
+            introobj.transform.GetChild(currentIntroIndex).gameObject.SetActive(false);
+        }
+        
+        currentIntroIndex++;
+    
+        if (currentIntroIndex < introobj.transform.childCount)
+        {
+            introobj.transform.GetChild(currentIntroIndex).gameObject.SetActive(true);
+        }
+        else
+        {
+            if (cathelp != null)
+            {
+
+                showingFixText = true;
+                if (cathelptexttop != null)
+                {
+                    cathelptexttop.text = toptextfix;
+                }
+                if (cathelptext != null)
+                {
+                    cathelptext.text = bottomtextfix;
+                }
+                ideabtn.SetActive(true);
+                cathelp.SetActive(true);
+            }
+        }
+    }
+
     private void IncreaseSliderCanfiance()
     {
         changecanfiance = PlayerPrefs.GetFloat("changecanfiance", changecanfiance);
@@ -728,7 +873,6 @@ public class level4 : MonoBehaviour
             }
         }
         
-        // Update slider based on correct or wrong answer
         if (obj == catrcorect)
         {
             IncreaseSliderCanfiance();
