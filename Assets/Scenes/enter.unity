@@ -2457,7 +2457,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 430.99756, y: -87.300476}
+  m_AnchoredPosition: {x: 430.99756, y: -55}
   m_SizeDelta: {x: 276.7207, y: 36.461}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &894553889
@@ -2480,10 +2480,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "LE SCEAU PERDU \u2013 \xC9PREUVES DE L\u2019AGADIR"
+  m_text: LES SECRETS DES IGOUDARS
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e45037ffbc11146b3a224c1ade03c5ba, type: 2}
-  m_sharedMaterial: {fileID: -5862970010393346568, guid: e45037ffbc11146b3a224c1ade03c5ba, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d217a314435624c2e9d07e78d4563cb3, type: 2}
+  m_sharedMaterial: {fileID: 2221344072625611243, guid: d217a314435624c2e9d07e78d4563cb3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4079,7 +4079,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 292.52148, y: -414.00052}
+  m_AnchoredPosition: {x: 237, y: -284}
   m_SizeDelta: {x: 536.41, y: 242.986}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1634826284
@@ -4635,7 +4635,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 342.3463, y: -7.4207}
+  m_AnchoredPosition: {x: 491, y: 48}
   m_SizeDelta: {x: 1208.4863, y: 1073.0734}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1909110109
@@ -4674,7 +4674,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -297.23206, y: -413.99762}
+  m_AnchoredPosition: {x: -226, y: -283.99713}
   m_SizeDelta: {x: 536.41, y: 242.9904}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1909110111

@@ -2170,9 +2170,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Bienvenue dans Le Sceau Perdu.\LExplorez l\u2019Agadir et relevez des
-    \xE9preuves inspir\xE9es de la vie Amazighe.\LChaque choix compte pour restaurer
-    le sceau sacr\xE9 de la communaut\xE9."
+  m_text: "Bienvenue dans LES SECRETS DES IGOUDARS et relevez des \xE9preuves inspir\xE9es
+    de la vie Amazighe.\LChaque choix compte pour restaurer le sceau sacr\xE9 de
+    la communaut\xE9."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f2eb2570de3a3481cbdf94b192d587ea, type: 2}
   m_sharedMaterial: {fileID: 6988761197963080601, guid: f2eb2570de3a3481cbdf94b192d587ea, type: 2}
@@ -5634,7 +5634,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2086294252
 RectTransform:
   m_ObjectHideFlags: 0
