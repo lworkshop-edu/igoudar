@@ -3967,7 +3967,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: FQA
+  m_text: FAQ
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 063036e1943ef4a249222aadf201a06e, type: 2}
   m_sharedMaterial: {fileID: -7396362591830668097, guid: 063036e1943ef4a249222aadf201a06e, type: 2}
