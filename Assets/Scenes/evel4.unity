@@ -1996,11 +1996,10 @@ MonoBehaviour:
   cathelptext: {fileID: 1767363051}
   cathelptexttop: {fileID: 319995919}
   corectext:
-  - "Feedback positif\LLa cellule 1 contenait des olives, 2 pots de miel et 2 pots
-    de Smen. Ce syst\xE8me d'audit rigoureux emp\xEAchait la fraude et assurait la
-    confiance communautaire."
+  - "Feedback positif\LLa distribution reste prudente. La r\xE9serve prot\xE8ge le
+    village"
   - "Feedback positif\LLe soutien est juste et temporaire. L\u2019\xE9quilibre est
-    pr\xE9serv\xE9. "
+    pr\xE9serv\xE9."
   - "Feedback positif\LLa stabilit\xE9 aide le village \xE0 traverser le froid."
   - "Feedback positif\LLa solidarit\xE9 renforce la confiance dans le village"
   wrongtext:

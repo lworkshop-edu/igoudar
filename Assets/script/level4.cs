@@ -615,6 +615,10 @@ public class level4 : MonoBehaviour
             {
                 rightObj.SetActive(true);
             }
+            if (leftObj != null)
+            {
+                leftObj.SetActive(true);
+            }
             return;
         }
         else if (initialSequenceStep == 1)
@@ -642,6 +646,10 @@ public class level4 : MonoBehaviour
             if (rightObj != null && !rightObj.activeSelf)
             {
                 rightObj.SetActive(true);
+            }
+            if (leftObj != null)
+            {
+                leftObj.SetActive(true);
             }
             return;
         }
