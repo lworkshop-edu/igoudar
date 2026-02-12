@@ -1958,7 +1958,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 309212109}
-  - component: {fileID: 309212110}
   - component: {fileID: 309212111}
   m_Layer: 0
   m_Name: Manager
@@ -1982,67 +1981,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &309212110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 309212107}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccea062520a9847ae8a7b23d18ce2065, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obj1: {fileID: 405316318}
-  obj2: {fileID: 711017636}
-  obj3: {fileID: 1526691412}
-  obj4: {fileID: 1071409654}
-  bookopen: {fileID: 931891703}
-  ideaopen: {fileID: 937142128}
-  congrats: {fileID: 1681115228}
-  cathelp: {fileID: 1583737347}
-  catbtn: {fileID: 499511332}
-  keys:
-  - key: {fileID: 0}
-    value: 2
-  - key: {fileID: 0}
-    value: 3
-  - key: {fileID: 0}
-    value: 4
-  - key: {fileID: 0}
-    value: 1
-  sliderBarcanfiance: {fileID: 977053873}
-  sliderBarreserves: {fileID: 0}
-  percentageTexcanfiance: {fileID: 692199257}
-  percentageTextreserves: {fileID: 0}
-  changereserves: 0
-  changecanfiance: 0
-  textfloat: {fileID: 0}
-  textfloatplace: {fileID: 0}
-  midlebookopen: {fileID: 1639606318}
-  midleideaopen: {fileID: 358610158}
-  midlecongrats: {fileID: 1190633558}
-  catwrong: {fileID: 107994288}
-  catrcorect: {fileID: 810232962}
-  doorsObjs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  corectext:
-  - "Connaissance acquise:\LLes chats \xE9taient essentiels \xE0 la protection des
-    grains. Leurs petites ouvertures dans les portes permettaient leur passage tout
-    en s\xE9curisant les r\xE9serves."
-  - "Connaissance acquise:\LLes chats \xE9taient essentiels \xE0 la protection des
-    grains. Leurs petites ouvertures dans les portes permettaient leur passage tout
-    en s\xE9curisant les r\xE9serves."
-  - "\xC9preuve R\xE9ussie!\LLa cellule 7 contenait 10 sacs de grain mais le registre
-    n'en mentionnait que 8. Ce syst\xE8me d'audit rigoureux emp\xEAchait la fraude
-    et assurait la confiance communautaire."
-  - "\xC9preuve R\xE9ussie!\LLa cellule 7 contenait 10 sacs de grain mais le registre
-    n'en mentionnait que 8. Ce syst\xE8me d'audit rigoureux emp\xEAchait la fraude
-    et assurait la confiance communautaire."
 --- !u!114 &309212111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2105,6 +2043,11 @@ MonoBehaviour:
   - "\xC9preuve R\xE9ussie!\LLa cellule 7 contenait 10 sacs de grain mais le registre
     n'en mentionnait que 8. Ce syst\xE8me d'audit rigoureux emp\xEAchait la fraude
     et assurait la confiance communautaire."
+  wrongtext:
+  - "V\xE9rification N\xE9cessaire\Lplus attentivement les quantit\xE9s inscrites."
+  - "V\xE9rification N\xE9cessaire\Lplus attentivement les quantit\xE9s inscrites."
+  - "V\xE9rification N\xE9cessaire\Lplus attentivement les quantit\xE9s inscrites."
+  - "V\xE9rification N\xE9cessaire\Lplus attentivement les quantit\xE9s inscrites."
   contertext: {fileID: 1929778517}
 --- !u!1 &311427712
 GameObject:
@@ -5560,8 +5503,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
-  m_fontSizeBase: 40
+  m_fontSize: 33.8
+  m_fontSizeBase: 33.8
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6028,7 +5971,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Felicitations ! Premiere Epreuve D\xE9bloqu\xE9e"
+  m_text: "F\xE9licitations ! Deuxi\xE8me \xC9preuve D\xE9bloqu\xE9e"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1e806e23776ff4df9bbb89bae3988edc, type: 2}
   m_sharedMaterial: {fileID: -1230812021503957915, guid: 1e806e23776ff4df9bbb89bae3988edc, type: 2}
@@ -15930,7 +15873,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "dentifiez quelle cellule de stockage ne correspond pas au registre officiel.\LLes
+  m_text: "Identifiez quelle cellule de stockage ne correspond pas au registre officiel.\LLes
     registres garantissaient une transparence totale. Chaque d\xE9p\xF4t \xE9tait
     v\xE9rifi\xE9 pour pr\xE9venir la fraude."
   m_isRightToLeft: 0

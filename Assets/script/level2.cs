@@ -59,6 +59,7 @@ public class level2 : MonoBehaviour
 
 
     public List<string> corectext; // have corect , wrong as child 
+    public List<string> wrongtext;
 
     public TMPro.TextMeshProUGUI contertext;
 
@@ -176,6 +177,7 @@ public class level2 : MonoBehaviour
             }
             leftObjActive = false;
          
+            SetCatText(catrcorect, corectext, currentKeyIndex);
             cathelpbtntest(catrcorect);
          
             SetKeyVisualState(key.key, false, false, false);
@@ -195,6 +197,7 @@ public class level2 : MonoBehaviour
                 });
             }
             leftObjActive = false;
+            SetCatText(catwrong, wrongtext, currentKeyIndex);
             cathelpbtntest(catwrong);
         }
     }
@@ -226,6 +229,7 @@ public class level2 : MonoBehaviour
             }
             leftObjActive = false;
 
+            SetCatText(catrcorect, corectext, currentKeyIndex);
             cathelpbtntest(catrcorect);
 
             SetKeyVisualState(key.key, false, false, false);
@@ -246,6 +250,7 @@ public class level2 : MonoBehaviour
                 });
             }
             leftObjActive = false;
+            SetCatText(catwrong, wrongtext, currentKeyIndex);
             cathelpbtntest(catwrong);
         }
     }
@@ -787,9 +792,20 @@ public class level2 : MonoBehaviour
                     });
                 }
                 leftObjActive = false;
+                SetCatText(catwrong, wrongtext, currentKeyIndex);
                 cathelpbtntest(catwrong);
                 countdownCoroutine = null;
             }
+        }
+    }
+
+    private void SetCatText(GameObject catObj, List<string> texts, int index)
+    {
+        if (catObj == null || texts == null || index < 0 || index >= texts.Count) return;
+        var textObj = catObj.transform.GetChild(0).gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        if (textObj != null)
+        {
+            textObj.text = texts[index];
         }
     }
 

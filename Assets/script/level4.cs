@@ -74,6 +74,8 @@ public class level4 : MonoBehaviour
  
     public TMPro.TextMeshProUGUI cathelptext;
     public TMPro.TextMeshProUGUI cathelptexttop;
+    public List<string> corectext;
+    public List<string> wrongtext;
     public GameObject topimagerighthide;
     private int initialSequenceStep = 0;
 
@@ -377,10 +379,12 @@ public class level4 : MonoBehaviour
         }
         if (allCorrect)
         {
+            SetCatText(catrcorect, corectext, currentWeek);
             cathelpbtntest(catrcorect);
         }
         else
         {
+            SetCatText(catwrong, wrongtext, currentWeek);
             cathelpbtntest(catwrong);
         }
         }
@@ -883,25 +887,39 @@ public class level4 : MonoBehaviour
         }
         
         obj.SetActive(true);
-        if (obj.transform.GetChild(0).gameObject != null)
+        Transform background = GetCatBackground(obj);
+        Transform midle = GetCatMiddle(obj);
+        if (background != null)
         {
-            RawImage rawImgcathelp = obj.transform.GetChild(0).GetComponent<RawImage>();
+            RawImage rawImgcathelp = background.GetComponent<RawImage>();
             if (rawImgcathelp != null)
             {
                 Color c = rawImgcathelp.color;
                 c.a = 0f;
                 rawImgcathelp.color = c;
-                obj.transform.GetChild(1).gameObject.SetActive(false);
-                obj.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(false);
-                LeanTween.value(obj.transform.GetChild(0).gameObject, 0f, 1f, 0.3f)
+                if (midle != null)
+                {
+                    midle.gameObject.SetActive(false);
+                }
+                if (background.childCount > 0)
+                {
+                    background.GetChild(0).gameObject.SetActive(false);
+                }
+                LeanTween.value(background.gameObject, 0f, 1f, 0.3f)
                     .setOnUpdate((float val) => {
                         Color nc = rawImgcathelp.color;
                         nc.a = val;
                         rawImgcathelp.color = nc;
                     })
                     .setOnComplete(() => {
-                        obj.transform.GetChild(1).gameObject.SetActive(true);
-                        obj.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(true);
+                        if (midle != null)
+                        {
+                            midle.gameObject.SetActive(true);
+                        }
+                        if (background.childCount > 0)
+                        {
+                            background.GetChild(0).gameObject.SetActive(true);
+                        }
                         for (int i = 0; i < obj.transform.childCount; i++)
                         {
                             var child = obj.transform.GetChild(i).gameObject;
@@ -939,17 +957,25 @@ public class level4 : MonoBehaviour
                     });
             }
         }
-        if (obj.transform.GetChild(0).gameObject != null)
+        Transform background = GetCatBackground(obj);
+        Transform midle = GetCatMiddle(obj);
+        if (background != null)
         {
-            RawImage rawImgcathelp = obj.transform.GetChild(0).GetComponent<RawImage>();
+            RawImage rawImgcathelp = background.GetComponent<RawImage>();
             if (rawImgcathelp != null)
             {
                 Color c = rawImgcathelp.color;
                 c.a = 1f;
                 rawImgcathelp.color = c;
-                obj.transform.GetChild(1).gameObject.SetActive(false);
-                obj.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(false);
-                LeanTween.value(obj.transform.GetChild(0).gameObject, 1f, 0f, 0.2f)
+                if (midle != null)
+                {
+                    midle.gameObject.SetActive(false);
+                }
+                if (background.childCount > 0)
+                {
+                    background.GetChild(0).gameObject.SetActive(false);
+                }
+                LeanTween.value(background.gameObject, 1f, 0f, 0.2f)
                     .setOnUpdate((float val) => {
                         Color nc = rawImgcathelp.color;
                         nc.a = val;
@@ -993,6 +1019,53 @@ public class level4 : MonoBehaviour
             if (!found) return false;
         }
         return true;
+    }
+
+    private void SetCatText(GameObject catObj, List<string> texts, int index)
+    {
+        if (catObj == null || texts == null || texts.Count == 0) return;
+        int safeIndex = Mathf.Clamp(index, 0, texts.Count - 1);
+        Transform midle = GetCatMiddle(catObj);
+        TextMeshProUGUI textObj = null;
+        if (midle != null)
+        {
+            textObj = midle.GetComponentInChildren<TextMeshProUGUI>(true);
+        }
+        if (textObj == null)
+        {
+            textObj = catObj.GetComponentInChildren<TextMeshProUGUI>(true);
+        }
+        if (textObj != null)
+        {
+            string value = texts[safeIndex];
+            if (texts == corectext)
+            {
+                value = value.Replace("Feedback positif", "Feedback positif\n");
+            }
+            else if (texts == wrongtext)
+            {
+                value = value.Replace("Feedback négatif", "Feedback négatif\n");
+            }
+            textObj.text = value;
+        }
+    }
+
+    private Transform GetCatBackground(GameObject catObj)
+    {
+        if (catObj == null) return null;
+        Transform background = catObj.transform.Find("background");
+        if (background != null) return background;
+        if (catObj.transform.childCount > 0) return catObj.transform.GetChild(0);
+        return null;
+    }
+
+    private Transform GetCatMiddle(GameObject catObj)
+    {
+        if (catObj == null) return null;
+        Transform midle = catObj.transform.Find("midle");
+        if (midle != null) return midle;
+        if (catObj.transform.childCount > 1) return catObj.transform.GetChild(1);
+        return null;
     }
 }
 

@@ -54,7 +54,8 @@ public class level1 : MonoBehaviour
 
     public List<GameObject> doorsObjs; // have corect , wrong as child 
 
-    public List<string> corectext; // have corect , wrong as child 
+    public List<string> corectext;
+    public List<string> wrongtext;
         
 
 
@@ -154,6 +155,7 @@ public class level1 : MonoBehaviour
         {
             SetKeyChildActive(key.key, "wrong");
             cathelpbtntest(catwrong);
+            catwrong.transform.GetChild(0).gameObject.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = wrongtext[currentKeyIndex];
            // catwrong.SetActive(true);
             cathelp.SetActive(false);
             catbtn.SetActive(true);

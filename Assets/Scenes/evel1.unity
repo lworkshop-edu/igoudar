@@ -661,18 +661,23 @@ MonoBehaviour:
   - {fileID: 761545735}
   - {fileID: 552091409}
   corectext:
-  - "Connaissance acquise:\LLes chats \xE9taient essentiels \xE0 la protection des
-    grains. Leurs petites ouvertures dans les portes permettaient leur passage tout
-    en s\xE9curisant les r\xE9serves."
-  - "Connaissance acquise:\LLes chats \xE9taient essentiels \xE0 la protection des
-    grains. Leurs petites ouvertures dans les portes permettaient leur passage tout
-    en s\xE9curisant les r\xE9serves."
-  - "\xC9preuve R\xE9ussie!\LLa cellule 7 contenait 10 sacs de grain mais le registre
-    n'en mentionnait que 8. Ce syst\xE8me d'audit rigoureux emp\xEAchait la fraude
-    et assurait la confiance communautaire."
-  - "\xC9preuve R\xE9ussie!\LLa cellule 7 contenait 10 sacs de grain mais le registre
-    n'en mentionnait que 8. Ce syst\xE8me d'audit rigoureux emp\xEAchait la fraude
-    et assurait la confiance communautaire."
+  - "Connaissance acquise:\LLa cl\xE9 s\u2019ajuste parfaitement et le symbole a
+    \xE9t\xE9 bien reconnu. Chaque d\xE9tail compte dans l\u2019agadir."
+  - "Connaissance acquise:\LLa cl\xE9 s\u2019ajuste parfaitement et le symbole a
+    \xE9t\xE9 bien reconnu. Chaque d\xE9tail compte dans l\u2019agadir."
+  - "V\xE9rification N\xE9cessaire\LLa cl\xE9 s\u2019ajuste parfaitement et le symbole
+    a \xE9t\xE9 bien reconnu. Chaque d\xE9tail compte dans l\u2019agadir."
+  - "V\xE9rification N\xE9cessaire\LLa cl\xE9 s\u2019ajuste parfaitement et le symbole
+    a \xE9t\xE9 bien reconnu. Chaque d\xE9tail compte dans l\u2019agadir."
+  wrongtext:
+  - "V\xE9rification N\xE9cessaire\LCette cl\xE9 ne correspond pas. Regarde attentivement
+    les formes et les lignes du symbole avant de r\xE9essayer."
+  - "Symbole Incorrect:\LCe symbole ne correspond pas \xE0 la serrure. Cherchez le
+    symbole li\xE9 \xE0 la protection contre les rongeurs."
+  - "V\xE9rification N\xE9cessaire\LCette cellule correspond au registre. Comparez
+    plus attentivement les quantit\xE9s inscrites."
+  - "V\xE9rification N\xE9cessaire\LCette cl\xE9 ne correspond pas. Regarde attentivement
+    les formes et les lignes du symbole avant de r\xE9essayer."
 --- !u!1 &311427712
 GameObject:
   m_ObjectHideFlags: 0
@@ -9219,7 +9224,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 138.18077, y: -102}
+  m_AnchoredPosition: {x: 138.18077, y: -129.8}
   m_SizeDelta: {x: 920.6015, y: 378.1581}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1767363051
@@ -9271,8 +9276,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50.32
-  m_fontSizeBase: 50.32
+  m_fontSize: 42.47
+  m_fontSizeBase: 42.47
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

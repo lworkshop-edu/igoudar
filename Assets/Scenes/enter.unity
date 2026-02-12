@@ -290,7 +290,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 436.91968, y: 176}
+  m_AnchoredPosition: {x: 436.9198, y: 173}
   m_SizeDelta: {x: 661.8396, y: 100.1426}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &40887326
@@ -313,8 +313,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Dans l\u2019Agadir, chaque d\xE9p\xF4t \xE9tait inscrit dans un registre.\L
-    Les informations \xE9taient v\xE9rifi\xE9es pour \xE9viter toute fraude.\L Comparez
+  m_text: "Dans l\u2019Agadir, chaque d\xE9p\xF4t \xE9tait inscrit dans un registre.\LLes
+    informations \xE9taient v\xE9rifi\xE9es pour \xE9viter toute fraude.\LComparez
     le rouleau aux cellules et trouvez l\u2019erreur."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e45037ffbc11146b3a224c1ade03c5ba, type: 2}
@@ -1131,7 +1131,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "En p\xE9riode de disette, les r\xE9serves \xE9taient partag\xE9es semaine
     apr\xE8s semaine.\LLa communaut\xE9 devait anticiper les impr\xE9vus et \xE9viter
-    le gaspillage.\L R\xE9partissez les jarres avec soin pour traverser le mois sans
+    le gaspillage.\LR\xE9partissez les jarres avec soin pour traverser le mois sans
     p\xE9nurie."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e45037ffbc11146b3a224c1ade03c5ba, type: 2}
@@ -1709,7 +1709,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &652051117
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2173,8 +2173,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 43.4
-  m_fontSizeBase: 43.4
+  m_fontSize: 42.49
+  m_fontSizeBase: 42.49
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2574,7 +2574,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &913243219
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2792,7 +2792,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1126380817
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3477,7 +3477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.972549, g: 0.972549, b: 0.972549, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4294,7 +4294,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 69, y: 0.68859863}
+  m_AnchoredPosition: {x: 375, y: 0.68859863}
   m_SizeDelta: {x: -486.8326, y: -0.4221}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1713121082
@@ -4895,7 +4895,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.972549, g: 0.972549, b: 0.972549, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
