@@ -2480,7 +2480,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LES SECRETS DES IGOUDARcc
+  m_text: LES SECRETS DES IGOUDAR
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d217a314435624c2e9d07e78d4563cb3, type: 2}
   m_sharedMaterial: {fileID: 2221344072625611243, guid: d217a314435624c2e9d07e78d4563cb3, type: 2}

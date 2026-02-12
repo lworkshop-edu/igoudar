@@ -2031,18 +2031,14 @@ MonoBehaviour:
   catwrong: {fileID: 107994288}
   catrcorect: {fileID: 810232962}
   corectext:
-  - "\xC9preuve R\xE9ussie!\LLa cellule 1 contenait des olives, 2 pots de miel et
-    2 pots de Smen. Ce syst\xE8me d'audit rigoureux emp\xEAchait la fraude et assurait
-    la confiance communautaire."
-  - "\xC9preuve R\xE9ussie!\LLa cellule 2 contenait 1 sac de grain, 3 pots d\u2019\xE9pices
-    et 6 pots de miel mais le registre n'en mentionnait que 3. Ce syst\xE8me d'audit
-    rigoureux emp\xEAchait la fraude et assurait la confiance communautaire."
-  - "\xC9preuve R\xE9ussie!\LLa cellule 7 contenait 10 sacs de grain mais le registre
-    n'en mentionnait que 8. Ce syst\xE8me d'audit rigoureux emp\xEAchait la fraude
-    et assurait la confiance communautaire."
-  - "\xC9preuve R\xE9ussie!\LLa cellule 7 contenait 10 sacs de grain mais le registre
-    n'en mentionnait que 8. Ce syst\xE8me d'audit rigoureux emp\xEAchait la fraude
-    et assurait la confiance communautaire."
+  - "\xC9preuve R\xE9ussie!\LExcellent ! Le choix est correct. Vous progressez dans
+    l\u2019\xE9preuve."
+  - "\xC9preuve R\xE9ussie!\LExcellent ! Le choix est correct. Vous progressez dans
+    l\u2019\xE9preuve."
+  - "\xC9preuve R\xE9ussie!\LExcellent ! Le choix est correct. Vous progressez dans
+    l\u2019\xE9preuve."
+  - "\xC9preuve R\xE9ussie!\LExcellent ! Le choix est correct. Vous progressez dans
+    l\u2019\xE9preuve."
   wrongtext:
   - "V\xE9rification N\xE9cessaire\Lplus attentivement les quantit\xE9s inscrites."
   - "V\xE9rification N\xE9cessaire\Lplus attentivement les quantit\xE9s inscrites."
@@ -5503,8 +5499,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.8
-  m_fontSizeBase: 33.8
+  m_fontSize: 39.9
+  m_fontSizeBase: 39.9
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
