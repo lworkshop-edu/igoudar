@@ -562,6 +562,7 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
         }
     }
 
+
     public void continiuertest(GameObject obj)
     {
         if (catbtn != null)

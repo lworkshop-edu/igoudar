@@ -1758,11 +1758,11 @@ MonoBehaviour:
     textbottom: "Les \xE9changes sont retard\xE9s cette semaine. Les r\xE9serves
       doivent durer plus longtemps."
   - texttop: Mission,
-    textbottom: "Les \xE9changes sont retard\xE9s cette semaine. Les r\xE9serves
-      doivent durer plus longtemps."
+    textbottom: "Un mariage a lieu chez les A\xEFt Kine. Ils accueillent de nombreux
+      proches ."
   - texttop: Mission,
-    textbottom: "Les \xE9changes sont retard\xE9s cette semaine. Les r\xE9serves
-      doivent durer plus longtemps."
+    textbottom: "Le froid arrive plus t\xF4t que pr\xE9vu. Toutes les familles consomment
+      davantage."
   toptextfix: "Avant de r\xE9partir les jarres cette semaine, gardez cet \xE9v\xE9nement
     \xE0 l\u2019esprit :"
   bottomtextfix: "R\xE9partissez les r\xE9serves avec sagesse pour \xE9viter la p\xE9nurie

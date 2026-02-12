@@ -19,7 +19,7 @@ public class level2 : MonoBehaviour
     [System.Serializable]
     public class KeyValue
     {
-        public GameObject key; // has numberoff, numberon, indicator as children
+        public GameObject key; // has select, dark numberoff, numberon, indicator as children
         public bool value; // true if correct, false if not
     }
 
@@ -76,9 +76,10 @@ public class level2 : MonoBehaviour
         // Load saved slider value
         changecanfiance = PlayerPrefs.GetFloat("changecanfiance", changecanfiance);
 
+        SetAllKeysDark();
         if (keys != null && keys.Count > 0 && keys[0].key != null)
         {
-            SetKeyIndicator(keys[0].key, true);
+            SetKeyVisualState(keys[0].key, true, false, false);
         }
         if (leftObj != null) leftObj.SetActive(false);
     }
@@ -124,7 +125,8 @@ public class level2 : MonoBehaviour
         var key = keys[keyIndex];
         if (key == null || key.key == null) return;
 
-        SetKeyIndicator(key.key, false);
+        SetAllKeysDark();
+        SetKeyVisualState(key.key, false, true, false);
 
         if (leftObj != null)
         {
@@ -176,10 +178,12 @@ public class level2 : MonoBehaviour
          
             cathelpbtntest(catrcorect);
          
+            SetKeyVisualState(key.key, false, false, false);
             currentKeyIndex++;
             if (currentKeyIndex < keys.Count)
             {
-                SetKeyIndicator(keys[currentKeyIndex].key, true);
+                SetAllKeysDark();
+                SetKeyVisualState(keys[currentKeyIndex].key, true, false, false);
             }
         }
         else
@@ -224,10 +228,12 @@ public class level2 : MonoBehaviour
 
             cathelpbtntest(catrcorect);
 
+            SetKeyVisualState(key.key, false, false, false);
             currentKeyIndex++;
             if (currentKeyIndex < keys.Count)
             {
-                SetKeyIndicator(keys[currentKeyIndex].key, true);
+                SetAllKeysDark();
+                SetKeyVisualState(keys[currentKeyIndex].key, true, false, false);
             }
         }
         else
@@ -265,6 +271,10 @@ public class level2 : MonoBehaviour
                 child.gameObject.SetActive(true);
             if (child.name.ToLower().Contains("numberoff"))
                 child.gameObject.SetActive(false);
+            if (child.name.ToLower().Contains("select"))
+                child.gameObject.SetActive(false);
+            if (child.name.ToLower().Contains("dark"))
+                child.gameObject.SetActive(false);
         }
     }
 
@@ -287,7 +297,8 @@ public class level2 : MonoBehaviour
         leftObjActive = false;
         if (keys != null && currentKeyIndex < keys.Count && keys[currentKeyIndex].key != null)
         {
-            SetKeyIndicator(keys[currentKeyIndex].key, true);
+            SetAllKeysDark();
+            SetKeyVisualState(keys[currentKeyIndex].key, true, false, false);
         }
     }
 
@@ -314,6 +325,62 @@ public class level2 : MonoBehaviour
             opencongrats();
         }
     }
+
+            private void SetKeyVisualState(GameObject keyObj, bool indicatorActive, bool selectActive, bool darkActive)
+            {
+                if (keyObj == null) return;
+                for (int i = 0; i < keyObj.transform.childCount; i++)
+                {
+                    var child = keyObj.transform.GetChild(i);
+                    var childName = child.name.ToLower();
+                    if (childName.Contains("indicator"))
+                    {
+                        child.gameObject.SetActive(indicatorActive);
+                    }
+                    else if (childName.Contains("select"))
+                    {
+                        child.gameObject.SetActive(selectActive);
+                    }
+                    else if (childName.Contains("dark"))
+                    {
+                        child.gameObject.SetActive(darkActive);
+                    }
+                }
+            }
+
+            private void SetAllKeysDark()
+            {
+                if (keys == null) return;
+                for (int i = 0; i < keys.Count; i++)
+                {
+                    var key = keys[i];
+                    if (key != null && key.key != null)
+                    {
+                        if (IsNumberOnActive(key.key))
+                        {
+                            SetKeyVisualState(key.key, false, false, false);
+                        }
+                        else
+                        {
+                            SetKeyVisualState(key.key, false, false, true);
+                        }
+                    }
+                }
+            }
+
+            private bool IsNumberOnActive(GameObject keyObj)
+            {
+                if (keyObj == null) return false;
+                for (int i = 0; i < keyObj.transform.childCount; i++)
+                {
+                    var child = keyObj.transform.GetChild(i);
+                    if (child.name.ToLower().Contains("numberon") && child.gameObject.activeSelf)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
     private void SetKeyChildActive(GameObject keyObj, string childName)
     {
         if (keyObj == null) return;
@@ -525,6 +592,7 @@ public class level2 : MonoBehaviour
         obj4.SetActive(true);
     }
 
+
     public void returntointro()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
@@ -642,6 +710,7 @@ public class level2 : MonoBehaviour
         }
     }
 
+
     public void continiuertest(GameObject obj)
     {
         if (catbtn != null)
@@ -723,5 +792,6 @@ public class level2 : MonoBehaviour
             }
         }
     }
+
 }
 
