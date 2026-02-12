@@ -2170,7 +2170,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Bienvenue dans LES SECRETS DES IGOUDARS et relevez des \xE9preuves inspir\xE9es
+  m_text: "Bienvenue dans LES SECRETS DES IGOUDAR et relevez des \xE9preuves inspir\xE9es
     de la vie Amazighe.\LChaque choix compte pour restaurer le sceau sacr\xE9 de
     la communaut\xE9."
   m_isRightToLeft: 0
