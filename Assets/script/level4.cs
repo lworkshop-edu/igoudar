@@ -97,6 +97,7 @@ public class level4 : MonoBehaviour
 
     public GameObject ideabtn;
 
+    public GameObject prev, next;
     
     void Start()
     {
@@ -109,6 +110,10 @@ public class level4 : MonoBehaviour
         catrcorect.SetActive(false);
         leftObj.SetActive(false);
         ideabtn.SetActive(false);
+        
+        // Initialize intro buttons
+        if (prev != null) prev.SetActive(false); // Prev button inactive at start
+        if (next != null) next.SetActive(true);
         
         changecanfiance = PlayerPrefs.GetFloat("changecanfiance", changecanfiance);
         
@@ -785,35 +790,92 @@ public class level4 : MonoBehaviour
     {
         if (introobj == null) return;
         
+        // Close current intro step
         if (currentIntroIndex < introobj.transform.childCount)
         {
             introobj.transform.GetChild(currentIntroIndex).gameObject.SetActive(false);
         }
         
+        // Close intro and show main UI
+        introobj.SetActive(false);
+        
+        if (cathelp != null)
+        {
+            showingFixText = true;
+            if (cathelptexttop != null)
+            {
+                cathelptexttop.text = toptextfix;
+            }
+            if (cathelptext != null)
+            {
+                cathelptext.text = bottomtextfix;
+            }
+            ideabtn.SetActive(true);
+            cathelp.SetActive(true);
+        }
+        
+        // Hide navigation buttons
+        if (prev != null) prev.SetActive(false);
+        if (next != null) next.SetActive(false);
+    }
+
+    private void UpdateIntroButtonStates()
+    {
+        if (introobj == null) return;
+
+        // Deactivate prev button when at first step
+        if (prev != null)
+            prev.SetActive(currentIntroIndex > 0);
+        
+        // Deactivate next button when at last step
+        if (next != null)
+            next.SetActive(currentIntroIndex < introobj.transform.childCount - 1);
+    }
+
+    public void NextIntroStep()
+    {
+        if (introobj == null) return;
+        if (currentIntroIndex >= introobj.transform.childCount - 1) return;
+
+        // Hide current step
+        if (currentIntroIndex < introobj.transform.childCount)
+        {
+            introobj.transform.GetChild(currentIntroIndex).gameObject.SetActive(false);
+        }
+
+        // Move to next step
         currentIntroIndex++;
-    
+
+        // Show next step
         if (currentIntroIndex < introobj.transform.childCount)
         {
             introobj.transform.GetChild(currentIntroIndex).gameObject.SetActive(true);
         }
-        else
-        {
-            if (cathelp != null)
-            {
 
-                showingFixText = true;
-                if (cathelptexttop != null)
-                {
-                    cathelptexttop.text = toptextfix;
-                }
-                if (cathelptext != null)
-                {
-                    cathelptext.text = bottomtextfix;
-                }
-                ideabtn.SetActive(true);
-                cathelp.SetActive(true);
-            }
+        UpdateIntroButtonStates();
+    }
+
+    public void PrevIntroStep()
+    {
+        if (introobj == null) return;
+        if (currentIntroIndex <= 0) return;
+
+        // Hide current step
+        if (currentIntroIndex < introobj.transform.childCount)
+        {
+            introobj.transform.GetChild(currentIntroIndex).gameObject.SetActive(false);
         }
+
+        // Move to previous step
+        currentIntroIndex--;
+
+        // Show previous step
+        if (currentIntroIndex >= 0 && currentIntroIndex < introobj.transform.childCount)
+        {
+            introobj.transform.GetChild(currentIntroIndex).gameObject.SetActive(true);
+        }
+
+        UpdateIntroButtonStates();
     }
 
     private void IncreaseSliderCanfiance()
