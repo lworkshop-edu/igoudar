@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class overlay : MonoBehaviour
 {
+    private static bool hasShownCatWisper;
     public GameObject obj1;
     public GameObject obj2;
     public GameObject obj3;
@@ -14,6 +15,14 @@ public class overlay : MonoBehaviour
     public GameObject cathelp;
     public GameObject catbtn;
 
+
+    public TMPro.TextMeshProUGUI midleText;
+    public string helpText = "";
+    private List<string> textPieces = new List<string>();
+    private int currentPageIndex = 0;
+    
+
+    private GameObject selectedLevel = null;
    
     public UnityEngine.UI.Slider sliderBarcanfiance;
     public UnityEngine.UI.Slider sliderBarreserves;
@@ -34,12 +43,23 @@ public class overlay : MonoBehaviour
     void Start()
     {
         if (catwisper != null)
-            catwisper.SetActive(true);
+        {
+            catwisper.SetActive(!hasShownCatWisper);
+            hasShownCatWisper = true;
+        }
         bookopen.SetActive(false);
-        cathelp.SetActive(false);
+        if (catwisper != null && !catwisper.activeSelf)
+        {
+            Invoke("cathelpbtn", 1f);
+        }
+        else
+        {
+            cathelp.SetActive(false);
+        }
 
-        // Load saved slider value
         changecanfiance = PlayerPrefs.GetFloat("changecanfiance", changecanfiance);
+
+        InitializeHelpText();
     }
 
 
@@ -115,6 +135,9 @@ public class overlay : MonoBehaviour
                 catwisper.transform.GetChild(1).transform.localScale = Vector3.one;//secondone is the midle
                 LeanTween.scale(catwisper.transform.GetChild(1).gameObject, Vector3.zero, 0.2f).setOnComplete(() => {
                        catwisper.SetActive(false);
+                       
+                       // Show cathelp after catwisper is hidden
+                       cathelpbtn();
                     });
         
     }
@@ -252,5 +275,141 @@ public class overlay : MonoBehaviour
         public void returntointro()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+    }
+
+    // Initialize and split help text into pieces
+    private void InitializeHelpText()
+    {
+        textPieces.Clear();
+        
+        if (string.IsNullOrEmpty(helpText))
+        {
+            textPieces.Add("No help text available.");
+            currentPageIndex = 0;
+            UpdateMidleText();
+            return;
+        }
+        
+        if (helpText.Length <= 80)
+        {
+            textPieces.Add(helpText);
+        }
+        else
+        {
+            int numPages = Mathf.CeilToInt(helpText.Length / 80f);
+            numPages = Mathf.Min(numPages, 5);
+            
+            int charsPerPage = Mathf.CeilToInt(helpText.Length / (float)numPages);
+            for (int i = 0; i < helpText.Length; i += charsPerPage)
+            {
+                int length = Mathf.Min(charsPerPage, helpText.Length - i);
+                textPieces.Add(helpText.Substring(i, length));
+            }
+        }
+        
+        currentPageIndex = 0;
+        UpdateMidleText();
+    }
+    private void UpdateMidleText()
+    {
+        if (midleText != null && textPieces.Count > 0)
+        {
+            midleText.text = textPieces[currentPageIndex];
+        }
+        
+        UpdateButtonVisibility();
+    }
+    
+    private void UpdateButtonVisibility()
+    {
+        if (cathelp == null) return;
+        
+        Transform prevBtn = cathelp.transform.Find("prev");
+        Transform nextBtn = cathelp.transform.Find("next");
+        
+        if (textPieces.Count <= 1)
+        {
+
+            if (prevBtn != null) prevBtn.gameObject.SetActive(false);
+            if (nextBtn != null) nextBtn.gameObject.SetActive(false);
+            return;
+        }
+        
+
+        if (prevBtn != null)
+        {
+            prevBtn.gameObject.SetActive(currentPageIndex > 0);
+        }
+        
+
+        if (nextBtn != null)
+        {
+            nextBtn.gameObject.SetActive(currentPageIndex < textPieces.Count - 1);
+        }
+    }
+    
+
+    public void prev()
+    {
+        if (textPieces.Count == 0 || currentPageIndex <= 0) return;
+        
+        currentPageIndex--;
+        UpdateMidleText();
+    }
+    
+ 
+    public void next()
+    {
+        if (textPieces.Count == 0 || currentPageIndex >= textPieces.Count - 1) return;
+        
+        currentPageIndex++;
+        UpdateMidleText();
+    }
+
+    public void OnLevelHoverEnter(GameObject levelBtn)
+    {
+        if (levelBtn == null || levelBtn == selectedLevel) return;
+        
+        Transform hover = levelBtn.transform.Find("hover");
+        Transform arrow = levelBtn.transform.Find("arrow");
+        
+        if (hover != null) hover.gameObject.SetActive(true);
+        if (arrow != null) arrow.gameObject.SetActive(true);
+    }
+    
+    public void OnLevelHoverExit(GameObject levelBtn)
+    {
+        if (levelBtn == null || levelBtn == selectedLevel) return;
+        
+        Transform hover = levelBtn.transform.Find("hover");
+        Transform arrow = levelBtn.transform.Find("arrow");
+        
+        if (hover != null) hover.gameObject.SetActive(false);
+        if (arrow != null) arrow.gameObject.SetActive(false);
+    }
+    
+    public void OnLevelSelect(GameObject levelBtn)
+    {
+        if (levelBtn == null) return;
+        
+        if (selectedLevel != null)
+        {
+            Transform prevSelect = selectedLevel.transform.Find("select");
+            Transform prevArrow = selectedLevel.transform.Find("arrow");
+            Transform prevHover = selectedLevel.transform.Find("hover");
+            
+            if (prevSelect != null) prevSelect.gameObject.SetActive(false);
+            if (prevArrow != null) prevArrow.gameObject.SetActive(false);
+            if (prevHover != null) prevHover.gameObject.SetActive(false);
+        }
+        
+        selectedLevel = levelBtn;
+        Transform select = levelBtn.transform.Find("select");
+        Transform arrow = levelBtn.transform.Find("arrow");
+        Transform hover = levelBtn.transform.Find("hover");
+        
+        if (select != null) select.gameObject.SetActive(true);
+        if (hover != null) hover.gameObject.SetActive(true);
+        if (arrow != null) arrow.gameObject.SetActive(true);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 
 public class level4 : MonoBehaviour
@@ -211,6 +212,13 @@ public class level4 : MonoBehaviour
         if (leftObj == null) return;
         if (selectedRightBtn == -1 || selectedRightBtn >= rightBtnInfos.Count) return;
         if (jarCounts[selectedRightBtn] >= 3) return;
+        GameObject clickedObj = GetLeftChildUnderPointer();
+        if (clickedObj != null)
+        {
+            clickedObj.SetActive(false);
+            AddJarToSelectedRightBtn();
+            return;
+        }
         bool imageDeactivated = false;
         foreach (Transform horizon in leftObj.transform)
         {
@@ -229,6 +237,32 @@ public class level4 : MonoBehaviour
         {
             AddJarToSelectedRightBtn();
         }
+    }
+
+    private GameObject GetLeftChildUnderPointer()
+    {
+        if (EventSystem.current == null) return null;
+
+        PointerEventData pointerData = new PointerEventData(EventSystem.current)
+        {
+            position = Input.mousePosition
+        };
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerData, results);
+
+        foreach (var result in results)
+        {
+            GameObject obj = result.gameObject;
+            if (obj == null) continue;
+            if (obj == leftObj) continue;
+            if (obj.transform.IsChildOf(leftObj.transform))
+            {
+                return obj;
+            }
+        }
+
+        return null;
     }
     void Update()
     {
