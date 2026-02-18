@@ -68,13 +68,18 @@ public class level2 : MonoBehaviour
 
     public TMPro.TextMeshProUGUI contertext;
 
-
+    public GameObject turo1;
+    public GameObject turo2;
+    public GameObject tutortext;
+    public bool startWithTutorial = true;
+    private bool isTutorialActive = false;
+    
     void Start()
     {
         bookopen.SetActive(false);
         ideaopen.SetActive(false);
         congrats.SetActive(false);
-        cathelp.SetActive(true);
+        cathelp.SetActive(false);
         catbtn.SetActive(false);
         catwrong.SetActive(false);
         catrcorect.SetActive(false);
@@ -89,6 +94,15 @@ public class level2 : MonoBehaviour
             SetKeyVisualState(keys[0].key, true, false, false);
         }
         if (leftObj != null) leftObj.SetActive(false);
+
+        if (startWithTutorial && (turo1 != null || turo2 != null))
+        {
+            BeginTutorialFlow();
+        }
+        else
+        {
+            BeginNormalFlow();
+        }
     }
 
 
@@ -113,10 +127,75 @@ public class level2 : MonoBehaviour
 
     public void MissionButtonClicked()
     {
+        if (isTutorialActive) return;
         if (mission != null) mission.SetActive(false);
         isMissionFlow = true;
         HandleKeyClicked(missionKeyIndex, false);
         isMissionFlow = false;
+    }
+
+    private void BeginTutorialFlow()
+    {
+        isTutorialActive = true;
+        if (cathelp != null) cathelp.SetActive(false);
+        if (catbtn != null) catbtn.SetActive(false);
+        if (catwrong != null) catwrong.SetActive(false);
+        if (catrcorect != null) catrcorect.SetActive(false);
+        if (mission != null) mission.SetActive(false);
+        if (leftObj != null)
+        {
+            leftObj.SetActive(false);
+        }
+        leftObjActive = false;
+        if (turo1 != null) turo1.SetActive(true);
+        if (turo2 != null) turo2.SetActive(false);
+    }
+
+    private void BeginNormalFlow()
+    {
+        isTutorialActive = false;
+        if (turo1 != null) turo1.SetActive(false);
+        if (turo2 != null) turo2.SetActive(false);
+        if (leftObj != null)
+        {
+            leftObj.SetActive(false);
+        }
+        leftObjActive = false;
+        if (cathelp != null) cathelp.SetActive(true);
+        if (catbtn != null) catbtn.SetActive(false);
+    }
+
+    public void OnTutor1Clicked()
+    {
+        if (!isTutorialActive) return;
+        if (turo1 != null) turo1.SetActive(false);
+        if (turo2 != null) turo2.SetActive(true);
+        if (leftObj != null)
+        {
+            leftObj.SetActive(true);
+        }
+    }
+
+    public void OnTutor2Clicked()
+    {
+        if (!isTutorialActive) return;
+        if (turo1 != null) turo1.SetActive(true);
+        if (turo2 != null) turo2.SetActive(false);
+        if (leftObj != null)
+        {
+            leftObj.SetActive(false);
+        }
+    }
+
+    public void CloseTutorAndBeginNormal()
+    {
+        tutortext.SetActive(false);
+        if (countdownCoroutine != null)
+        {
+            StopCoroutine(countdownCoroutine);
+            countdownCoroutine = null;
+        }
+        BeginNormalFlow();
     }
 
     public void OnCorectBtnClicked()
@@ -531,6 +610,7 @@ public class level2 : MonoBehaviour
 
     private void HandleKeyClicked(int keyIndex, bool playContinue)
     {
+        if (isTutorialActive) return;
         if (catwrong != null && catwrong.activeSelf)
         {
             OnWrongCloseClicked();
