@@ -323,29 +323,65 @@ public class overlay : MonoBehaviour
     private void UpdateButtonVisibility()
     {
         if (cathelp == null) return;
-        
-        Transform prevBtn = cathelp.transform.Find("prev");
-        Transform nextBtn = cathelp.transform.Find("next");
+
+        Transform prevBtn = FindChildRecursive(cathelp.transform, "prev");
+        Transform nextBtn = FindChildRecursive(cathelp.transform, "next");
         
         if (textPieces.Count <= 1)
         {
-
-            if (prevBtn != null) prevBtn.gameObject.SetActive(false);
-            if (nextBtn != null) nextBtn.gameObject.SetActive(false);
+            SetButtonInteractable(prevBtn, false);
+            SetButtonInteractable(nextBtn, false);
             return;
         }
         
 
         if (prevBtn != null)
         {
-            prevBtn.gameObject.SetActive(currentPageIndex > 0);
+            SetButtonInteractable(prevBtn, currentPageIndex > 0);
         }
         
 
         if (nextBtn != null)
         {
-            nextBtn.gameObject.SetActive(currentPageIndex < textPieces.Count - 1);
+            SetButtonInteractable(nextBtn, currentPageIndex < textPieces.Count - 1);
         }
+    }
+
+    private void SetButtonInteractable(Transform buttonTransform, bool interactable)
+    {
+        if (buttonTransform == null) return;
+
+        if (!buttonTransform.gameObject.activeSelf)
+        {
+            buttonTransform.gameObject.SetActive(true);
+        }
+
+        Button button = buttonTransform.GetComponent<Button>();
+        if (button != null)
+        {
+            button.interactable = interactable;
+        }
+    }
+
+    private Transform FindChildRecursive(Transform parent, string childName)
+    {
+        if (parent == null || string.IsNullOrEmpty(childName)) return null;
+
+        foreach (Transform child in parent)
+        {
+            if (child.name == childName)
+            {
+                return child;
+            }
+
+            Transform found = FindChildRecursive(child, childName);
+            if (found != null)
+            {
+                return found;
+            }
+        }
+
+        return null;
     }
     
 

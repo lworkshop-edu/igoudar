@@ -15,6 +15,7 @@ public class level2 : MonoBehaviour
     public GameObject congrats;
     public GameObject cathelp;
     public GameObject catbtn;
+    public GameObject mission;
 
     [System.Serializable]
     public class KeyValue
@@ -31,6 +32,8 @@ public class level2 : MonoBehaviour
     public List<GameObject> leftTexts; // assign in inspector: text1, text2, text3, text4
     private int countdown = 3;
     private Coroutine countdownCoroutine;
+    private bool isMissionFlow = false;
+    private int missionKeyIndex = 0;
 
 
     public UnityEngine.UI.Slider sliderBarcanfiance;
@@ -60,6 +63,8 @@ public class level2 : MonoBehaviour
 
     public List<string> corectext; // have corect , wrong as child 
     public List<string> wrongtext;
+    public List<string> missiontexts;
+    public TextMeshProUGUI  missiontext;
 
     public TMPro.TextMeshProUGUI contertext;
 
@@ -73,6 +78,7 @@ public class level2 : MonoBehaviour
         catbtn.SetActive(false);
         catwrong.SetActive(false);
         catrcorect.SetActive(false);
+        if (mission != null) mission.SetActive(false);
 
         // Load saved slider value
         changecanfiance = PlayerPrefs.GetFloat("changecanfiance", changecanfiance);
@@ -105,52 +111,12 @@ public class level2 : MonoBehaviour
         }
     }
 
-    public void KeyClicked(int keyIndex)
+    public void MissionButtonClicked()
     {
-        if (catwrong != null && catwrong.activeSelf)
-        {
-            OnWrongCloseClicked();
-            return;
-        }
-        
-        if (catrcorect != null && catrcorect.activeSelf)
-        {
-            OnContinueClicked();
-            return;
-        }
-        
-        if (leftObjActive) return;
-        continiuer();
-        if (keys == null || keyIndex < 0 || keyIndex >= keys.Count) return;
-        if (currentKeyIndex != keyIndex) return;
-        var key = keys[keyIndex];
-        if (key == null || key.key == null) return;
-
-        SetAllKeysDark();
-        SetKeyVisualState(key.key, false, true, false);
-
-        if (leftObj != null)
-        {
-            leftObj.SetActive(true);
-            leftObj.transform.localScale = Vector3.zero;
-            LeanTween.scale(leftObj, Vector3.one, 0.3f);
-            leftObjActive = true;
-            for (int i = 0; i < leftTexts.Count; i++)
-            {
-                leftTexts[i].gameObject.SetActive(i == keyIndex);
-            }
-            
-            countdown = 3;
-            if (contertext != null)
-            {
-                contertext.text = "0" + countdown.ToString();
-            }
-            if (countdownCoroutine != null)
-            {
-                StopCoroutine(countdownCoroutine);
-            }
-            countdownCoroutine = StartCoroutine(CountdownTimer());
-        }
+        if (mission != null) mission.SetActive(false);
+        isMissionFlow = true;
+        HandleKeyClicked(missionKeyIndex, false);
+        isMissionFlow = false;
     }
 
     public void OnCorectBtnClicked()
@@ -168,7 +134,7 @@ public class level2 : MonoBehaviour
 
         if (key.value) 
         {
-            SetKeyNumberOn(key.key);
+            SetKeyResultState(key.key, true);
             if (leftObj != null)
             {
                 LeanTween.scale(leftObj, Vector3.zero, 0.2f).setOnComplete(() => {
@@ -190,6 +156,7 @@ public class level2 : MonoBehaviour
         }
         else
         {
+            SetKeyResultState(key.key, false);
             if (leftObj != null)
             {
                 LeanTween.scale(leftObj, Vector3.zero, 0.2f).setOnComplete(() => {
@@ -218,8 +185,7 @@ public class level2 : MonoBehaviour
 
         if (!key.value) 
         {
-
-            SetKeyNumberOn(key.key);
+            SetKeyResultState(key.key, true);
 
             if (leftObj != null)
             {
@@ -242,6 +208,7 @@ public class level2 : MonoBehaviour
         }
         else
         {
+            SetKeyResultState(key.key, false);
 
             if (leftObj != null)
             {
@@ -256,30 +223,55 @@ public class level2 : MonoBehaviour
     }
 
    
-    private void SetKeyIndicator(GameObject keyObj, bool active)
+
+
+    private void SetKeyResultState(GameObject keyObj, bool isCorrect)
     {
         if (keyObj == null) return;
         for (int i = 0; i < keyObj.transform.childCount; i++)
         {
             var child = keyObj.transform.GetChild(i);
-            if (child.name.ToLower().Contains("indicator"))
-                child.gameObject.SetActive(active);
+            var childName = child.name.ToLower();
+            if (childName.Contains("number wrong") || childName.Contains("numberwrong"))
+            {
+                child.gameObject.SetActive(!isCorrect);
+            }
+            else if (childName.Contains("numberon"))
+            {
+                child.gameObject.SetActive(isCorrect);
+            }
+            else if (childName.Contains("correct"))
+            {
+                child.gameObject.SetActive(isCorrect);
+            }
+            else if (childName.Contains("wrong"))
+            {
+                child.gameObject.SetActive(!isCorrect);
+            }
+            else if (childName.Contains("numberoff") || childName.Contains("select") || childName.Contains("dark") || childName.Contains("indicator"))
+            {
+                child.gameObject.SetActive(false);
+            }
         }
     }
-    private void SetKeyNumberOn(GameObject keyObj)
+
+    private void ClearKeyResultState(GameObject keyObj)
     {
         if (keyObj == null) return;
         for (int i = 0; i < keyObj.transform.childCount; i++)
         {
             var child = keyObj.transform.GetChild(i);
-            if (child.name.ToLower().Contains("numberon"))
+            var childName = child.name.ToLower();
+            if (childName.Contains("number wrong") || childName.Contains("numberwrong") ||
+                childName.Contains("numberon") || childName.Contains("correct") ||
+                childName.Contains("wrong"))
+            {
+                child.gameObject.SetActive(false);
+            }
+            if (childName.Contains("numberoff"))
+            {
                 child.gameObject.SetActive(true);
-            if (child.name.ToLower().Contains("numberoff"))
-                child.gameObject.SetActive(false);
-            if (child.name.ToLower().Contains("select"))
-                child.gameObject.SetActive(false);
-            if (child.name.ToLower().Contains("dark"))
-                child.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -302,9 +294,11 @@ public class level2 : MonoBehaviour
         leftObjActive = false;
         if (keys != null && currentKeyIndex < keys.Count && keys[currentKeyIndex].key != null)
         {
+            ClearKeyResultState(keys[currentKeyIndex].key);
             SetAllKeysDark();
             SetKeyVisualState(keys[currentKeyIndex].key, true, false, false);
         }
+        ShowMissionIfAvailable();
     }
 
     public void OnContinueClicked()
@@ -328,6 +322,23 @@ public class level2 : MonoBehaviour
         if (currentKeyIndex >= keys.Count)
         {
             opencongrats();
+        }
+        else
+        {
+            if (keys != null && currentKeyIndex < keys.Count && keys[currentKeyIndex].key != null)
+            {
+                ClearKeyResultState(keys[currentKeyIndex].key);
+            }
+            ShowMissionIfAvailable();
+        }
+         for (int i = 0; i < keys[currentKeyIndex - 1].key.transform.childCount; i++)
+        {
+            var child = keys[currentKeyIndex - 1].key.transform.GetChild(i);
+            var childName = child.name.ToLower();
+            if (childName.Contains("correct"))
+            {
+                child.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -386,15 +397,7 @@ public class level2 : MonoBehaviour
                 }
                 return false;
             }
-    private void SetKeyChildActive(GameObject keyObj, string childName)
-    {
-        if (keyObj == null) return;
-        for (int i = 0; i < keyObj.transform.childCount -1; i++)
-        {
-            var child = keyObj.transform.GetChild(i).gameObject;
-            child.SetActive(child.name.ToLower().Contains(childName.ToLower()));
-        }
-    }
+
 
     public void SetSliderBarcanfiance(float value)
     {
@@ -520,9 +523,80 @@ public class level2 : MonoBehaviour
                         cathelp.transform.GetChild(1).gameObject.SetActive(true);
                         cathelp.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(true);
                         cathelp.SetActive(false);
+                        ShowMissionIfAvailable();
                     });
             }
         }
+    }
+
+    private void HandleKeyClicked(int keyIndex, bool playContinue)
+    {
+        if (catwrong != null && catwrong.activeSelf)
+        {
+            OnWrongCloseClicked();
+            return;
+        }
+        
+        if (catrcorect != null && catrcorect.activeSelf)
+        {
+            OnContinueClicked();
+            return;
+        }
+        
+        if (leftObjActive) return;
+        if (playContinue && !isMissionFlow) continiuer();
+        if (keys == null || keyIndex < 0 || keyIndex >= keys.Count) return;
+        if (currentKeyIndex != keyIndex) return;
+        var key = keys[keyIndex];
+        if (key == null || key.key == null) return;
+
+        SetAllKeysDark();
+        SetKeyVisualState(key.key, false, true, false);
+
+        if (leftObj != null)
+        {
+            leftObj.SetActive(true);
+            leftObj.transform.localScale = Vector3.zero;
+            LeanTween.scale(leftObj, Vector3.one, 0.3f);
+            leftObjActive = true;
+            for (int i = 0; i < leftTexts.Count; i++)
+            {
+                leftTexts[i].gameObject.SetActive(i == keyIndex);
+            }
+            
+            countdown = 3;
+            if (contertext != null)
+            {
+                contertext.text = "0" + countdown.ToString();
+            }
+            if (countdownCoroutine != null)
+            {
+                StopCoroutine(countdownCoroutine);
+            }
+            countdownCoroutine = StartCoroutine(CountdownTimer());
+        }
+    }
+
+    private void ShowMissionIfAvailable()
+    {
+        if (mission == null) return;
+        if (keys == null || currentKeyIndex < 0 || currentKeyIndex >= keys.Count) return;
+        if (leftObjActive) return;
+        missionKeyIndex = currentKeyIndex;
+        UpdateMissionText(missionKeyIndex);
+        cathelpbtntest(mission);
+        // mission.SetActive(true);
+    }
+
+    private void UpdateMissionText(int index)
+    {
+        if (missiontexts == null || index < 0 || index >= missiontexts.Count) return;
+        if (missiontext == null && mission != null)
+        {
+            missiontext = mission.GetComponentInChildren<TextMeshProUGUI>(true);
+        }
+        if (missiontext == null) return;
+        missiontext.text = missiontexts[index];
     }
 
     public void cathelpbtn()
@@ -792,6 +866,10 @@ public class level2 : MonoBehaviour
                     });
                 }
                 leftObjActive = false;
+                if (keys != null && currentKeyIndex < keys.Count && keys[currentKeyIndex].key != null)
+                {
+                    SetKeyResultState(keys[currentKeyIndex].key, false);
+                }
                 SetCatText(catwrong, wrongtext, currentKeyIndex);
                 cathelpbtntest(catwrong);
                 countdownCoroutine = null;

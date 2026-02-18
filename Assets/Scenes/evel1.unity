@@ -122,6 +122,140 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &13718035
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 13718036}
+  - component: {fileID: 13718038}
+  - component: {fileID: 13718037}
+  m_Layer: 5
+  m_Name: REESSAYER
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &13718036
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 13718035}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 940148277}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.0004797, y: 0}
+  m_SizeDelta: {x: 175.94, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &13718037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 13718035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: REESSAYER
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 25.8
+  m_fontSizeBase: 25.8
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 1.4770508, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &13718038
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 13718035}
+  m_CullTransparentMesh: 1
 --- !u!1 &27856432
 GameObject:
   m_ObjectHideFlags: 0
@@ -346,7 +480,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &107994289
 RectTransform:
   m_ObjectHideFlags: 0
@@ -661,23 +795,23 @@ MonoBehaviour:
   - {fileID: 761545735}
   - {fileID: 552091409}
   corectext:
-  - "<b>Connaissance acquise:</b><br>\LLa cl\xE9 s\u2019ajuste parfaitement et le
-    symbole a \xE9t\xE9 bien reconnu. Chaque d\xE9tail compte dans l\u2019agadir."
-  - "<b>Connaissance acquise:</b><br>\LLa cl\xE9 s\u2019ajuste parfaitement et le
-    symbole a \xE9t\xE9 bien reconnu. Chaque d\xE9tail compte dans l\u2019agadir."
-  - "<b>V\xE9rification N\xE9cessaire</b><br>\LLa cl\xE9 s\u2019ajuste parfaitement
+  - "<b>Bravo !</b><br>\LLa porte s\u2019ouvre. La cl\xE9 s\u2019ajuste parfaitement
     et le symbole a \xE9t\xE9 bien reconnu. Chaque d\xE9tail compte dans l\u2019agadir."
-  - "<b>V\xE9rification N\xE9cessaire</b><br>\LLa cl\xE9 s\u2019ajuste parfaitement
+  - "<b>Bravo !</b><br>\LLa porte s\u2019ouvre. La cl\xE9 s\u2019ajuste parfaitement
+    et le symbole a \xE9t\xE9 bien reconnu. Chaque d\xE9tail compte dans l\u2019agadir."
+  - "<b>Bravo !</b><br>\LLa porte s\u2019ouvre. La cl\xE9 s\u2019ajuste parfaitement
+    et le symbole a \xE9t\xE9 bien reconnu. Chaque d\xE9tail compte dans l\u2019agadir."
+  - "<b>Bravo !</b><br>\LLa porte s\u2019ouvre. La cl\xE9 s\u2019ajuste parfaitement
     et le symbole a \xE9t\xE9 bien reconnu. Chaque d\xE9tail compte dans l\u2019agadir."
   wrongtext:
-  - "<b>V\xE9rification N\xE9cessaire</b><br>\LCette cl\xE9 ne correspond pas. Regarde
-    attentivement les formes et les lignes du symbole avant de r\xE9essayer."
-  - "<b>Symbole Incorrect:</b><br>\LCe symbole ne correspond pas \xE0 la serrure.
-    Cherchez le symbole li\xE9 \xE0 la protection contre les rongeurs."
-  - "<b>V\xE9rification N\xE9cessaire</b><br>\LCette cellule correspond au registre.
-    Comparez plus attentivement les quantit\xE9s inscrites."
-  - "<b>V\xE9rification N\xE9cessaire</b><br>\LCette cl\xE9 ne correspond pas. Regarde
-    attentivement les formes et les lignes du symbole avant de r\xE9essayer."
+  - "<b>V\xE9rification N\xE9cessaire</b><br>\Lthe answer is wrong so now you need
+    to click on reesayer to to repeat"
+  - "<b>V\xE9rification N\xE9cessaire</b><br>\Lthe answer is wrong so now you need
+    to click on reesayer to to repeat"
+  - "<b>V\xE9rification N\xE9cessaire</b><br>\Lthe answer is wrong so now you need
+    to click on reesayer to to repeat"
+  - "<b>V\xE9rification N\xE9cessaire</b><br>\Lthe answer is wrong so now you need
+    to click on reesayer to to repeat"
 --- !u!1 &311427712
 GameObject:
   m_ObjectHideFlags: 0
@@ -1976,7 +2110,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 138.18077, y: 17}
+  m_AnchoredPosition: {x: 195, y: 52}
   m_SizeDelta: {x: 920.6015, y: 236.0727}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &461010572
@@ -1999,8 +2133,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "V\xE9rification N\xE9cessaire\LCette cellule correspond au registre. Comparez
-    plus attentivement les quantit\xE9s inscrites."
+  m_text: "<b>V\xE9rification N\xE9cessaire</b><br>\Lthe answer is wrong so now you
+    need to click on reesayer to to repeat"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 797455d5e8b114e508ab3e6277efac56, type: 2}
   m_sharedMaterial: {fileID: 8224217641005013099, guid: 797455d5e8b114e508ab3e6277efac56, type: 2}
@@ -2027,8 +2161,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 47.3
-  m_fontSizeBase: 47.3
+  m_fontSize: 41.9
+  m_fontSizeBase: 41.9
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2111,7 +2245,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -330.99988, y: 191}
+  m_AnchoredPosition: {x: -330.99988, y: 137}
   m_SizeDelta: {x: 661.8396, y: 100.1426}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &487781067
@@ -2138,7 +2272,7 @@ MonoBehaviour:
     particuli\xE8re : le diamant \xE9voque l\u2019harmonie et l\u2019union, l\u2019orge
     repr\xE9sente la vie et l\u2019abondance, l\u2019\xE9toile \xE0 huit branches
     symbolise l\u2019\xE9quilibre et la guidance, et la patte de lion exprime la
-    force et le courage face aux \xE9preuves"
+    force et le courage face aux \xE9preuves ."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 797455d5e8b114e508ab3e6277efac56, type: 2}
   m_sharedMaterial: {fileID: 8224217641005013099, guid: 797455d5e8b114e508ab3e6277efac56, type: 2}
@@ -2165,8 +2299,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 67.04
-  m_fontSizeBase: 67.04
+  m_fontSize: 47.5
+  m_fontSizeBase: 47.5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2201,7 +2335,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -13.195435, y: 0, z: -691.3417, w: -587.8114}
+  m_margin: {x: 111.30707, y: 0, z: -590.1837, w: -587.8114}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2826,8 +2960,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -24, y: 34}
-  m_SizeDelta: {x: 661.8396, y: 100.1426}
+  m_AnchoredPosition: {x: -2.3603, y: 4}
+  m_SizeDelta: {x: 751.4652, y: 100.1426}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &575669956
 MonoBehaviour:
@@ -2849,7 +2983,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Felicitations ! Premiere Epreuve D\xE9bloqu\xE9e"
+  m_text: "F\xE9licitations ! Premi\xE8re \xC9preuve D\xE9bloqu\xE9e"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1e806e23776ff4df9bbb89bae3988edc, type: 2}
   m_sharedMaterial: {fileID: -1230812021503957915, guid: 1e806e23776ff4df9bbb89bae3988edc, type: 2}
@@ -2876,14 +3010,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26.5
-  m_fontSizeBase: 26.5
+  m_fontSize: 36.9
+  m_fontSizeBase: 36.9
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
-  m_HorizontalAlignment: 2
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: -6.3
@@ -2912,7 +3046,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -53.99243, w: 4.4403076}
+  m_margin: {x: 1.145874, y: 0, z: -1.2866211, w: 4.4403076}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3199,9 +3333,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Connaissance acquise:\LLes chats \xE9taient essentiels \xE0 la protection
-    des grains. Leurs petites ouvertures dans les portes permettaient leur passage
-    tout en s\xE9curisant les r\xE9serves."
+  m_text: "<b>Bravo !</b><br>\LLa porte s\u2019ouvre. La cl\xE9 s\u2019ajuste parfaitement
+    et le symbole a \xE9t\xE9 bien reconnu. Chaque d\xE9tail compte dans l\u2019agadir."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 797455d5e8b114e508ab3e6277efac56, type: 2}
   m_sharedMaterial: {fileID: 8224217641005013099, guid: 797455d5e8b114e508ab3e6277efac56, type: 2}
@@ -3944,7 +4077,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.2058, y: -322}
+  m_AnchoredPosition: {x: 3.2058, y: -397}
   m_SizeDelta: {x: 329.6324, y: 176.514}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &726834071
@@ -5359,13 +5492,14 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 13718036}
   m_Father: {fileID: 107994289}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -92, y: -113}
-  m_SizeDelta: {x: 43, y: 43}
+  m_AnchoredPosition: {x: -788.0031, y: -316.8749}
+  m_SizeDelta: {x: 266.9937, y: 79.2502}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &940148278
 MonoBehaviour:
@@ -5443,7 +5577,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5dcad12ef99644918b6ce3d8dd8dd6f5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f0c36db29a3654897830039cd0d3d60f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5570,8 +5704,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 176, y: -192}
-  m_SizeDelta: {x: 888.2, y: 413.067}
+  m_AnchoredPosition: {x: 121.00244, y: -247}
+  m_SizeDelta: {x: 998.1949, y: 413.067}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &971321504
 MonoBehaviour:
@@ -5594,11 +5728,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Vous avez r\xE9ussi \xE0 compl\xE9ter la premi\xE8re \xE9preuve ! Voici
-    votre r\xE9compense : ce fragment.\L Continuez les prochaines \xE9preuves pour
-    r\xE9v\xE9ler l\u2019ensemble du parchemin et d\xE9couvrir la vision compl\xE8te."
+    votre r\xE9compense : ce fragment myst\xE9rieux ancien.\LContinuez les prochaines
+    \xE9preuves pour r\xE9v\xE9ler l\u2019ensemble du parchemin et d\xE9couvrir la
+    vision compl\xE8te."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f2eb2570de3a3481cbdf94b192d587ea, type: 2}
-  m_sharedMaterial: {fileID: 6988761197963080601, guid: f2eb2570de3a3481cbdf94b192d587ea, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8ed3eb6f23a5943729f73364dbd7c2b1, type: 2}
+  m_sharedMaterial: {fileID: -2883253202183755552, guid: 8ed3eb6f23a5943729f73364dbd7c2b1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5622,8 +5757,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28.4
-  m_fontSizeBase: 28.4
+  m_fontSize: 32.8
+  m_fontSizeBase: 32.8
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5658,7 +5793,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -32.398438, y: 1.9862671, z: 305.63123, w: 162.2221}
+  m_margin: {x: 1.9748535, y: 1.9862671, z: 251.42688, w: 162.2221}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -7521,7 +7656,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 27353425c164d4de0bc4e3c91be339dc, type: 3}
+  m_Texture: {fileID: 2800000, guid: b7c08fd9686a048d6aa40f4eafa80d1c, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -8221,7 +8356,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 703, y: 442}
+  m_AnchoredPosition: {x: 703, y: 415}
   m_SizeDelta: {x: 110, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1531509006
@@ -10454,7 +10589,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -331, y: 334}
+  m_AnchoredPosition: {x: -331, y: 280}
   m_SizeDelta: {x: 661.8396, y: 100.1426}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2004917507
@@ -10504,8 +10639,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 74.22
-  m_fontSizeBase: 74.22
+  m_fontSize: 57.9
+  m_fontSizeBase: 57.9
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -10540,7 +10675,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -694.69763, w: 0}
+  m_margin: {x: 108.93976, y: 0, z: -694.69763, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
