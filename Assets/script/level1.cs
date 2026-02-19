@@ -56,7 +56,16 @@ public class level1 : MonoBehaviour
 
     public List<string> corectext;
     public List<string> wrongtext;
-        
+    
+    public GameObject tutor1;
+    public GameObject tutor2;
+    public GameObject tutor3;
+
+    private bool isTutorialActive;
+    private bool tutorialScalesCached;
+    private Vector3 tutor1OriginalScale;
+    private Vector3 tutor2OriginalScale;
+    private Vector3 tutor3OriginalScale;
 
 
     void Start()
@@ -75,6 +84,8 @@ public class level1 : MonoBehaviour
         {
             SetKeyChildActive(keys[0].key, "hovered");
         }
+
+        StartTutorial();
     }
 
 
@@ -98,6 +109,9 @@ public class level1 : MonoBehaviour
     }
    public void doorcklick(int doornumber)
     {
+        if (isTutorialActive)
+            return;
+
         if ((catwrong != null && catwrong.activeSelf) || (catrcorect != null && catrcorect.activeSelf))
             return;
         if (keys == null || currentKeyIndex >= keys.Count) return;
@@ -248,6 +262,161 @@ public class level1 : MonoBehaviour
         obj2.SetActive(false);
         obj3.SetActive(false);
         obj4.SetActive(false);
+    }
+
+    private void StartTutorial()
+    {
+        isTutorialActive = true;
+        CacheTutorOriginalScales();
+        if (cathelp != null) cathelp.SetActive(false);
+        if (catbtn != null) catbtn.SetActive(false);
+        ShowTutor(1);
+    }
+
+    private void CacheTutorOriginalScales()
+    {
+        if (tutorialScalesCached) return;
+
+        if (tutor1 != null) tutor1OriginalScale = tutor1.transform.localScale;
+        if (tutor2 != null) tutor2OriginalScale = tutor2.transform.localScale;
+        if (tutor3 != null) tutor3OriginalScale = tutor3.transform.localScale;
+
+        tutorialScalesCached = true;
+    }
+
+    private void EndTutorial()
+    {
+        isTutorialActive = false;
+        if (tutor1 != null) tutor1.SetActive(false);
+        if (tutor2 != null) tutor2.SetActive(false);
+        if (tutor3 != null) tutor3.SetActive(false);
+        if (cathelp != null) cathelp.SetActive(true);
+    }
+
+    private void ShowTutor(int tutorIndex)
+    {
+        if (tutor1 != null) tutor1.SetActive(false);
+        if (tutor2 != null) tutor2.SetActive(false);
+        if (tutor3 != null) tutor3.SetActive(false);
+
+        GameObject tutorToShow = null;
+        if (tutorIndex == 1) tutorToShow = tutor1;
+        else if (tutorIndex == 2) tutorToShow = tutor2;
+        else if (tutorIndex == 3) tutorToShow = tutor3;
+
+        AnimateTutorIn(tutorToShow);
+    }
+
+    private void AnimateTutorIn(GameObject tutorObj)
+    {
+        if (tutorObj == null) return;
+
+        tutorObj.SetActive(true);
+        LeanTween.cancel(tutorObj);
+        Vector3 targetScale = GetTutorOriginalScale(tutorObj);
+
+        CanvasGroup canvasGroup = tutorObj.GetComponent<CanvasGroup>();
+        if (canvasGroup == null)
+        {
+            canvasGroup = tutorObj.AddComponent<CanvasGroup>();
+        }
+
+        tutorObj.transform.localScale = targetScale * 0.95f;
+        canvasGroup.alpha = 0f;
+
+        LeanTween.scale(tutorObj, targetScale, 0.2f).setEaseOutQuad();
+        LeanTween.value(tutorObj, 0f, 1f, 0.2f)
+            .setOnUpdate((float val) => {
+                canvasGroup.alpha = val;
+            })
+            .setOnComplete(() => {
+                RefreshTutorTextMeshes(tutorObj);
+            });
+    }
+
+    private void AnimateTutorOut(GameObject tutorObj, System.Action onComplete)
+    {
+        if (tutorObj == null)
+        {
+            onComplete?.Invoke();
+            return;
+        }
+
+        LeanTween.cancel(tutorObj);
+        Vector3 targetScale = GetTutorOriginalScale(tutorObj);
+
+        CanvasGroup canvasGroup = tutorObj.GetComponent<CanvasGroup>();
+        if (canvasGroup == null)
+        {
+            canvasGroup = tutorObj.AddComponent<CanvasGroup>();
+        }
+
+        canvasGroup.alpha = 1f;
+
+        LeanTween.scale(tutorObj, targetScale * 0.95f, 0.15f).setEaseInQuad();
+        LeanTween.value(tutorObj, 1f, 0f, 0.15f)
+            .setOnUpdate((float val) => {
+                canvasGroup.alpha = val;
+            })
+            .setOnComplete(() => {
+                tutorObj.SetActive(false);
+                tutorObj.transform.localScale = targetScale;
+                canvasGroup.alpha = 1f;
+                onComplete?.Invoke();
+            });
+    }
+
+    private Vector3 GetTutorOriginalScale(GameObject tutorObj)
+    {
+        if (tutorObj == tutor1) return tutor1OriginalScale;
+        if (tutorObj == tutor2) return tutor2OriginalScale;
+        if (tutorObj == tutor3) return tutor3OriginalScale;
+        return tutorObj.transform.localScale;
+    }
+
+    private void RefreshTutorTextMeshes(GameObject tutorObj)
+    {
+        if (tutorObj == null) return;
+
+        Canvas.ForceUpdateCanvases();
+        var texts = tutorObj.GetComponentsInChildren<TMP_Text>(true);
+        for (int i = 0; i < texts.Length; i++)
+        {
+            texts[i].ForceMeshUpdate();
+        }
+    }
+
+    private GameObject GetActiveTutor()
+    {
+        if (tutor1 != null && tutor1.activeSelf) return tutor1;
+        if (tutor2 != null && tutor2.activeSelf) return tutor2;
+        if (tutor3 != null && tutor3.activeSelf) return tutor3;
+        return null;
+    }
+
+    public void Tutor1Next()
+    {
+        ShowTutor(2);
+    }
+
+    public void Tutor2Prev()
+    {
+        ShowTutor(1);
+    }
+
+    public void Tutor2Next()
+    {
+        ShowTutor(3);
+    }
+
+    public void Tutor3Prev()
+    {
+        ShowTutor(2);
+    }
+
+    public void TutorClose()
+    {
+        AnimateTutorOut(GetActiveTutor(), EndTutorial);
     }
 
     public void closebok()
@@ -502,7 +671,6 @@ public class level1 : MonoBehaviour
             }
         }
         
-        // Update slider based on correct or wrong answer
         if (obj == catrcorect)
         {
             IncreaseSliderCanfiance();
