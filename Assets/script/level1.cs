@@ -14,6 +14,7 @@ public class level1 : MonoBehaviour
     public GameObject ideaopen;
     public GameObject congrats;
     public GameObject cathelp;
+    public GameObject cathelp2;
     public GameObject catbtn;
 
     [System.Serializable]

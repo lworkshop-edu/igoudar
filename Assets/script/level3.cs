@@ -16,6 +16,7 @@ public class level3 : MonoBehaviour
     public GameObject ideaopen;
     public GameObject congrats;
     public GameObject cathelp;
+    public GameObject cathelp2;
     public GameObject catbtn;
 
 
@@ -86,6 +87,7 @@ public class level3 : MonoBehaviour
         ideaopen.SetActive(false);
         congrats.SetActive(false);
         cathelp.SetActive(true);
+        if (cathelp2 != null) cathelp2.SetActive(false);
         catbtn.SetActive(false);
         catwrong.SetActive(false);
         catrcorect.SetActive(false);
@@ -361,6 +363,7 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
                         cathelp.transform.GetChild(1).gameObject.SetActive(true);
                         cathelp.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(true);
                         cathelp.SetActive(false);
+                        if (cathelp2 != null) cathelp2.SetActive(false);
                         if (quest != null)
                         {
                             quest.SetActive(true);
@@ -369,6 +372,18 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
                     });
             }
         }
+    }
+
+    public void ShowCathelp2()
+    {
+        if (cathelp != null) cathelp.SetActive(false);
+        if (cathelp2 != null) cathelp2.SetActive(true);
+    }
+
+    public void BackToCathelp()
+    {
+        if (cathelp2 != null) cathelp2.SetActive(false);
+        if (cathelp != null) cathelp.SetActive(true);
     }
 
     public void cathelpbtn()
