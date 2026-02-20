@@ -61,12 +61,16 @@ public class level1 : MonoBehaviour
     public GameObject tutor1;
     public GameObject tutor2;
     public GameObject tutor3;
+     public GameObject tutor4;
+     public GameObject tutor5;
 
     private bool isTutorialActive;
     private bool tutorialScalesCached;
     private Vector3 tutor1OriginalScale;
     private Vector3 tutor2OriginalScale;
     private Vector3 tutor3OriginalScale;
+    private Vector3 tutor4OriginalScale;
+    private Vector3 tutor5OriginalScale;
 
 
     void Start()
@@ -281,6 +285,8 @@ public class level1 : MonoBehaviour
         if (tutor1 != null) tutor1OriginalScale = tutor1.transform.localScale;
         if (tutor2 != null) tutor2OriginalScale = tutor2.transform.localScale;
         if (tutor3 != null) tutor3OriginalScale = tutor3.transform.localScale;
+        if (tutor4 != null) tutor4OriginalScale = tutor4.transform.localScale;
+        if (tutor5 != null) tutor5OriginalScale = tutor5.transform.localScale;
 
         tutorialScalesCached = true;
     }
@@ -291,6 +297,8 @@ public class level1 : MonoBehaviour
         if (tutor1 != null) tutor1.SetActive(false);
         if (tutor2 != null) tutor2.SetActive(false);
         if (tutor3 != null) tutor3.SetActive(false);
+        if (tutor4 != null) tutor4.SetActive(false);
+        if (tutor5 != null) tutor5.SetActive(false);
         if (cathelp != null) cathelp.SetActive(true);
     }
 
@@ -299,11 +307,15 @@ public class level1 : MonoBehaviour
         if (tutor1 != null) tutor1.SetActive(false);
         if (tutor2 != null) tutor2.SetActive(false);
         if (tutor3 != null) tutor3.SetActive(false);
+        if (tutor4 != null) tutor4.SetActive(false);
+        if (tutor5 != null) tutor5.SetActive(false);
 
         GameObject tutorToShow = null;
         if (tutorIndex == 1) tutorToShow = tutor1;
         else if (tutorIndex == 2) tutorToShow = tutor2;
         else if (tutorIndex == 3) tutorToShow = tutor3;
+        else if (tutorIndex == 4) tutorToShow = tutor4;
+        else if (tutorIndex == 5) tutorToShow = tutor5;
 
         AnimateTutorIn(tutorToShow);
     }
@@ -372,6 +384,8 @@ public class level1 : MonoBehaviour
         if (tutorObj == tutor1) return tutor1OriginalScale;
         if (tutorObj == tutor2) return tutor2OriginalScale;
         if (tutorObj == tutor3) return tutor3OriginalScale;
+        if (tutorObj == tutor4) return tutor4OriginalScale;
+        if (tutorObj == tutor5) return tutor5OriginalScale;
         return tutorObj.transform.localScale;
     }
 
@@ -392,6 +406,8 @@ public class level1 : MonoBehaviour
         if (tutor1 != null && tutor1.activeSelf) return tutor1;
         if (tutor2 != null && tutor2.activeSelf) return tutor2;
         if (tutor3 != null && tutor3.activeSelf) return tutor3;
+        if (tutor4 != null && tutor4.activeSelf) return tutor4;
+        if (tutor5 != null && tutor5.activeSelf) return tutor5;
         return null;
     }
 
@@ -413,6 +429,26 @@ public class level1 : MonoBehaviour
     public void Tutor3Prev()
     {
         ShowTutor(2);
+    }
+
+    public void Tutor3Next()
+    {
+        ShowTutor(4);
+    }
+
+    public void Tutor4Prev()
+    {
+        ShowTutor(3);
+    }
+
+    public void Tutor4Next()
+    {
+        ShowTutor(5);
+    }
+
+    public void Tutor5Prev()
+    {
+        ShowTutor(4);
     }
 
     public void TutorClose()
