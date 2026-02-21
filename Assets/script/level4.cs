@@ -99,6 +99,15 @@ public class level4 : MonoBehaviour
     public GameObject ideabtn;
 
     public GameObject prev, next;
+
+
+    public GameObject cattutor;
+    public List<string> tutorilalisttext ;
+    public TMPro.TextMeshProUGUI tutorialtext;
+    private int currentTutorStep = 0;
+
+    public GameObject prevtutor, nexttutor;
+
     
     void Start()
     {
@@ -115,6 +124,11 @@ public class level4 : MonoBehaviour
         // Initialize intro buttons
         if (prev != null) prev.SetActive(false); // Prev button inactive at start
         if (next != null) next.SetActive(true);
+
+        if (cattutor != null)
+        {
+            cattutor.SetActive(false);
+        }
         
         changecanfiance = PlayerPrefs.GetFloat("changecanfiance", changecanfiance);
         
@@ -154,6 +168,145 @@ public class level4 : MonoBehaviour
                 introobj.transform.GetChild(0).gameObject.SetActive(true);
             }
         }
+    }
+
+    private void InitializeTutor()
+    {
+        currentTutorStep = 0;
+        ApplyTutorStep(currentTutorStep);
+    }
+
+    private void ApplyTutorStep(int step)
+    {
+        int maxSteps = 3;
+        currentTutorStep = Mathf.Clamp(step, 0, maxSteps - 1);
+
+        if (tutorialtext != null && tutorilalisttext != null && tutorilalisttext.Count > 0)
+        {
+            int safeIndex = Mathf.Clamp(currentTutorStep, 0, tutorilalisttext.Count - 1);
+            tutorialtext.text = tutorilalisttext[safeIndex];
+        }
+
+        if (prev != null)
+        {
+            prev.SetActive(false);
+        }
+        if (next != null)
+        {
+            next.SetActive(false);
+        }
+
+        SetTutorButtonInteractable(prevtutor, currentTutorStep > 0);
+        SetTutorButtonInteractable(nexttutor, currentTutorStep < maxSteps - 1);
+
+        GameObject indicatorLeft = GetTutorNode("indicator left");
+        GameObject imageHover = GetTutorNode("image hover");
+        GameObject indicator1 = GetTutorNode("indicator1");
+        GameObject jar = GetTutorNode("jar");
+        GameObject jarleft = GetTutorNode("jarleft");
+
+        if (currentTutorStep == 0)
+        {
+            SetTutorObjState(indicatorLeft, false);
+            SetTutorObjState(imageHover, false);
+            SetTutorObjState(indicator1, false);
+            SetTutorObjState(jar, false);
+            SetTutorObjState(jarleft, true);
+        }
+        else if (currentTutorStep == 1)
+        {
+            SetTutorObjState(indicatorLeft, true);
+            SetTutorObjState(imageHover, true);
+            SetTutorObjState(indicator1, false);
+            SetTutorObjState(jar, false);
+            SetTutorObjState(jarleft, true);
+        }
+        else
+        {
+            SetTutorObjState(indicatorLeft, false);
+            SetTutorObjState(imageHover, false);
+            SetTutorObjState(indicator1, true);
+            SetTutorObjState(jar, true);
+            SetTutorObjState(jarleft, false);
+        }
+    }
+
+    private GameObject GetTutorNode(string nodeName)
+    {
+        if (cattutor == null) return null;
+        Transform found = FindChildRecursive(cattutor.transform, nodeName);
+        return found != null ? found.gameObject : null;
+    }
+
+    private Transform FindChildRecursive(Transform parent, string targetName)
+    {
+        if (parent == null) return null;
+        if (parent.name == targetName) return parent;
+
+        foreach (Transform child in parent)
+        {
+            Transform found = FindChildRecursive(child, targetName);
+            if (found != null)
+            {
+                return found;
+            }
+        }
+
+        return null;
+    }
+
+    private void SetTutorObjState(GameObject obj, bool state)
+    {
+        if (obj != null)
+        {
+            obj.SetActive(state);
+        }
+    }
+
+    private void SetTutorButtonInteractable(GameObject buttonObj, bool interactable)
+    {
+        if (buttonObj == null) return;
+
+        Button button = buttonObj.GetComponent<Button>();
+        if (button != null)
+        {
+            button.interactable = interactable;
+        }
+    }
+
+    public void TutorNextStep()
+    {
+        ApplyTutorStep(currentTutorStep + 1);
+    }
+
+    public void TutorPrevStep()
+    {
+        ApplyTutorStep(currentTutorStep - 1);
+    }
+
+    public void CloseTutorAndStart()
+    {
+        if (cattutor != null)
+        {
+            cattutor.SetActive(false);
+        }
+
+        showingFixText = true;
+        if (cathelptexttop != null)
+        {
+            cathelptexttop.text = toptextfix;
+        }
+        if (cathelptext != null)
+        {
+            cathelptext.text = bottomtextfix;
+        }
+
+        if (ideabtn != null)
+        {
+            ideabtn.SetActive(true);
+        }
+
+        cathelpbtn();
     }
 
     private void UpdateJarText(int btnIndex)
@@ -822,6 +975,11 @@ public class level4 : MonoBehaviour
 
     public void CloseIntroObj()
     {
+        if (cattutor != null && cattutor.activeSelf)
+        {
+            return;
+        }
+
         if (introobj == null) return;
         
         // Close current intro step
@@ -830,27 +988,23 @@ public class level4 : MonoBehaviour
             introobj.transform.GetChild(currentIntroIndex).gameObject.SetActive(false);
         }
         
-        // Close intro and show main UI
+        // Close intro
         introobj.SetActive(false);
-        
-        if (cathelp != null)
+
+        // Show tutorial after intro
+        if (cattutor != null)
         {
-            showingFixText = true;
-            if (cathelptexttop != null)
-            {
-                cathelptexttop.text = toptextfix;
-            }
-            if (cathelptext != null)
-            {
-                cathelptext.text = bottomtextfix;
-            }
-            ideabtn.SetActive(true);
-            cathelp.SetActive(true);
+            cattutor.SetActive(true);
+            InitializeTutor();
         }
-        
-        // Hide navigation buttons
+
         if (prev != null) prev.SetActive(false);
         if (next != null) next.SetActive(false);
+
+        if (cathelp != null)
+        {
+            cathelp.SetActive(false);
+        }
     }
 
     private void UpdateIntroButtonStates()
@@ -868,6 +1022,12 @@ public class level4 : MonoBehaviour
 
     public void NextIntroStep()
     {
+        if (cattutor != null && cattutor.activeSelf)
+        {
+            TutorNextStep();
+            return;
+        }
+
         if (introobj == null) return;
         if (currentIntroIndex >= introobj.transform.childCount - 1) return;
 
@@ -891,6 +1051,12 @@ public class level4 : MonoBehaviour
 
     public void PrevIntroStep()
     {
+        if (cattutor != null && cattutor.activeSelf)
+        {
+            TutorPrevStep();
+            return;
+        }
+
         if (introobj == null) return;
         if (currentIntroIndex <= 0) return;
 
