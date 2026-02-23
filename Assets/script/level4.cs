@@ -776,6 +776,7 @@ public class level4 : MonoBehaviour
     }
     public void opencongrats()
     {
+        LevelProgression.UnlockNextLevel(4, 4);
 
         bookopen.SetActive(false);
         ideaopen.SetActive(false);

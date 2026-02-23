@@ -5350,8 +5350,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <b>Mission tutoriel</b><br><br>keltouma prepare content for the text tutoriel
-    to guide user thoughout this step
+  m_text: <b>Mission tutoriel</b><br><br>Lorem Ipsum is simply dummy text of the
+    printing and typesetting industry
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 797455d5e8b114e508ab3e6277efac56, type: 2}
   m_sharedMaterial: {fileID: 8224217641005013099, guid: 797455d5e8b114e508ab3e6277efac56, type: 2}
@@ -8872,7 +8872,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 482.89496, y: -0.000015258789}
+  m_AnchoredPosition: {x: 482.89496, y: -0.000010172526}
   m_SizeDelta: {x: 965.7899, y: 0.000020345053}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &793064407
@@ -18934,8 +18934,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <b>Mission tutoriel</b><br><br>keltouma prepare content for the text tutoriel
-    to guide user thoughout this step
+  m_text: <b>Mission tutoriel</b><br><br>Lorem Ipsum is simply dummy text of the
+    printing and typesetting industry
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 797455d5e8b114e508ab3e6277efac56, type: 2}
   m_sharedMaterial: {fileID: 8224217641005013099, guid: 797455d5e8b114e508ab3e6277efac56, type: 2}

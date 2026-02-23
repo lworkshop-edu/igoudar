@@ -394,7 +394,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: f3d3fa3273dd943b9a3f5d88694627b5, type: 3}
+  m_Texture: {fileID: 2800000, guid: 7ce10f236f8ab48e1948c1662e57982b, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -434,7 +434,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -733,6 +733,17 @@ MonoBehaviour:
   changereserves: 0
   changecanfiance: 0
   midlebookopen: {fileID: 1639606318}
+  leveles:
+  - {fileID: 1583376422}
+  - {fileID: 1821831488}
+  - {fileID: 121177185}
+  - {fileID: 540900984}
+  saveUnlockedLevels: 1
+  levelButtonImages:
+  - {fileID: 2800000, guid: 3af4a539934264210ada0034fa2a9c10, type: 3}
+  - {fileID: 2800000, guid: d02ee15481a8843f8a6f289d1c72891c, type: 3}
+  - {fileID: 2800000, guid: f3d3fa3273dd943b9a3f5d88694627b5, type: 3}
+  - {fileID: 2800000, guid: 47ce4a7738c464505bec7209727c9936, type: 3}
 --- !u!1 &311427712
 GameObject:
   m_ObjectHideFlags: 0
@@ -2023,7 +2034,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 47ce4a7738c464505bec7209727c9936, type: 3}
+  m_Texture: {fileID: 2800000, guid: 23e03f68277294ebb94601d8f3da0934, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -2063,7 +2074,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -4523,6 +4534,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 309212110}
+        m_TargetAssemblyTypeName: overlay, Assembly-CSharp
+        m_MethodName: ResetProgress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1082825954
 GameObject:
   m_ObjectHideFlags: 0
@@ -5903,8 +5926,8 @@ GameObject:
   - component: {fileID: 1583376423}
   - component: {fileID: 1583376425}
   - component: {fileID: 1583376426}
-  - component: {fileID: 1583376427}
   - component: {fileID: 1583376428}
+  - component: {fileID: 1583376429}
   m_Layer: 5
   m_Name: lvl 1
   m_TagString: Untagged
@@ -5983,7 +6006,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1583376427}
+  m_TargetGraphic: {fileID: 1583376429}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -6023,36 +6046,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1583376427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1583376422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3af4a539934264210ada0034fa2a9c10, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &1583376428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6098,6 +6091,33 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1583376429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583376422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 2800000, guid: 3af4a539934264210ada0034fa2a9c10, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1 &1583737347
 GameObject:
   m_ObjectHideFlags: 0
@@ -6956,7 +6976,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: d02ee15481a8843f8a6f289d1c72891c, type: 3}
+  m_Texture: {fileID: 2800000, guid: 87506e7b8208f415bbdc4b160dcc12c6, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -6996,7 +7016,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:

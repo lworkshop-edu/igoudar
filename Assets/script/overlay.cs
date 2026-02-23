@@ -38,7 +38,9 @@ public class overlay : MonoBehaviour
 
     public GameObject midlebookopen;
 
-
+    public List<GameObject> leveles ; 
+    public bool saveUnlockedLevels = true;
+    public List<Texture2D> levelButtonImages ;
 
     void Start()
     {
@@ -58,6 +60,9 @@ public class overlay : MonoBehaviour
         }
 
         changecanfiance = PlayerPrefs.GetFloat("changecanfiance", changecanfiance);
+
+        LevelProgression.Configure(false, saveUnlockedLevels);
+        RefreshLevelButtons();
 
         InitializeHelpText();
     }
@@ -404,6 +409,7 @@ public class overlay : MonoBehaviour
 
     public void OnLevelHoverEnter(GameObject levelBtn)
     {
+        if (!IsLevelUnlocked(levelBtn)) return;
         if (levelBtn == null || levelBtn == selectedLevel) return;
         
         Transform hover = levelBtn.transform.Find("hover");
@@ -415,6 +421,7 @@ public class overlay : MonoBehaviour
     
     public void OnLevelHoverExit(GameObject levelBtn)
     {
+        if (!IsLevelUnlocked(levelBtn)) return;
         if (levelBtn == null || levelBtn == selectedLevel) return;
         
         Transform hover = levelBtn.transform.Find("hover");
@@ -426,6 +433,7 @@ public class overlay : MonoBehaviour
     
     public void OnLevelSelect(GameObject levelBtn)
     {
+        if (!IsLevelUnlocked(levelBtn)) return;
         if (levelBtn == null) return;
         
         if (selectedLevel != null)
@@ -447,5 +455,113 @@ public class overlay : MonoBehaviour
         if (select != null) select.gameObject.SetActive(true);
         if (hover != null) hover.gameObject.SetActive(true);
         if (arrow != null) arrow.gameObject.SetActive(true);
+    }
+
+    private void RefreshLevelButtons()
+    {
+        if (leveles == null || leveles.Count == 0)
+        {
+            return;
+        }
+
+        int unlockedLevelsCount = LevelProgression.GetUnlockedLevelsCount(leveles.Count);
+        for (int i = 0; i < leveles.Count; i++)
+        {
+            GameObject levelObj = leveles[i];
+            if (levelObj == null)
+            {
+                continue;
+            }
+
+            bool isUnlocked = i < unlockedLevelsCount;
+            Button levelButton = levelObj.GetComponent<Button>();
+            if (levelButton != null)
+            {
+                levelButton.interactable = isUnlocked;
+            }
+
+            if (isUnlocked && i < levelButtonImages.Count)
+            {
+                Texture sprite = levelButtonImages[i];
+                if (sprite != null)
+                {
+                    RawImage targetImage = levelObj.GetComponent<RawImage>();
+
+
+                    if (targetImage != null)
+                    {
+                        targetImage.texture = sprite;
+                    }
+                }
+            }
+
+            if (!isUnlocked)
+            {
+                Transform hover = levelObj.transform.Find("hover");
+                Transform arrow = levelObj.transform.Find("arrow");
+                Transform select = levelObj.transform.Find("select");
+
+                if (hover != null) hover.gameObject.SetActive(false);
+                if (arrow != null) arrow.gameObject.SetActive(false);
+                if (select != null) select.gameObject.SetActive(false);
+
+                if (selectedLevel == levelObj)
+                {
+                    selectedLevel = null;
+                }
+            }
+        }
+    }
+
+    private bool IsLevelUnlocked(GameObject levelBtn)
+    {
+        if (levelBtn == null || leveles == null || leveles.Count == 0)
+        {
+            return false;
+        }
+
+        int index = leveles.IndexOf(levelBtn);
+        if (index < 0)
+        {
+            return true;
+        }
+
+        int unlockedLevelsCount = LevelProgression.GetUnlockedLevelsCount(leveles.Count);
+        return index < unlockedLevelsCount;
+    }
+
+    public void ResetProgress()
+    {
+        LevelProgression.ResetProgress();
+        selectedLevel = null;
+        RefreshLevelButtons();
+    }
+
+    public void ApplyLevelImagesFromList()
+    {
+        if (leveles == null || levelButtonImages == null)
+        {
+            return;
+        }
+
+        int unlockedLevelsCount = LevelProgression.GetUnlockedLevelsCount(leveles.Count);
+        int count = Mathf.Min(unlockedLevelsCount, levelButtonImages.Count);
+        for (int i = 0; i < count; i++)
+        {
+            GameObject levelObj = leveles[i];
+            Texture2D sprite = levelButtonImages[i];
+            if (levelObj == null || sprite == null)
+            {
+                continue;
+            }
+
+            RawImage targetImage = levelObj.GetComponent<RawImage>();
+         
+
+            if (targetImage != null)
+            {
+                targetImage.texture = sprite;
+            }
+        }
     }
 }

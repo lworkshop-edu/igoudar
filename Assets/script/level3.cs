@@ -314,6 +314,7 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
     }
     public void opencongrats()
     {
+        LevelProgression.UnlockNextLevel(3, 4);
 
         bookopen.SetActive(false);
         ideaopen.SetActive(false);

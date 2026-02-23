@@ -2715,9 +2715,9 @@ MonoBehaviour:
   next: {fileID: 771191030}
   cattutor: {fileID: 1073489039}
   tutorilalisttext:
-  - keltouma prepare content for the text tutoriel to guide user thoughout this step
-  - keltouma prepare content for the text tutoriel to guide user thoughout this step
-  - keltouma prepare content for the text tutoriel to guide user thoughout this step
+  - Lorem Ipsum is simply dummy text of the printing and typesetting industry
+  - Lorem Ipsum is simply dummy text of the printing and typesetting industry
+  - Lorem Ipsum is simply dummy text of the printing and typesetting industry
   tutorialtext: {fileID: 443800444}
   prevtutor: {fileID: 1790513}
   nexttutor: {fileID: 2050325949}
@@ -4401,8 +4401,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: keltouma prepare content for the text tutoriel to guide user thoughout
-    this step
+  m_text: Lorem Ipsum is simply dummy text of the printing and typesetting industry
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 797455d5e8b114e508ab3e6277efac56, type: 2}
   m_sharedMaterial: {fileID: 8224217641005013099, guid: 797455d5e8b114e508ab3e6277efac56, type: 2}
