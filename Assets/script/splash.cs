@@ -12,6 +12,8 @@ public class splash : MonoBehaviour
 
 
 
+
+
     void Start()
     {
 

@@ -72,6 +72,14 @@ public class level1 : MonoBehaviour
     private Vector3 tutor4OriginalScale;
     private Vector3 tutor5OriginalScale;
 
+    private void PlayClickSfx()
+    {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayButtonClick();
+        }
+    }
+
 
     void Start()
     {
@@ -114,6 +122,7 @@ public class level1 : MonoBehaviour
     }
    public void doorcklick(int doornumber)
     {
+        PlayClickSfx();
         if (isTutorialActive)
             return;
 
@@ -163,6 +172,7 @@ public class level1 : MonoBehaviour
         if (key.value == doornumber.ToString())
         {
             SetKeyChildActive(key.key, "corect");
+            if (AudioManager.Instance != null) AudioManager.Instance.PlayCorrect();
          
             cathelpbtntest(catrcorect);
             catrcorect.transform.GetChild(0).gameObject.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = corectext[currentKeyIndex];
@@ -173,6 +183,7 @@ public class level1 : MonoBehaviour
         else
         {
             SetKeyChildActive(key.key, "wrong");
+            if (AudioManager.Instance != null) AudioManager.Instance.PlayWrong();
             cathelpbtntest(catwrong);
             catwrong.transform.GetChild(0).gameObject.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = wrongtext[currentKeyIndex];
            // catwrong.SetActive(true);
@@ -184,6 +195,7 @@ public class level1 : MonoBehaviour
 
     public void OnWrongCloseClicked()
     {
+        PlayClickSfx();
         // catwrong.SetActive(false);
         continiuertest(catwrong);
 
@@ -208,6 +220,7 @@ public class level1 : MonoBehaviour
 
     public void OnContinueClicked()
     {
+        PlayClickSfx();
         // catrcorect.SetActive(false);
         continiuertest(catrcorect);
        
@@ -263,6 +276,7 @@ public class level1 : MonoBehaviour
 
     public void ActivateObj1()
     {
+        PlayClickSfx();
         obj1.SetActive(true);
         obj2.SetActive(false);
         obj3.SetActive(false);
@@ -413,51 +427,61 @@ public class level1 : MonoBehaviour
 
     public void Tutor1Next()
     {
+        PlayClickSfx();
         ShowTutor(2);
     }
 
     public void Tutor2Prev()
     {
+        PlayClickSfx();
         ShowTutor(1);
     }
 
     public void Tutor2Next()
     {
+        PlayClickSfx();
         ShowTutor(3);
     }
 
     public void Tutor3Prev()
     {
+        PlayClickSfx();
         ShowTutor(2);
     }
 
     public void Tutor3Next()
     {
+        PlayClickSfx();
         ShowTutor(4);
     }
 
     public void Tutor4Prev()
     {
+        PlayClickSfx();
         ShowTutor(3);
     }
 
     public void Tutor4Next()
     {
+        PlayClickSfx();
         ShowTutor(5);
     }
 
     public void Tutor5Prev()
     {
+        PlayClickSfx();
         ShowTutor(4);
     }
 
     public void TutorClose()
     {
+        PlayClickSfx();
         AnimateTutorOut(GetActiveTutor(), EndTutorial);
     }
 
     public void closebok()
     {
+        PlayClickSfx();
         LeanTween.scale(midlebookopen, Vector3.zero, 0.2f).setOnComplete(() => {
             obj1.SetActive(true);
             obj2.SetActive(false);
@@ -472,6 +496,7 @@ public class level1 : MonoBehaviour
 
     public void openbook()
     {
+        PlayClickSfx();
         obj1.SetActive(true);
         obj2.SetActive(false);
         obj3.SetActive(false);
@@ -483,6 +508,7 @@ public class level1 : MonoBehaviour
 
     public void closeidea()
     {
+        PlayClickSfx();
         LeanTween.scale(midleideaopen, Vector3.zero, 0.2f).setOnComplete(() => {
             obj1.SetActive(true);
             obj2.SetActive(false);
@@ -496,6 +522,7 @@ public class level1 : MonoBehaviour
 
     public void openidea()
     {
+        PlayClickSfx();
         obj1.SetActive(true);
         obj2.SetActive(false);
         obj3.SetActive(false);
@@ -517,6 +544,7 @@ public class level1 : MonoBehaviour
     }
     public void continiuer()
     {
+        PlayClickSfx();
         if (catbtn != null)
         {
             RawImage rawImg = catbtn.GetComponent<RawImage>();
@@ -564,6 +592,7 @@ public class level1 : MonoBehaviour
 
     public void cathelpbtn()
     {
+        PlayClickSfx();
         if (catbtn != null)
         {
             RawImage rawImg = catbtn.GetComponent<RawImage>();
@@ -612,6 +641,7 @@ public class level1 : MonoBehaviour
 
     public void ActivateObj2()
     {
+        PlayClickSfx();
         obj1.SetActive(false);
         obj2.SetActive(true);
         obj3.SetActive(false);
@@ -620,6 +650,7 @@ public class level1 : MonoBehaviour
 
     public void ActivateObj3()
     {
+        PlayClickSfx();
         obj1.SetActive(false);
         obj2.SetActive(false);
         obj3.SetActive(true);
@@ -628,6 +659,7 @@ public class level1 : MonoBehaviour
 
     public void ActivateObj4()
     {
+        PlayClickSfx();
         obj1.SetActive(false);
         obj2.SetActive(false);
         obj3.SetActive(false);
@@ -637,6 +669,7 @@ public class level1 : MonoBehaviour
 
     public void returntointro()
     {
+        PlayClickSfx();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 

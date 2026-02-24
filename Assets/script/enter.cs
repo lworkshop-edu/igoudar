@@ -15,6 +15,14 @@ public class enter : MonoBehaviour
     public GameObject background1;
     public GameObject midle;
 
+    private void PlayClickSfx()
+    {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayButtonClick();
+        }
+    }
+
 
 
     void Start()
@@ -32,6 +40,7 @@ public class enter : MonoBehaviour
 
         public void ActivateFAQPage()
     {
+        PlayClickSfx();
         if (background1 != null && background != null && midle != null)
         {
             Vector3 bgpos = background1.transform.position;
@@ -48,6 +57,7 @@ public class enter : MonoBehaviour
 
     public void ActivateObj1()
     {
+        PlayClickSfx();
         obj1.SetActive(true);
         obj2.SetActive(false);
         obj3.SetActive(false);
@@ -57,6 +67,7 @@ public class enter : MonoBehaviour
  
     public void ActivateObj2()
     {
+        PlayClickSfx();
         obj1.SetActive(false);
         obj2.SetActive(true);
         obj3.SetActive(false);
@@ -66,6 +77,7 @@ public class enter : MonoBehaviour
 
     public void ActivateObj3()
     {
+        PlayClickSfx();
         obj1.SetActive(false);
         obj2.SetActive(false);
         obj3.SetActive(true);
@@ -75,6 +87,7 @@ public class enter : MonoBehaviour
 
     public void ActivateObj4()
     {
+        PlayClickSfx();
         obj1.SetActive(false);
         obj2.SetActive(false);
         obj3.SetActive(false);
@@ -82,6 +95,7 @@ public class enter : MonoBehaviour
     }
         public void homef()
     {
+        PlayClickSfx();
                 if (background1 != null && background != null && midle != null)
         {
             Vector3 bgpos = background1.transform.position;
@@ -102,6 +116,7 @@ public class enter : MonoBehaviour
     }
             public void faqf()
     {
+        PlayClickSfx();
         home.SetActive(false);
         faq.SetActive(true);
 
@@ -110,6 +125,7 @@ public class enter : MonoBehaviour
 
         public void overlayscen()
     {
+        PlayClickSfx();
         UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }
 

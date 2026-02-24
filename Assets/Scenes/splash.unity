@@ -122,6 +122,69 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &183010696
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 183010698}
+  - component: {fileID: 183010697}
+  m_Layer: 0
+  m_Name: Audio Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &183010697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 183010696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 772156106a6b94bf48d4360120b20228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicClips:
+  - id: 
+    clip: {fileID: 0}
+    volume: 0
+  sfxClips:
+  - id: ui_click
+    clip: {fileID: 8300000, guid: dc3b574a6921a41bfb286b487cb79570, type: 3}
+    volume: 1
+  - id: correct
+    clip: {fileID: 8300000, guid: 1b7e22d269b394a4b9c8a1d8bb5908c2, type: 3}
+    volume: 1
+  - id: wrong
+    clip: {fileID: 8300000, guid: 40010da8a04344cf39b865a34de32cd6, type: 3}
+    volume: 1
+  autoPlaySceneMusic: 1
+  defaultMusicId: 
+  sceneMusic: []
+  musicVolume: 1
+  sfxVolume: 1
+--- !u!4 &183010698
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 183010696}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1303.1791, y: 530.9904, z: -3.0050702}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &309212107
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,3 +776,4 @@ SceneRoots:
   - {fileID: 447522077}
   - {fileID: 883135073}
   - {fileID: 309212109}
+  - {fileID: 183010698}

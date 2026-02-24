@@ -80,6 +80,14 @@ public class level3 : MonoBehaviour
 
     public List<ChoiceFeedback> feedbacks; 
 
+    private void PlayClickSfx()
+    {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayButtonClick();
+        }
+    }
+
 
     void Start()
     {
@@ -111,6 +119,7 @@ public class level3 : MonoBehaviour
 
     public void ShowQuestUI()
     {
+        PlayClickSfx();
         if (quest != null)
         {
             quest.SetActive(true);
@@ -148,6 +157,7 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
 
     public void OnAnswerSelected(GameObject answerObj)
     {
+        PlayClickSfx();
         if (answerObj == null) return;
         string answer = answerObj.name;
         if (answerLocked) return;
@@ -176,11 +186,13 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
 
         if (q.correctAnswer == answer)
         {
+            if (AudioManager.Instance != null) AudioManager.Instance.PlayCorrect();
             if (correctChild != null) correctChild.gameObject.SetActive(true);
             cathelpbtntest(catrcorect);
         }
         else
         {
+            if (AudioManager.Instance != null) AudioManager.Instance.PlayWrong();
             cathelpbtntest(catwrong);
             if (wrongChild != null) wrongChild.gameObject.SetActive(true);
         }
@@ -188,6 +200,7 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
  
     public void OnCorectBtnClicked()
     {
+        PlayClickSfx();
 
         catrcorect.SetActive(false);
         catbtn.SetActive(true);
@@ -205,6 +218,7 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
 
     public void OnWrongBtnClicked()
     {
+        PlayClickSfx();
         GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
                 foreach (var obj in allObjects)
                 {
@@ -257,6 +271,7 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
 
     public void ActivateObj1()
     {
+        PlayClickSfx();
         obj1.SetActive(true);
         obj2.SetActive(false);
         obj3.SetActive(false);
@@ -265,6 +280,7 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
 
     public void closebok()
     {
+        PlayClickSfx();
         LeanTween.scale(midlebookopen, Vector3.zero, 0.2f).setOnComplete(() => {
             obj1.SetActive(true);
             obj2.SetActive(false);
@@ -279,6 +295,7 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
 
     public void openbook()
     {
+        PlayClickSfx();
         obj1.SetActive(true);
         obj2.SetActive(false);
         obj3.SetActive(false);
@@ -290,6 +307,7 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
 
     public void closeidea()
     {
+        PlayClickSfx();
         LeanTween.scale(midleideaopen, Vector3.zero, 0.2f).setOnComplete(() => {
             obj1.SetActive(true);
             obj2.SetActive(false);
@@ -303,6 +321,7 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
 
     public void openidea()
     {
+        PlayClickSfx();
         obj1.SetActive(true);
         obj2.SetActive(false);
         obj3.SetActive(false);
@@ -324,6 +343,7 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
     }
     public void continiuer()
     {
+        PlayClickSfx();
         if (catbtn != null)
         {
             RawImage rawImg = catbtn.GetComponent<RawImage>();
@@ -377,18 +397,21 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
 
     public void ShowCathelp2()
     {
+        PlayClickSfx();
         if (cathelp != null) cathelp.SetActive(false);
         if (cathelp2 != null) cathelp2.SetActive(true);
     }
 
     public void BackToCathelp()
     {
+        PlayClickSfx();
         if (cathelp2 != null) cathelp2.SetActive(false);
         if (cathelp != null) cathelp.SetActive(true);
     }
 
     public void cathelpbtn()
     {
+        PlayClickSfx();
         if (catbtn != null)
         {
             RawImage rawImg = catbtn.GetComponent<RawImage>();
@@ -437,6 +460,7 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
 
     public void ActivateObj2()
     {
+        PlayClickSfx();
         obj1.SetActive(false);
         obj2.SetActive(true);
         obj3.SetActive(false);
@@ -445,6 +469,7 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
 
     public void ActivateObj3()
     {
+        PlayClickSfx();
         obj1.SetActive(false);
         obj2.SetActive(false);
         obj3.SetActive(true);
@@ -453,6 +478,7 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
 
     public void ActivateObj4()
     {
+        PlayClickSfx();
         obj1.SetActive(false);
         obj2.SetActive(false);
         obj3.SetActive(false);
@@ -462,6 +488,7 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
 
     public void returntointro()
     {
+        PlayClickSfx();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 

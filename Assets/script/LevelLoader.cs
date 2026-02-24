@@ -7,9 +7,16 @@ public class LevelLoader : MonoBehaviour
     public Animator transition;
     public float transitionTime = 0.5f;
     public int scene = 1; 
-
+    private void PlayClickSfx()
+    {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayButtonClick();
+        }
+    }
     public void LoadNextLevel()
     {
+        PlayClickSfx();
         StartCoroutine(LoadLevel(scene)); 
     }
 
@@ -24,7 +31,7 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadSceneByIndex(int sceneIndex)
     {
-
+        PlayClickSfx();
         StartCoroutine(LoadLevel(sceneIndex)); 
     }
 }

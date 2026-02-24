@@ -42,6 +42,14 @@ public class overlay : MonoBehaviour
     public bool saveUnlockedLevels = true;
     public List<Texture2D> levelButtonImages ;
 
+    private void PlayClickSfx()
+    {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayButtonClick();
+        }
+    }
+
     void Start()
     {
         if (catwisper != null)
@@ -104,6 +112,7 @@ public class overlay : MonoBehaviour
             }
         public void ActivateObj1()
     {
+        PlayClickSfx();
         obj1.SetActive(true);
         obj2.SetActive(false);
         obj3.SetActive(false);
@@ -112,6 +121,7 @@ public class overlay : MonoBehaviour
 
             public void closebok()
     {
+        PlayClickSfx();
         LeanTween.scale(midlebookopen, Vector3.zero, 0.2f).setOnComplete(() => {
                                    
                                 obj1.SetActive(true);
@@ -125,6 +135,7 @@ public class overlay : MonoBehaviour
     }
             public void openbook()
     {
+        PlayClickSfx();
         obj1.SetActive(true);
         obj2.SetActive(false);
         obj3.SetActive(false);
@@ -137,6 +148,7 @@ public class overlay : MonoBehaviour
     }
          public void continiuerbegin()
     {
+        PlayClickSfx();
                 catwisper.transform.GetChild(1).transform.localScale = Vector3.one;//secondone is the midle
                 LeanTween.scale(catwisper.transform.GetChild(1).gameObject, Vector3.zero, 0.2f).setOnComplete(() => {
                        catwisper.SetActive(false);
@@ -148,6 +160,7 @@ public class overlay : MonoBehaviour
     }
          public void continiuer()
     {
+        PlayClickSfx();
         
                     if (catbtn != null)
         {
@@ -200,6 +213,7 @@ public class overlay : MonoBehaviour
     }
          public void cathelpbtn()
     {
+            PlayClickSfx();
             if (catbtn != null)
         {
             RawImage rawImg = catbtn.GetComponent<RawImage>();
@@ -253,6 +267,7 @@ public class overlay : MonoBehaviour
  
     public void ActivateObj2()
     {
+        PlayClickSfx();
         obj1.SetActive(false);
         obj2.SetActive(true);
         obj3.SetActive(false);
@@ -262,6 +277,7 @@ public class overlay : MonoBehaviour
 
     public void ActivateObj3()
     {
+        PlayClickSfx();
         obj1.SetActive(false);
         obj2.SetActive(false);
         obj3.SetActive(true);
@@ -271,6 +287,7 @@ public class overlay : MonoBehaviour
 
     public void ActivateObj4()
     {
+        PlayClickSfx();
         obj1.SetActive(false);
         obj2.SetActive(false);
         obj3.SetActive(false);
@@ -279,6 +296,7 @@ public class overlay : MonoBehaviour
 
         public void returntointro()
     {
+        PlayClickSfx();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
@@ -392,6 +410,7 @@ public class overlay : MonoBehaviour
 
     public void prev()
     {
+        PlayClickSfx();
         if (textPieces.Count == 0 || currentPageIndex <= 0) return;
         
         currentPageIndex--;
@@ -401,6 +420,7 @@ public class overlay : MonoBehaviour
  
     public void next()
     {
+        PlayClickSfx();
         if (textPieces.Count == 0 || currentPageIndex >= textPieces.Count - 1) return;
         
         currentPageIndex++;
@@ -433,6 +453,7 @@ public class overlay : MonoBehaviour
     
     public void OnLevelSelect(GameObject levelBtn)
     {
+        PlayClickSfx();
         if (!IsLevelUnlocked(levelBtn)) return;
         if (levelBtn == null) return;
         

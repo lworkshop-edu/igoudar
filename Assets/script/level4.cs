@@ -108,6 +108,14 @@ public class level4 : MonoBehaviour
 
     public GameObject prevtutor, nexttutor;
 
+    private void PlayClickSfx()
+    {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayButtonClick();
+        }
+    }
+
     
     void Start()
     {
@@ -276,16 +284,19 @@ public class level4 : MonoBehaviour
 
     public void TutorNextStep()
     {
+        PlayClickSfx();
         ApplyTutorStep(currentTutorStep + 1);
     }
 
     public void TutorPrevStep()
     {
+        PlayClickSfx();
         ApplyTutorStep(currentTutorStep - 1);
     }
 
     public void CloseTutorAndStart()
     {
+        PlayClickSfx();
         if (cattutor != null)
         {
             cattutor.SetActive(false);
@@ -329,6 +340,7 @@ public class level4 : MonoBehaviour
 
     public void OnJarClicked(int btnIndex)
     {
+        PlayClickSfx();
         if (btnIndex < 0 || btnIndex >= rightBtnInfos.Count) return;
         GameObject btnObj = rightBtnInfos[btnIndex].btnObj;
         Transform jars = btnObj.transform.Find("jars");
@@ -362,6 +374,7 @@ public class level4 : MonoBehaviour
     }
   public void OnLeftObjClicked()
     {
+                PlayClickSfx();
         if (leftObj == null) return;
         if (selectedRightBtn == -1 || selectedRightBtn >= rightBtnInfos.Count) return;
         if (jarCounts[selectedRightBtn] >= 3) return;
@@ -437,10 +450,12 @@ public class level4 : MonoBehaviour
 
     public void KeyClicked(int keyIndex)
     {
+        PlayClickSfx();
     }
 
     public void OnCorectBtnClicked()
     {
+        PlayClickSfx();
         int maxWeeks = 0;
         foreach (var info in rightBtnInfos)
         {
@@ -506,6 +521,7 @@ public class level4 : MonoBehaviour
 
     public void OnWrongBtnClicked()
     {
+        PlayClickSfx();
 
         continiuertest(catwrong);
                foreach (var info in rightBtnInfos)
@@ -553,10 +569,12 @@ public class level4 : MonoBehaviour
 
     public void OnWrongCloseClicked()
     {
+        PlayClickSfx();
     }
 
     public void OnContinueClicked()
     {
+        PlayClickSfx();
         bool allCorrect = true;
         for (int i = 0; i < rightBtnInfos.Count; i++)
         {
@@ -571,11 +589,13 @@ public class level4 : MonoBehaviour
         }
         if (allCorrect)
         {
+            if (AudioManager.Instance != null) AudioManager.Instance.PlayCorrect();
             SetCatText(catrcorect, corectext, currentWeek);
             cathelpbtntest(catrcorect);
         }
         else
         {
+            if (AudioManager.Instance != null) AudioManager.Instance.PlayWrong();
             SetCatText(catwrong, wrongtext, currentWeek);
             cathelpbtntest(catwrong);
         }
@@ -615,6 +635,7 @@ public class level4 : MonoBehaviour
 
     public void OnRightBtnClicked(int btnIndex)
     {
+        PlayClickSfx();
         if (btnIndex < 0 || btnIndex >= rightBtnInfos.Count) return;
         selectedRightBtn = btnIndex;
         if (leftObj != null && !leftObj.activeSelf)
@@ -682,6 +703,7 @@ public class level4 : MonoBehaviour
 
     public void OnLeftImageClicked(GameObject imageObj)
     {
+        PlayClickSfx();
         if (selectedRightBtn == -1 || selectedRightBtn >= rightBtnInfos.Count) return;
         if (jarCounts[selectedRightBtn] >= 3) return;
         imageObj.SetActive(false);
@@ -719,6 +741,7 @@ public class level4 : MonoBehaviour
 
     public void ActivateObj1()
     {
+        PlayClickSfx();
         obj1.SetActive(true);
         obj2.SetActive(false);
         obj3.SetActive(false);
@@ -727,6 +750,7 @@ public class level4 : MonoBehaviour
 
     public void closebok()
     {
+        PlayClickSfx();
         LeanTween.scale(midlebookopen, Vector3.zero, 0.2f).setOnComplete(() => {
             obj1.SetActive(true);
             obj2.SetActive(false);
@@ -741,6 +765,7 @@ public class level4 : MonoBehaviour
 
     public void openbook()
     {
+        PlayClickSfx();
         obj1.SetActive(true);
         obj2.SetActive(false);
         obj3.SetActive(false);
@@ -752,6 +777,7 @@ public class level4 : MonoBehaviour
 
     public void closeidea()
     {
+        PlayClickSfx();
         LeanTween.scale(midleideaopen, Vector3.zero, 0.2f).setOnComplete(() => {
             obj1.SetActive(true);
             obj2.SetActive(false);
@@ -765,6 +791,7 @@ public class level4 : MonoBehaviour
 
     public void openidea()
     {
+        PlayClickSfx();
         obj1.SetActive(true);
         obj2.SetActive(false);
         obj3.SetActive(false);
@@ -786,6 +813,7 @@ public class level4 : MonoBehaviour
     }
     public void continiuer()
     {
+        PlayClickSfx();
         if (initialSequenceStep == 0)
         {
             initialSequenceStep = 1;
@@ -898,6 +926,7 @@ public class level4 : MonoBehaviour
 
     public void cathelpbtn()
     {
+        PlayClickSfx();
         if (catbtn != null)
         {
             RawImage rawImg = catbtn.GetComponent<RawImage>();
@@ -946,6 +975,7 @@ public class level4 : MonoBehaviour
 
     public void ActivateObj2()
     {
+        PlayClickSfx();
         obj1.SetActive(false);
         obj2.SetActive(true);
         obj3.SetActive(false);
@@ -954,6 +984,7 @@ public class level4 : MonoBehaviour
 
     public void ActivateObj3()
     {
+        PlayClickSfx();
         obj1.SetActive(false);
         obj2.SetActive(false);
         obj3.SetActive(true);
@@ -962,6 +993,7 @@ public class level4 : MonoBehaviour
 
     public void ActivateObj4()
     {
+        PlayClickSfx();
         obj1.SetActive(false);
         obj2.SetActive(false);
         obj3.SetActive(false);
@@ -971,11 +1003,13 @@ public class level4 : MonoBehaviour
 
     public void returntointro()
     {
+        PlayClickSfx();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
     public void CloseIntroObj()
     {
+        PlayClickSfx();
         if (cattutor != null && cattutor.activeSelf)
         {
             return;
@@ -1023,6 +1057,7 @@ public class level4 : MonoBehaviour
 
     public void NextIntroStep()
     {
+        PlayClickSfx();
         if (cattutor != null && cattutor.activeSelf)
         {
             TutorNextStep();
@@ -1052,6 +1087,7 @@ public class level4 : MonoBehaviour
 
     public void PrevIntroStep()
     {
+        PlayClickSfx();
         if (cattutor != null && cattutor.activeSelf)
         {
             TutorPrevStep();

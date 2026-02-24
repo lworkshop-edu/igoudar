@@ -73,6 +73,14 @@ public class level2 : MonoBehaviour
     public GameObject tutortext;
     public bool startWithTutorial = true;
     private bool isTutorialActive = false;
+
+    private void PlayClickSfx()
+    {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayButtonClick();
+        }
+    }
     
     void Start()
     {
@@ -127,6 +135,7 @@ public class level2 : MonoBehaviour
 
     public void MissionButtonClicked()
     {
+        PlayClickSfx();
         if (isTutorialActive) return;
         if (mission != null) mission.SetActive(false);
         isMissionFlow = true;
@@ -167,6 +176,7 @@ public class level2 : MonoBehaviour
 
     public void OnTutor1Clicked()
     {
+        PlayClickSfx();
         if (!isTutorialActive) return;
         if (turo1 != null) turo1.SetActive(false);
         if (turo2 != null) turo2.SetActive(true);
@@ -178,6 +188,7 @@ public class level2 : MonoBehaviour
 
     public void OnTutor2Clicked()
     {
+        PlayClickSfx();
         if (!isTutorialActive) return;
         if (turo1 != null) turo1.SetActive(true);
         if (turo2 != null) turo2.SetActive(false);
@@ -189,6 +200,7 @@ public class level2 : MonoBehaviour
 
     public void CloseTutorAndBeginNormal()
     {
+        PlayClickSfx();
         tutortext.SetActive(false);
         if (countdownCoroutine != null)
         {
@@ -200,6 +212,7 @@ public class level2 : MonoBehaviour
 
     public void OnCorectBtnClicked()
     {
+        PlayClickSfx();
         if (!leftObjActive) return;
         if (keys == null || currentKeyIndex >= keys.Count) return;
         var key = keys[currentKeyIndex];
@@ -213,6 +226,7 @@ public class level2 : MonoBehaviour
 
         if (key.value) 
         {
+            if (AudioManager.Instance != null) AudioManager.Instance.PlayCorrect();
             SetKeyResultState(key.key, true);
             if (leftObj != null)
             {
@@ -235,6 +249,7 @@ public class level2 : MonoBehaviour
         }
         else
         {
+            if (AudioManager.Instance != null) AudioManager.Instance.PlayWrong();
             SetKeyResultState(key.key, false);
             if (leftObj != null)
             {
@@ -251,6 +266,7 @@ public class level2 : MonoBehaviour
 
     public void OnWrongBtnClicked()
     {
+        PlayClickSfx();
         if (!leftObjActive) return;
         if (keys == null || currentKeyIndex >= keys.Count) return;
         var key = keys[currentKeyIndex];
@@ -264,6 +280,7 @@ public class level2 : MonoBehaviour
 
         if (!key.value) 
         {
+            if (AudioManager.Instance != null) AudioManager.Instance.PlayCorrect();
             SetKeyResultState(key.key, true);
 
             if (leftObj != null)
@@ -287,6 +304,7 @@ public class level2 : MonoBehaviour
         }
         else
         {
+            if (AudioManager.Instance != null) AudioManager.Instance.PlayWrong();
             SetKeyResultState(key.key, false);
 
             if (leftObj != null)
@@ -356,6 +374,7 @@ public class level2 : MonoBehaviour
 
     public void OnWrongCloseClicked()
     {
+        PlayClickSfx();
         continiuertest(catwrong);
  
         if (countdownCoroutine != null)
@@ -382,6 +401,7 @@ public class level2 : MonoBehaviour
 
     public void OnContinueClicked()
     {
+        PlayClickSfx();
         continiuertest(catrcorect);
       
         if (countdownCoroutine != null)
@@ -496,6 +516,7 @@ public class level2 : MonoBehaviour
 
     public void ActivateObj1()
     {
+        PlayClickSfx();
         obj1.SetActive(true);
         obj2.SetActive(false);
         obj3.SetActive(false);
@@ -504,6 +525,7 @@ public class level2 : MonoBehaviour
 
     public void closebok()
     {
+        PlayClickSfx();
         LeanTween.scale(midlebookopen, Vector3.zero, 0.2f).setOnComplete(() => {
             obj1.SetActive(true);
             obj2.SetActive(false);
@@ -518,6 +540,7 @@ public class level2 : MonoBehaviour
 
     public void openbook()
     {
+        PlayClickSfx();
         obj1.SetActive(true);
         obj2.SetActive(false);
         obj3.SetActive(false);
@@ -529,6 +552,7 @@ public class level2 : MonoBehaviour
 
     public void closeidea()
     {
+        PlayClickSfx();
         LeanTween.scale(midleideaopen, Vector3.zero, 0.2f).setOnComplete(() => {
             obj1.SetActive(true);
             obj2.SetActive(false);
@@ -542,6 +566,7 @@ public class level2 : MonoBehaviour
 
     public void openidea()
     {
+        PlayClickSfx();
         obj1.SetActive(true);
         obj2.SetActive(false);
         obj3.SetActive(false);
@@ -563,6 +588,7 @@ public class level2 : MonoBehaviour
     }
     public void continiuer()
     {
+        PlayClickSfx();
         if (catbtn != null)
         {
             RawImage rawImg = catbtn.GetComponent<RawImage>();
@@ -682,6 +708,7 @@ public class level2 : MonoBehaviour
 
     public void cathelpbtn()
     {
+        PlayClickSfx();
         if (catbtn != null)
         {
             RawImage rawImg = catbtn.GetComponent<RawImage>();
@@ -730,6 +757,7 @@ public class level2 : MonoBehaviour
 
     public void ActivateObj2()
     {
+        PlayClickSfx();
         obj1.SetActive(false);
         obj2.SetActive(true);
         obj3.SetActive(false);
@@ -738,6 +766,7 @@ public class level2 : MonoBehaviour
 
     public void ActivateObj3()
     {
+        PlayClickSfx();
         obj1.SetActive(false);
         obj2.SetActive(false);
         obj3.SetActive(true);
@@ -746,6 +775,7 @@ public class level2 : MonoBehaviour
 
     public void ActivateObj4()
     {
+        PlayClickSfx();
         obj1.SetActive(false);
         obj2.SetActive(false);
         obj3.SetActive(false);
@@ -755,6 +785,7 @@ public class level2 : MonoBehaviour
 
     public void returntointro()
     {
+        PlayClickSfx();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
@@ -953,6 +984,8 @@ public class level2 : MonoBehaviour
                 }
                 SetCatText(catwrong, wrongtext, currentKeyIndex);
                 cathelpbtntest(catwrong);
+            if (AudioManager.Instance != null) AudioManager.Instance.PlayWrong();
+
                 countdownCoroutine = null;
             }
         }
