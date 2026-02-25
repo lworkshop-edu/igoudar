@@ -321,7 +321,10 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
 
     public void openidea()
     {
-        PlayClickSfx();
+          if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySpark();
+            }
         obj1.SetActive(true);
         obj2.SetActive(false);
         obj3.SetActive(false);
@@ -333,6 +336,10 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
     }
     public void opencongrats()
     {
+           if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlayCongrats();
+            }
         LevelProgression.UnlockNextLevel(3, 4);
 
         bookopen.SetActive(false);

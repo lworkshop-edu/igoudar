@@ -45,6 +45,7 @@ public class AudioManager : MonoBehaviour
     private readonly Dictionary<string, NamedClip> musicLookup = new Dictionary<string, NamedClip>();
     private readonly Dictionary<string, NamedClip> sfxLookup = new Dictionary<string, NamedClip>();
     private Coroutine fadeRoutine;
+    private SceneMusicEntry activeSceneMusicEntry;
 
     private void Awake()
     {
@@ -110,13 +111,16 @@ public class AudioManager : MonoBehaviour
 
         if (match != null)
         {
+            activeSceneMusicEntry = match;
             PlayMusicById(match.musicId, match.loop, match.fadeDuration, match.volume);
             return;
         }
 
         if (!string.IsNullOrEmpty(defaultMusicId))
         {
-            PlayMusicById(defaultMusicId);
+            float fallbackFade = activeSceneMusicEntry != null ? activeSceneMusicEntry.fadeDuration : 0.25f;
+            activeSceneMusicEntry = null;
+            PlayMusicById(defaultMusicId, true, fallbackFade);
         }
     }
 
@@ -323,5 +327,13 @@ public class AudioManager : MonoBehaviour
     public void PlayWrong()
     {
         PlaySfxById("wrong");
+    }
+    public void PlayCongrats()
+    {
+        PlaySfxById("congrats");
+    }
+    public void PlaySpark()
+    {
+        PlaySfxById("spark");
     }
 }

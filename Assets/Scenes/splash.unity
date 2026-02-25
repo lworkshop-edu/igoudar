@@ -152,9 +152,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicClips:
-  - id: 
-    clip: {fileID: 0}
-    volume: 0
+  - id: background
+    clip: {fileID: 8300000, guid: 5d734f044b2144392931cdd1461504da, type: 3}
+    volume: 0.507
+  - id: background2
+    clip: {fileID: 8300000, guid: 975e82654477b48ea8cec8e49442fc68, type: 3}
+    volume: 0.507
   sfxClips:
   - id: ui_click
     clip: {fileID: 8300000, guid: dc3b574a6921a41bfb286b487cb79570, type: 3}
@@ -165,9 +168,21 @@ MonoBehaviour:
   - id: wrong
     clip: {fileID: 8300000, guid: 40010da8a04344cf39b865a34de32cd6, type: 3}
     volume: 1
+  - id: spark
+    clip: {fileID: 8300000, guid: adb567e2543b64fad8f1ce6872fbab5b, type: 3}
+    volume: 0.367
+  - id: congrats
+    clip: {fileID: 8300000, guid: fc093c33fe1314518ae9b76ec4734c49, type: 3}
+    volume: 1
   autoPlaySceneMusic: 1
-  defaultMusicId: 
-  sceneMusic: []
+  defaultMusicId: background
+  sceneMusic:
+  - sceneName: evel1
+    buildIndex: 3
+    musicId: background2
+    volume: 1
+    loop: 1
+    fadeDuration: 1
   musicVolume: 1
   sfxVolume: 1
 --- !u!4 &183010698
@@ -654,7 +669,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.9998779, y: -0.5}
+  m_AnchoredPosition: {x: 1, y: -0.5}
   m_SizeDelta: {x: 2, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1663533458

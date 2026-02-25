@@ -522,7 +522,10 @@ public class level1 : MonoBehaviour
 
     public void openidea()
     {
-        PlayClickSfx();
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySpark();
+        }
         obj1.SetActive(true);
         obj2.SetActive(false);
         obj3.SetActive(false);
@@ -535,7 +538,10 @@ public class level1 : MonoBehaviour
     public void opencongrats()
     {
         LevelProgression.UnlockNextLevel(1, 4);
-
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlayCongrats();
+            }
         bookopen.SetActive(false);
         ideaopen.SetActive(false);
         congrats.SetActive(true);
