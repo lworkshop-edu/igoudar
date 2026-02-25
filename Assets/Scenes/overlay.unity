@@ -738,7 +738,7 @@ MonoBehaviour:
   - {fileID: 1821831488}
   - {fileID: 121177185}
   - {fileID: 540900984}
-  saveUnlockedLevels: 0
+  saveUnlockedLevels: 1
   levelButtonImages:
   - {fileID: 2800000, guid: 3af4a539934264210ada0034fa2a9c10, type: 3}
   - {fileID: 2800000, guid: d02ee15481a8843f8a6f289d1c72891c, type: 3}
