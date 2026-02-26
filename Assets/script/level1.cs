@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 public class level1 : MonoBehaviour
 {
@@ -26,7 +27,10 @@ public class level1 : MonoBehaviour
 
     public List<KeyValue> keys;
 
-    private int currentKeyIndex = 0;
+    private int selectedDoorNumber = -1;
+    private HashSet<int> solvedDoorNumbers = new HashSet<int>();
+    private HashSet<GameObject> knownKeyObjects = new HashSet<GameObject>();
+    private HashSet<GameObject> solvedKeyObjects = new HashSet<GameObject>();
 
 
   
@@ -53,7 +57,7 @@ public class level1 : MonoBehaviour
     public GameObject catwrong;//have close btn on secondchild
     public GameObject catrcorect;//have continue btn on secondchild
 
-    public List<GameObject> doorsObjs; // have corect , wrong as child 
+    public List<GameObject> doorsObjs;
 
     public List<string> corectext;
     public List<string> wrongtext;
@@ -93,10 +97,11 @@ public class level1 : MonoBehaviour
         // Load saved slider value
         changecanfiance = PlayerPrefs.GetFloat("changecanfiance", changecanfiance);
 
-        if (keys != null && keys.Count > 0 && keys[0].key != null)
-        {
-            SetKeyChildActive(keys[0].key, "hovered");
-        }
+        solvedDoorNumbers.Clear();
+        knownKeyObjects.Clear();
+        solvedKeyObjects.Clear();
+        ClearAllDoorStates();
+        RefreshKeyVisualStates();
 
         StartTutorial();
     }
@@ -128,69 +133,144 @@ public class level1 : MonoBehaviour
 
         if ((catwrong != null && catwrong.activeSelf) || (catrcorect != null && catrcorect.activeSelf))
             return;
-        if (keys == null || currentKeyIndex >= keys.Count) return;
-        var key = keys[currentKeyIndex];
-        if (key == null || key.key == null) return;
 
+        if (doorsObjs == null || doorsObjs.Count == 0) return;
 
-        int doorIndex = doornumber - 1;
-       
-        for (int i = 0; i < doorsObjs.Count; i++)
+        int normalizedDoorNumber = NormalizeToDoorNumber(doornumber);
+        if (normalizedDoorNumber < 1) return;
+
+        selectedDoorNumber = normalizedDoorNumber;
+        UpdateDoorSelectionVisuals(selectedDoorNumber - 1);
+    }
+    public void KeyClicked(GameObject keyObj)
+    {
+        int keyNumber;
+        if (!TryGetKeyNumberFromObject(keyObj, out keyNumber))
         {
-            if (doorsObjs[i] != null)
-            {
-                Transform correctChild = null, wrongChild = null;
-                for (int j = 0; j < doorsObjs[i].transform.childCount; j++)
-                {
-                    var child = doorsObjs[i].transform.GetChild(j);
-                    if (child.name.ToLower().Contains("corect"))
-                        correctChild = child;
-                    else if (child.name.ToLower().Contains("wrong"))
-                        wrongChild = child;
-                }
-                if (i == doorIndex)
-                {
-                    if (key.value == doornumber.ToString())
-                    {
-                        if (correctChild != null) correctChild.gameObject.SetActive(true);
-                        if (wrongChild != null) wrongChild.gameObject.SetActive(false);
-                    }
-                    else
-                    {
-                        if (correctChild != null) correctChild.gameObject.SetActive(false);
-                        if (wrongChild != null) wrongChild.gameObject.SetActive(true);
-                    }
-                }
-                else
-                {
-                    if (correctChild != null) correctChild.gameObject.SetActive(false);
-                    if (wrongChild != null) wrongChild.gameObject.SetActive(false);
-                }
-            }
+            return;
         }
 
-        if (key.value == doornumber.ToString())
+        HandleKeyClicked(keyObj, keyNumber);
+    }
+
+    public void KeyClicked(int keyNumber)
+    {
+        HandleKeyClicked(GetClickedKeyObjectFromEvent(), keyNumber);
+    }
+
+    private void HandleKeyClicked(GameObject keyObj, int keyNumber)
+    {
+        PlayClickSfx();
+        if (isTutorialActive)
+            return;
+
+        if ((catwrong != null && catwrong.activeSelf) || (catrcorect != null && catrcorect.activeSelf))
+            return;
+
+        if (selectedDoorNumber < 1)
+            return;
+
+        int normalizedKeyDoorNumber = NormalizeToDoorNumber(keyNumber);
+        if (normalizedKeyDoorNumber < 1)
+            return;
+
+        GameObject clickedKeyObj = ResolveKeyVisualObject(keyObj);
+        if (clickedKeyObj == null)
         {
-            SetKeyChildActive(key.key, "corect");
+            return;
+        }
+
+        knownKeyObjects.Add(clickedKeyObj);
+
+        HighlightSelectedKey(clickedKeyObj);
+
+        bool isCorrect = normalizedKeyDoorNumber == selectedDoorNumber;
+        ShowDoorResult(selectedDoorNumber - 1, isCorrect);
+
+        int feedbackIndex = selectedDoorNumber - 1;
+
+        if (isCorrect)
+        {
+            solvedDoorNumbers.Add(selectedDoorNumber);
+            if (clickedKeyObj != null)
+            {
+                solvedKeyObjects.Add(clickedKeyObj);
+                SetKeyChildActive(clickedKeyObj, "corect");
+                SetKeyInteractable(clickedKeyObj, false);
+            }
             if (AudioManager.Instance != null) AudioManager.Instance.PlayCorrect();
-         
+
             cathelpbtntest(catrcorect);
-            catrcorect.transform.GetChild(0).gameObject.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = corectext[currentKeyIndex];
+            SetCatDialogText(catrcorect, corectext, feedbackIndex);
             catbtn.SetActive(true);
             cathelp.SetActive(false);
             catwrong.SetActive(false);
         }
         else
         {
-            SetKeyChildActive(key.key, "wrong");
+            if (clickedKeyObj != null)
+            {
+                SetKeyChildActive(clickedKeyObj, "wrong");
+            }
             if (AudioManager.Instance != null) AudioManager.Instance.PlayWrong();
+
             cathelpbtntest(catwrong);
-            catwrong.transform.GetChild(0).gameObject.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = wrongtext[currentKeyIndex];
-           // catwrong.SetActive(true);
+            SetCatDialogText(catwrong, wrongtext, feedbackIndex);
             cathelp.SetActive(false);
             catbtn.SetActive(true);
             catrcorect.SetActive(false);
         }
+    }
+
+    private bool TryGetKeyNumberFromObject(GameObject keyObj, out int keyNumber)
+    {
+        keyNumber = -1;
+        if (keyObj == null)
+            return false;
+
+        if (TryParseFirstInteger(keyObj.name, out keyNumber))
+            return true;
+
+        TMP_Text tmpText = keyObj.GetComponentInChildren<TMP_Text>(true);
+        if (tmpText != null && TryParseFirstInteger(tmpText.text, out keyNumber))
+            return true;
+
+        Text legacyText = keyObj.GetComponentInChildren<Text>(true);
+        if (legacyText != null && TryParseFirstInteger(legacyText.text, out keyNumber))
+            return true;
+
+        return false;
+    }
+
+    private bool TryParseFirstInteger(string value, out int number)
+    {
+        number = -1;
+        if (string.IsNullOrEmpty(value))
+            return false;
+
+        int start = -1;
+        int length = 0;
+        for (int i = 0; i < value.Length; i++)
+        {
+            if (char.IsDigit(value[i]))
+            {
+                if (start < 0)
+                {
+                    start = i;
+                }
+                length++;
+            }
+            else if (start >= 0)
+            {
+                break;
+            }
+        }
+
+        if (start < 0 || length <= 0)
+            return false;
+
+        string numberText = value.Substring(start, length);
+        return int.TryParse(numberText, out number);
     }
 
     public void OnWrongCloseClicked()
@@ -200,22 +280,9 @@ public class level1 : MonoBehaviour
         continiuertest(catwrong);
 
         
-        for (int i = 0; i < doorsObjs.Count; i++)
-        {
-            if (doorsObjs[i] != null)
-            {
-                for (int j = 0; j < doorsObjs[i].transform.childCount; j++)
-                {
-                    var child = doorsObjs[i].transform.GetChild(j);
-                    if (child.name.ToLower().Contains("corect") || child.name.ToLower().Contains("wrong"))
-                        child.gameObject.SetActive(false);
-                }
-            }
-        }
-        if (keys != null && currentKeyIndex < keys.Count && keys[currentKeyIndex].key != null)
-        {
-            SetKeyChildActive(keys[currentKeyIndex].key, "hovered");
-        }
+        ClearAllDoorStates();
+        RefreshKeyVisualStates();
+        selectedDoorNumber = -1;
     }
 
     public void OnContinueClicked()
@@ -224,26 +291,11 @@ public class level1 : MonoBehaviour
         // catrcorect.SetActive(false);
         continiuertest(catrcorect);
        
-        for (int i = 0; i < doorsObjs.Count; i++)
-        {
-            if (doorsObjs[i] != null)
-            {
-                for (int j = 0; j < doorsObjs[i].transform.childCount; j++)
-                {
-                    var child = doorsObjs[i].transform.GetChild(j);
-                    if (child.name.ToLower().Contains("corect") || child.name.ToLower().Contains("wrong"))
-                        child.gameObject.SetActive(false);
-                }
-            }
-        }
-        currentKeyIndex++;
-        if (keys != null && currentKeyIndex < keys.Count)
-        {
-      
-            if (keys[currentKeyIndex].key != null)
-                SetKeyChildActive(keys[currentKeyIndex].key, "hovered");
-        }
-        else
+        ClearAllDoorStates();
+        RefreshKeyVisualStates();
+        selectedDoorNumber = -1;
+
+        if (AreAllKeysSolved())
         {
             opencongrats();
         }
@@ -251,10 +303,273 @@ public class level1 : MonoBehaviour
     private void SetKeyChildActive(GameObject keyObj, string childName)
     {
         if (keyObj == null) return;
-        for (int i = 0; i < keyObj.transform.childCount -1; i++)
+        bool disableAll = string.IsNullOrEmpty(childName);
+        for (int i = 0; i < keyObj.transform.childCount; i++)
         {
             var child = keyObj.transform.GetChild(i).gameObject;
-            child.SetActive(child.name.ToLower().Contains(childName.ToLower()));
+            string childLower = child.name.ToLower();
+            bool isStateChild = childLower.Contains("corect") || childLower.Contains("wrong") || childLower.Contains("hovered") || childLower.Contains("select");
+            if (!isStateChild)
+            {
+                continue;
+            }
+
+            if (disableAll)
+            {
+                child.SetActive(false);
+            }
+            else
+            {
+                child.SetActive(childLower.Contains(childName.ToLower()));
+            }
+        }
+    }
+
+    private void SetCatDialogText(GameObject catObj, List<string> texts, int index)
+    {
+        if (catObj == null || texts == null || index < 0 || index >= texts.Count)
+            return;
+
+        Transform textRoot = catObj.transform.GetChild(0).transform.GetChild(0);
+        if (textRoot == null)
+            return;
+
+        TextMeshProUGUI textComponent = textRoot.GetComponent<TextMeshProUGUI>();
+        if (textComponent != null)
+        {
+            textComponent.text = texts[index];
+        }
+    }
+
+    private void HighlightSelectedKey(GameObject selectedKeyObj)
+    {
+        if (knownKeyObjects == null) return;
+
+        foreach (var keyObj in knownKeyObjects)
+        {
+            if (keyObj == null) continue;
+
+            if (solvedKeyObjects.Contains(keyObj))
+            {
+                SetKeyChildActive(keyObj, "corect");
+            }
+            else if (keyObj == selectedKeyObj)
+            {
+                SetKeyChildActive(keyObj, "hovered");
+            }
+            else
+            {
+                SetKeyChildActive(keyObj, null);
+            }
+        }
+    }
+
+    private void ClearAllKeyStates()
+    {
+        if (keys == null) return;
+
+        for (int i = 0; i < keys.Count; i++)
+        {
+            if (keys[i] == null || keys[i].key == null) continue;
+            SetKeyChildActive(keys[i].key, null);
+        }
+    }
+
+    private void RefreshKeyVisualStates()
+    {
+        if (knownKeyObjects == null) return;
+
+        foreach (var keyObj in knownKeyObjects)
+        {
+            if (keyObj == null) continue;
+
+            if (solvedKeyObjects.Contains(keyObj))
+            {
+                SetKeyChildActive(keyObj, "corect");
+            }
+            else
+            {
+                SetKeyChildActive(keyObj, null);
+            }
+        }
+    }
+
+    private bool AreAllKeysSolved()
+    {
+        if (doorsObjs == null || doorsObjs.Count == 0) return false;
+        return solvedDoorNumbers.Count >= doorsObjs.Count;
+    }
+
+    private int NormalizeToDoorNumber(int rawNumber)
+    {
+        if (doorsObjs == null || doorsObjs.Count == 0) return -1;
+
+        if (rawNumber >= 1 && rawNumber <= doorsObjs.Count)
+        {
+            return rawNumber;
+        }
+
+        if (rawNumber >= 0 && rawNumber < doorsObjs.Count)
+        {
+            return rawNumber + 1;
+        }
+
+        return -1;
+    }
+
+    private GameObject GetClickedKeyObjectFromEvent()
+    {
+        if (EventSystem.current == null)
+        {
+            return null;
+        }
+
+        return ResolveKeyVisualObject(EventSystem.current.currentSelectedGameObject);
+    }
+
+    private GameObject ResolveKeyVisualObject(GameObject inputObj)
+    {
+        if (inputObj == null)
+        {
+            return null;
+        }
+
+        if (HasKeyStateChild(inputObj.transform))
+        {
+            return inputObj;
+        }
+
+        for (int i = 0; i < inputObj.transform.childCount; i++)
+        {
+            Transform child = inputObj.transform.GetChild(i);
+            if (HasKeyStateChild(child))
+            {
+                return child.gameObject;
+            }
+        }
+
+        Transform parent = inputObj.transform.parent;
+        while (parent != null)
+        {
+            if (HasKeyStateChild(parent))
+            {
+                return parent.gameObject;
+            }
+            parent = parent.parent;
+        }
+
+        return null;
+    }
+
+    private bool HasKeyStateChild(Transform root)
+    {
+        if (root == null)
+        {
+            return false;
+        }
+
+        for (int i = 0; i < root.childCount; i++)
+        {
+            string childName = root.GetChild(i).name.ToLower();
+            if (childName.Contains("corect") || childName.Contains("wrong") || childName.Contains("hovered") || childName.Contains("select"))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void SetKeyInteractable(GameObject keyObj, bool isInteractable)
+    {
+        if (keyObj == null) return;
+
+        var parentButton = keyObj.transform.parent != null ? keyObj.transform.parent.GetComponent<Button>() : null;
+        if (parentButton != null)
+        {
+            parentButton.interactable = isInteractable;
+        }
+
+        var button = keyObj.GetComponent<Button>();
+        if (button != null)
+        {
+            button.interactable = isInteractable;
+        }
+
+        var childButtons = keyObj.GetComponentsInChildren<Button>(true);
+        for (int i = 0; i < childButtons.Length; i++)
+        {
+            childButtons[i].interactable = isInteractable;
+        }
+    }
+
+    private void UpdateDoorSelectionVisuals(int selectedDoorIndex)
+    {
+        if (doorsObjs == null) return;
+
+        for (int i = 0; i < doorsObjs.Count; i++)
+        {
+            var door = doorsObjs[i];
+            if (door == null) continue;
+
+            bool isSelected = i == selectedDoorIndex;
+            SetDoorChildrenState(door, false, false, isSelected);
+        }
+    }
+
+    private void ShowDoorResult(int doorIndex, bool isCorrect)
+    {
+        if (doorsObjs == null) return;
+
+        for (int i = 0; i < doorsObjs.Count; i++)
+        {
+            var door = doorsObjs[i];
+            if (door == null) continue;
+
+            if (i == doorIndex)
+            {
+                SetDoorChildrenState(door, isCorrect, !isCorrect, false);
+            }
+            else
+            {
+                SetDoorChildrenState(door, false, false, false);
+            }
+        }
+    }
+
+    private void ClearAllDoorStates()
+    {
+        if (doorsObjs == null) return;
+
+        for (int i = 0; i < doorsObjs.Count; i++)
+        {
+            var door = doorsObjs[i];
+            if (door == null) continue;
+            SetDoorChildrenState(door, false, false, false);
+        }
+    }
+
+    private void SetDoorChildrenState(GameObject door, bool showCorrect, bool showWrong, bool showSelect)
+    {
+        if (door == null) return;
+
+        for (int i = 0; i < door.transform.childCount; i++)
+        {
+            var child = door.transform.GetChild(i);
+            string childName = child.name.ToLower();
+
+            if (childName.Contains("corect"))
+            {
+                child.gameObject.SetActive(showCorrect);
+            }
+            else if (childName.Contains("wrong"))
+            {
+                child.gameObject.SetActive(showWrong);
+            }
+            else if (childName.Contains("select"))
+            {
+                child.gameObject.SetActive(showSelect);
+            }
         }
     }
 
