@@ -60,7 +60,7 @@ public class overlay : MonoBehaviour
         bookopen.SetActive(false);
         if (catwisper != null && !catwisper.activeSelf)
         {
-            Invoke("cathelpbtn", 1f);
+            Invoke(nameof(ShowCatHelpFromScript), 1f);
         }
         else
         {
@@ -154,7 +154,7 @@ public class overlay : MonoBehaviour
                        catwisper.SetActive(false);
                        
                        // Show cathelp after catwisper is hidden
-                       cathelpbtn();
+                       ShowCatHelpPanel();
                     });
         
     }
@@ -214,6 +214,16 @@ public class overlay : MonoBehaviour
          public void cathelpbtn()
     {
             PlayClickSfx();
+            ShowCatHelpPanel();
+    }
+
+    private void ShowCatHelpFromScript()
+    {
+        ShowCatHelpPanel();
+    }
+
+    private void ShowCatHelpPanel()
+    {
             if (catbtn != null)
         {
             RawImage rawImg = catbtn.GetComponent<RawImage>();
@@ -453,7 +463,7 @@ public class overlay : MonoBehaviour
     
     public void OnLevelSelect(GameObject levelBtn)
     {
-        PlayClickSfx();
+        
         if (!IsLevelUnlocked(levelBtn)) return;
         if (levelBtn == null) return;
         

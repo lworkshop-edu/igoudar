@@ -154,23 +154,23 @@ MonoBehaviour:
   musicClips:
   - id: background
     clip: {fileID: 8300000, guid: 5d734f044b2144392931cdd1461504da, type: 3}
-    volume: 0.507
+    volume: 0.384
   - id: background2
     clip: {fileID: 8300000, guid: 975e82654477b48ea8cec8e49442fc68, type: 3}
-    volume: 0.507
+    volume: 0.378
   sfxClips:
   - id: ui_click
     clip: {fileID: 8300000, guid: dc3b574a6921a41bfb286b487cb79570, type: 3}
     volume: 1
   - id: correct
     clip: {fileID: 8300000, guid: 1b7e22d269b394a4b9c8a1d8bb5908c2, type: 3}
-    volume: 1
+    volume: 0.337
   - id: wrong
     clip: {fileID: 8300000, guid: 40010da8a04344cf39b865a34de32cd6, type: 3}
-    volume: 1
+    volume: 0.344
   - id: spark
     clip: {fileID: 8300000, guid: adb567e2543b64fad8f1ce6872fbab5b, type: 3}
-    volume: 0.367
+    volume: 0.289
   - id: congrats
     clip: {fileID: 8300000, guid: fc093c33fe1314518ae9b76ec4734c49, type: 3}
     volume: 1
@@ -180,10 +180,10 @@ MonoBehaviour:
   - sceneName: evel1
     buildIndex: 3
     musicId: background2
-    volume: 1
+    volume: 0.69
     loop: 1
-    fadeDuration: 1
-  musicVolume: 1
+    fadeDuration: 0.5
+  musicVolume: 0.899
   sfxVolume: 1
 --- !u!4 &183010698
 Transform:
