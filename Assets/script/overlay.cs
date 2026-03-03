@@ -41,6 +41,7 @@ public class overlay : MonoBehaviour
     public List<GameObject> leveles ; 
     public bool saveUnlockedLevels = true;
     public List<Texture2D> levelButtonImages ;
+    public List<Texture2D> levelButtonImagesvalidate ;
 
     private void PlayClickSfx()
     {
@@ -511,17 +512,17 @@ public class overlay : MonoBehaviour
                 levelButton.interactable = isUnlocked;
             }
 
-            if (isUnlocked && i < levelButtonImages.Count)
+            if (isUnlocked)
             {
-                Texture sprite = levelButtonImages[i];
-                if (sprite != null)
+                Texture2D textureToApply = GetLevelButtonTexture(i, leveles.Count);
+                if (textureToApply != null)
                 {
                     RawImage targetImage = levelObj.GetComponent<RawImage>();
 
 
                     if (targetImage != null)
                     {
-                        targetImage.texture = sprite;
+                        targetImage.texture = textureToApply;
                     }
                 }
             }
@@ -568,19 +569,54 @@ public class overlay : MonoBehaviour
         RefreshLevelButtons();
     }
 
+    public void QuitGame()
+    {
+        PlayClickSfx();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+
+    private Texture2D GetLevelButtonTexture(int levelIndex, int totalLevels)
+    {
+        if (levelIndex < 0)
+        {
+            return null;
+        }
+
+        bool isCompleted = LevelProgression.IsLevelCompleted(levelIndex + 1, totalLevels);
+        if (isCompleted && levelButtonImagesvalidate != null && levelIndex < levelButtonImagesvalidate.Count)
+        {
+            Texture2D validatedTexture = levelButtonImagesvalidate[levelIndex];
+            if (validatedTexture != null)
+            {
+                return validatedTexture;
+            }
+        }
+
+        if (levelButtonImages != null && levelIndex < levelButtonImages.Count)
+        {
+            return levelButtonImages[levelIndex];
+        }
+
+        return null;
+    }
+
     public void ApplyLevelImagesFromList()
     {
-        if (leveles == null || levelButtonImages == null)
+        if (leveles == null)
         {
             return;
         }
 
         int unlockedLevelsCount = LevelProgression.GetUnlockedLevelsCount(leveles.Count);
-        int count = Mathf.Min(unlockedLevelsCount, levelButtonImages.Count);
+        int count = Mathf.Min(unlockedLevelsCount, leveles.Count);
         for (int i = 0; i < count; i++)
         {
             GameObject levelObj = leveles[i];
-            Texture2D sprite = levelButtonImages[i];
+            Texture2D sprite = GetLevelButtonTexture(i, leveles.Count);
             if (levelObj == null || sprite == null)
             {
                 continue;
