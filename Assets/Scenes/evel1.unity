@@ -13497,7 +13497,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1583737348
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14527,7 +14527,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: epreuve description
+  m_text: "Vous devez associer chaque cl\xE9 \xE0 la porte qui lui correspond.\L"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 797455d5e8b114e508ab3e6277efac56, type: 2}
   m_sharedMaterial: {fileID: 8224217641005013099, guid: 797455d5e8b114e508ab3e6277efac56, type: 2}
