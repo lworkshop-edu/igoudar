@@ -560,6 +560,7 @@ public class overlay : MonoBehaviour
 
         int unlockedLevelsCount = LevelProgression.GetUnlockedLevelsCount(leveles.Count);
         return index < unlockedLevelsCount;
+        
     }
 
     public void ResetProgress()

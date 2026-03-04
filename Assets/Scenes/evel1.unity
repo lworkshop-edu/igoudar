@@ -1730,14 +1730,14 @@ MonoBehaviour:
   - "<b>Bravo !</b><br>\LLa porte s\u2019ouvre. La cl\xE9 s\u2019ajuste parfaitement
     et le symbole a \xE9t\xE9 bien reconnu. Chaque d\xE9tail compte dans l\u2019agadir."
   wrongtext:
-  - "<b>V\xE9rification N\xE9cessaire</b><br>\Lthe answer is wrong so now you need
-    to click on reesayer to to repeat"
-  - "<b>V\xE9rification N\xE9cessaire</b><br>\Lthe answer is wrong so now you need
-    to click on reesayer to to repeat"
-  - "<b>V\xE9rification N\xE9cessaire</b><br>\Lthe answer is wrong so now you need
-    to click on reesayer to to repeat"
-  - "<b>V\xE9rification N\xE9cessaire</b><br>\Lthe answer is wrong so now you need
-    to click on reesayer to to repeat"
+  - "<b>V\xE9rification N\xE9cessaire</b><br>\LCette cl\xE9 ne correspond pas. Regarde
+    attentivement les formes et les lignes du symbole avant de r\xE9essayer."
+  - "<b>V\xE9rification N\xE9cessaire</b><br>\LCette cl\xE9 ne correspond pas. Regarde
+    attentivement les formes et les lignes du symbole avant de r\xE9essayer."
+  - "<b>V\xE9rification N\xE9cessaire</b><br>\LCette cl\xE9 ne correspond pas. Regarde
+    attentivement les formes et les lignes du symbole avant de r\xE9essayer."
+  - "<b>V\xE9rification N\xE9cessaire</b><br>\LCette cl\xE9 ne correspond pas. Regarde
+    attentivement les formes et les lignes du symbole avant de r\xE9essayer."
   tutor1: {fileID: 831541194}
   tutor2: {fileID: 1631748827}
   tutor3: {fileID: 172366333}
@@ -3638,8 +3638,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "<b>V\xE9rification N\xE9cessaire</b><br>\Lthe answer is wrong so now you
-    need to click on reesayer to to repeat"
+  m_text: "<b>V\xE9rification N\xE9cessaire</b><br>\LCette cl\xE9 ne correspond pas.
+    Regarde attentivement les formes et les lignes du symbole avant de r\xE9essayer."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 797455d5e8b114e508ab3e6277efac56, type: 2}
   m_sharedMaterial: {fileID: 8224217641005013099, guid: 797455d5e8b114e508ab3e6277efac56, type: 2}
@@ -3666,8 +3666,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41.9
-  m_fontSizeBase: 41.9
+  m_fontSize: 36.4
+  m_fontSizeBase: 36.4
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
