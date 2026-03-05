@@ -138,6 +138,7 @@ public class level1 : MonoBehaviour
 
         int normalizedDoorNumber = NormalizeToDoorNumber(doornumber);
         if (normalizedDoorNumber < 1) return;
+        if (solvedDoorNumbers.Contains(normalizedDoorNumber)) return;
 
         selectedDoorNumber = normalizedDoorNumber;
         UpdateDoorSelectionVisuals(selectedDoorNumber - 1);
@@ -192,6 +193,10 @@ public class level1 : MonoBehaviour
         if (isCorrect)
         {
             solvedDoorNumbers.Add(selectedDoorNumber);
+            if (selectedDoorNumber - 1 >= 0 && selectedDoorNumber - 1 < doorsObjs.Count)
+            {
+                SetDoorInteractable(doorsObjs[selectedDoorNumber - 1], false);
+            }
             if (clickedKeyObj != null)
             {
                 solvedKeyObjects.Add(clickedKeyObj);
@@ -394,6 +399,11 @@ public class level1 : MonoBehaviour
         }
     }
 
+    private bool IsDoorSolved(int doorIndex)
+    {
+        return solvedDoorNumbers.Contains(doorIndex + 1);
+    }
+
     private bool AreAllKeysSolved()
     {
         if (doorsObjs == null || doorsObjs.Count == 0) return false;
@@ -512,8 +522,9 @@ public class level1 : MonoBehaviour
             var door = doorsObjs[i];
             if (door == null) continue;
 
+            bool isSolved = IsDoorSolved(i);
             bool isSelected = i == selectedDoorIndex;
-            SetDoorChildrenState(door, false, false, isSelected);
+            SetDoorChildrenState(door, false, false, isSelected && !isSolved, isSolved);
         }
     }
 
@@ -528,11 +539,13 @@ public class level1 : MonoBehaviour
 
             if (i == doorIndex)
             {
-                SetDoorChildrenState(door, isCorrect, !isCorrect, false);
+                bool isSolved = IsDoorSolved(i);
+                SetDoorChildrenState(door, isCorrect, !isCorrect, false, isSolved);
             }
             else
             {
-                SetDoorChildrenState(door, false, false, false);
+                bool isSolved = IsDoorSolved(i);
+                SetDoorChildrenState(door, false, false, false, isSolved);
             }
         }
     }
@@ -545,11 +558,13 @@ public class level1 : MonoBehaviour
         {
             var door = doorsObjs[i];
             if (door == null) continue;
-            SetDoorChildrenState(door, false, false, false);
+            bool isSolved = IsDoorSolved(i);
+            SetDoorChildrenState(door, false, false, false, isSolved);
+            SetDoorInteractable(door, !isSolved);
         }
     }
 
-    private void SetDoorChildrenState(GameObject door, bool showCorrect, bool showWrong, bool showSelect)
+    private void SetDoorChildrenState(GameObject door, bool showCorrect, bool showWrong, bool showSelect, bool showDone)
     {
         if (door == null) return;
 
@@ -570,6 +585,33 @@ public class level1 : MonoBehaviour
             {
                 child.gameObject.SetActive(showSelect);
             }
+            else if (childName.Contains("done"))
+            {
+                child.gameObject.SetActive(showDone);
+            }
+        }
+    }
+
+    private void SetDoorInteractable(GameObject door, bool isInteractable)
+    {
+        if (door == null) return;
+
+        var parentButton = door.transform.parent != null ? door.transform.parent.GetComponent<Button>() : null;
+        if (parentButton != null)
+        {
+            parentButton.interactable = isInteractable;
+        }
+
+        var button = door.GetComponent<Button>();
+        if (button != null)
+        {
+            button.interactable = isInteractable;
+        }
+
+        var childButtons = door.GetComponentsInChildren<Button>(true);
+        for (int i = 0; i < childButtons.Length; i++)
+        {
+            childButtons[i].interactable = isInteractable;
         }
     }
 
