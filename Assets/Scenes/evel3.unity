@@ -815,7 +815,7 @@ MonoBehaviour:
   answer2: {fileID: 9381418}
   answer3: {fileID: 1691707741}
   questions:
-  - toptext: "Acc\xE8s hors r\xE8gles contradictoires"
+  - toptext: "Acc\xE8s hors r\xE8gles"
     numberofquest: 1
     quest: "Un membre entre dans l\u2019agadir la nuit, sans pr\xE9venir le gardien.
       Aucun vol n\u2019est prouv\xE9, mais l\u2019inqui\xE9tude grandit."
@@ -872,6 +872,22 @@ MonoBehaviour:
   wrongcatText: {fileID: 461010572}
   corectcatText: {fileID: 619052967}
   feedbacks:
+  - choiceLetter: B
+    feedbackText: "L\u2019azref privil\xE9gie la r\xE9paration plut\xF4t que la punition.
+      Rappeler la r\xE8gle suffit \xE0 r\xE9tablir la confiance."
+  - choiceLetter: B
+    feedbackText: "Corriger l\u2019erreur prot\xE8ge l\u2019\xE9quit\xE9 sans humilier.La
+      transparence est essentielle dans l\u2019azref."
+  - choiceLetter: C
+    feedbackText: "En temps de crise, l\u2019azref s\u2019adapte. La d\xE9cision
+      collective pr\xE9serve la coh\xE9sion et prot\xE8ge les plus fragiles."
+  - choiceLetter: C
+    feedbackText: "Sans preuve, l\u2019azref \xE9vite l\u2019accusation. Le dialogue
+      restaure la confiance sans injustice."
+  - choiceLetter: C
+    feedbackText: "Sans certitude, mieux vaut attendre. Une sanction injuste briserait
+      l\u2019harmonie du groupe."
+  wrongFeedbacks:
   - choiceLetter: B
     feedbackText: "Dans l\u2019azref, on cherche d\u2019abord \xE0 r\xE9parer plut\xF4t
       qu\u2019\xE0 punir. Une r\xE9paration et un rappel des r\xE8gles suffisent
@@ -1389,8 +1405,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 5, y: -128}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 133.90698, y: -128}
+  m_SizeDelta: {x: 457.8138, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &334462710
 MonoBehaviour:
@@ -1475,7 +1491,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -152.12671, y: -31.731934, z: -188.52539, w: 0}
+  m_margin: {x: -152.12671, y: -31.731934, z: 3.402832, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -4938,9 +4954,9 @@ RectTransform:
   - {fileID: 9381417}
   m_Father: {fileID: 1737336624}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 788.71875, y: -433.24097}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1577.4375, y: 237.242}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &730008547
@@ -5433,7 +5449,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &852420241
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6111,9 +6127,9 @@ RectTransform:
   - {fileID: 1575658480}
   m_Father: {fileID: 1737336624}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 788.71875, y: -118.621}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1577.4375, y: 237.242}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &957879344
@@ -10878,9 +10894,9 @@ RectTransform:
   - {fileID: 1691707740}
   m_Father: {fileID: 1737336624}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 788.71875, y: -747.86096}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1577.4375, y: 237.242}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1865054035

@@ -32,6 +32,7 @@ public class level2 : MonoBehaviour
     public List<GameObject> leftTexts; // assign in inspector: text1, text2, text3, text4
     private int countdown = 3;
     private Coroutine countdownCoroutine;
+    private Coroutine autoMissionCoroutine;
     private bool isMissionFlow = false;
     private int missionKeyIndex = 0;
 
@@ -70,6 +71,7 @@ public class level2 : MonoBehaviour
 
     public GameObject turo1;
     public GameObject turo2;
+    public GameObject turo3;
     public GameObject tutortext;
     public bool startWithTutorial = true;
     private bool isTutorialActive = false;
@@ -97,10 +99,6 @@ public class level2 : MonoBehaviour
         changecanfiance = PlayerPrefs.GetFloat("changecanfiance", changecanfiance);
 
         SetAllKeysDark();
-        if (keys != null && keys.Count > 0 && keys[0].key != null)
-        {
-            SetKeyVisualState(keys[0].key, true, false, false);
-        }
         if (leftObj != null) leftObj.SetActive(false);
 
         if (startWithTutorial && (turo1 != null || turo2 != null))
@@ -131,12 +129,17 @@ public class level2 : MonoBehaviour
             int percent = changereserves < 3f ? 0 : Mathf.RoundToInt(sliderBarreserves.value * 100f);
             percentageTextreserves.text = changereserves + "%";
         }
+
+        UpdateKeyInteractableStates();
     }
 
     public void MissionButtonClicked()
     {
         PlayClickSfx();
         if (isTutorialActive) return;
+        if (leftObjActive) return;
+        if (catwrong != null && catwrong.activeSelf) return;
+        if (catrcorect != null && catrcorect.activeSelf) return;
         if (mission != null) mission.SetActive(false);
         isMissionFlow = true;
         HandleKeyClicked(missionKeyIndex, false);
@@ -146,7 +149,7 @@ public class level2 : MonoBehaviour
     private void BeginTutorialFlow()
     {
         isTutorialActive = true;
-        if (cathelp != null) cathelp.SetActive(false);
+        if (cathelp != null) cathelp.SetActive(true);
         if (catbtn != null) catbtn.SetActive(false);
         if (catwrong != null) catwrong.SetActive(false);
         if (catrcorect != null) catrcorect.SetActive(false);
@@ -156,8 +159,27 @@ public class level2 : MonoBehaviour
             leftObj.SetActive(false);
         }
         leftObjActive = false;
+        if (turo1 != null) turo1.SetActive(false);
+        if (turo2 != null) turo2.SetActive(false);
+        if (turo3 != null) turo3.SetActive(false);
+        if (tutortext != null) tutortext.SetActive(false);
+    }
+
+    public void BeginTutorialSteps()
+    {
+        PlayClickSfx();
+        if (!isTutorialActive)
+        {
+            BeginTutorialFlow();
+        }
+
+        if (cathelp != null) cathelp.SetActive(false);
+        if (catbtn != null) catbtn.SetActive(false);
+        if (tutortext != null) tutortext.SetActive(true);
         if (turo1 != null) turo1.SetActive(true);
         if (turo2 != null) turo2.SetActive(false);
+        if (leftObj != null) leftObj.SetActive(false);
+        leftObjActive = false;
     }
 
     private void BeginNormalFlow()
@@ -165,13 +187,20 @@ public class level2 : MonoBehaviour
         isTutorialActive = false;
         if (turo1 != null) turo1.SetActive(false);
         if (turo2 != null) turo2.SetActive(false);
+        if (turo3 != null) turo3.SetActive(false);
         if (leftObj != null)
         {
             leftObj.SetActive(false);
         }
         leftObjActive = false;
-        if (cathelp != null) cathelp.SetActive(true);
-        if (catbtn != null) catbtn.SetActive(false);
+        if (cathelp != null) cathelp.SetActive(false);
+        if (catbtn != null) catbtn.SetActive(true);
+
+        SetAllKeysDark();
+        if (keys != null && currentKeyIndex >= 0 && currentKeyIndex < keys.Count && keys[currentKeyIndex].key != null)
+        {
+            SetKeyVisualState(keys[currentKeyIndex].key, true, false, false);
+        }
     }
 
     public void OnTutor1Clicked()
@@ -190,11 +219,45 @@ public class level2 : MonoBehaviour
     {
         PlayClickSfx();
         if (!isTutorialActive) return;
-        if (turo1 != null) turo1.SetActive(true);
         if (turo2 != null) turo2.SetActive(false);
+        if (turo3 != null) turo3.SetActive(true);
+
+    }
+
+    public void OnTutor3Clicked()
+    {
+        PlayClickSfx();
+        if (!isTutorialActive) return;
+        tutortext.SetActive(false);
+        if (countdownCoroutine != null)
+        {
+            StopCoroutine(countdownCoroutine);
+            countdownCoroutine = null;
+        }
+        BeginNormalFlow();
+    }
+
+    public void OnTutor2BackClicked()
+    {
+        PlayClickSfx();
+        if (!isTutorialActive) return;
+        if (turo2 != null) turo2.SetActive(false);
+        if (turo1 != null) turo1.SetActive(true);
         if (leftObj != null)
         {
             leftObj.SetActive(false);
+        }
+    }
+
+    public void OnTutor3BackClicked()
+    {
+        PlayClickSfx();
+        if (!isTutorialActive) return;
+        if (turo3 != null) turo3.SetActive(false);
+        if (turo2 != null) turo2.SetActive(true);
+        if (leftObj != null)
+        {
+            leftObj.SetActive(true);
         }
     }
 
@@ -428,8 +491,8 @@ public class level2 : MonoBehaviour
             {
                 ClearKeyResultState(keys[currentKeyIndex].key);
             }
-            ShowMissionIfAvailable();
-        }
+             ShowMissionIfAvailable();       
+             }
          for (int i = 0; i < keys[currentKeyIndex - 1].key.transform.childCount; i++)
         {
             var child = keys[currentKeyIndex - 1].key.transform.GetChild(i);
@@ -439,6 +502,7 @@ public class level2 : MonoBehaviour
                 child.gameObject.SetActive(false);
             }
         }
+
     }
 
             private void SetKeyVisualState(GameObject keyObj, bool indicatorActive, bool selectActive, bool darkActive)
@@ -495,6 +559,50 @@ public class level2 : MonoBehaviour
                     }
                 }
                 return false;
+            }
+
+            private Button GetKeyButton(GameObject keyObj)
+            {
+                if (keyObj == null) return null;
+                Button button = keyObj.GetComponent<Button>();
+                if (button != null) return button;
+                return keyObj.GetComponentInChildren<Button>(true);
+            }
+
+            private bool IsIndicatorActive(GameObject keyObj)
+            {
+                if (keyObj == null) return false;
+                for (int i = 0; i < keyObj.transform.childCount; i++)
+                {
+                    var child = keyObj.transform.GetChild(i);
+                    if (child.name.ToLower().Contains("indicator") && child.gameObject.activeSelf)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            private void UpdateKeyInteractableStates()
+            {
+                if (keys == null) return;
+
+                bool hasBlockingPopup = (catwrong != null && catwrong.activeSelf) ||
+                                        (catrcorect != null && catrcorect.activeSelf);
+                bool canInteractNow = !isTutorialActive && !leftObjActive && !hasBlockingPopup;
+
+                for (int i = 0; i < keys.Count; i++)
+                {
+                    var keyData = keys[i];
+                    if (keyData == null || keyData.key == null) continue;
+
+                    var button = GetKeyButton(keyData.key);
+                    if (button == null) continue;
+
+                    bool isCurrentTurn = i == currentKeyIndex;
+                    bool hasActiveIndicator = IsIndicatorActive(keyData.key);
+                    button.interactable = canInteractNow && (isCurrentTurn || hasActiveIndicator);
+                }
             }
 
 
@@ -696,9 +804,24 @@ public class level2 : MonoBehaviour
         if (keys == null || currentKeyIndex < 0 || currentKeyIndex >= keys.Count) return;
         if (leftObjActive) return;
         missionKeyIndex = currentKeyIndex;
-        UpdateMissionText(missionKeyIndex);
-        cathelpbtntest(mission);
-        // mission.SetActive(true);
+        if (autoMissionCoroutine != null)
+        {
+            StopCoroutine(autoMissionCoroutine);
+        }
+        autoMissionCoroutine = StartCoroutine(AutoMissionAfterPopupsClose());
+    }
+
+    private IEnumerator AutoMissionAfterPopupsClose()
+    {
+        while ((catwrong != null && catwrong.activeSelf) ||
+               (catrcorect != null && catrcorect.activeSelf) ||
+               leftObjActive)
+        {
+            yield return null;
+        }
+
+        autoMissionCoroutine = null;
+        // MissionButtonClicked();
     }
 
     private void UpdateMissionText(int index)
@@ -910,6 +1033,7 @@ public class level2 : MonoBehaviour
 
     public void continiuertest(GameObject obj)
     {
+        if (obj == null) return;
         if (catbtn != null)
         {
             RawImage rawImg = catbtn.GetComponent<RawImage>();
@@ -930,7 +1054,7 @@ public class level2 : MonoBehaviour
                     });
             }
         }
-        if (obj.transform.GetChild(0).gameObject != null)
+        if (obj.transform.childCount > 1 && obj.transform.GetChild(0).gameObject != null)
         {
             RawImage rawImgcathelp = obj.transform.GetChild(0).GetComponent<RawImage>();
             if (rawImgcathelp != null)

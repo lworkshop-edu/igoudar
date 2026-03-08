@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 using TMPro;
 public class level1 : MonoBehaviour
 {
+    public GameObject skeepbtn;
     public GameObject obj1;
     public GameObject obj2;
     public GameObject obj3;
@@ -786,36 +787,69 @@ public class level1 : MonoBehaviour
     {
         PlayClickSfx();
         ShowTutor(2);
+                doorsObjs[0].transform.GetChild(2).gameObject.SetActive(true);//dorehover
+ 
     }
 
     public void Tutor2Prev()
     {
         PlayClickSfx();
         ShowTutor(1);
+                doorsObjs[0].transform.GetChild(2).gameObject.SetActive(false);//dorehover
+                doorsObjs[0].transform.GetChild(0).gameObject.SetActive(false);//dorecorrect
+
+
     }
 
     public void Tutor2Next()
     {
         PlayClickSfx();
         ShowTutor(3);
+
+                doorsObjs[0].transform.GetChild(2).gameObject.SetActive(false);//dorehover
+                doorsObjs[0].transform.GetChild(0).gameObject.SetActive(true);//dorecorrect
+                keys[3].key.transform.GetChild(0).gameObject.SetActive(true);//key4activecorrect
+                
     }
 
     public void Tutor3Prev()
     {
         PlayClickSfx();
         ShowTutor(2);
+                        doorsObjs[0].transform.GetChild(0).gameObject.SetActive(false);//dorecorrect
+                keys[3].key.transform.GetChild(0).gameObject.SetActive(false);//key4activecorrect
+        doorsObjs[0].transform.GetChild(2).gameObject.SetActive(true);//dorehover
     }
 
     public void Tutor3Next()
     {
         PlayClickSfx();
         ShowTutor(4);
+                        doorsObjs[0].transform.GetChild(2).gameObject.SetActive(false);//dorehover
+                doorsObjs[0].transform.GetChild(0).gameObject.SetActive(false);//dorecorrect
+                keys[3].key.transform.GetChild(0).gameObject.SetActive(false);//key4activecorrect
+
+
+                doorsObjs[1].transform.GetChild(2).gameObject.SetActive(true);//dorehover
+                 doorsObjs[0].transform.GetChild(4).gameObject.SetActive(true);//doredone
+                keys[3].key.transform.GetChild(0).gameObject.SetActive(true);//key4activecorrect
+
+
+
     }
 
     public void Tutor4Prev()
     {
         PlayClickSfx();
         ShowTutor(3);
+        
+                        doorsObjs[1].transform.GetChild(2).gameObject.SetActive(false);//dorehover
+                 doorsObjs[0].transform.GetChild(4).gameObject.SetActive(false);//doredone
+                keys[3].key.transform.GetChild(0).gameObject.SetActive(false);//key4activecorrect
+
+                              doorsObjs[0].transform.GetChild(2).gameObject.SetActive(false);//dorehover
+                doorsObjs[0].transform.GetChild(0).gameObject.SetActive(true);//dorecorrect
+                keys[3].key.transform.GetChild(0).gameObject.SetActive(true);//key4activecorrect
     }
 
     public void Tutor4Next()
@@ -834,6 +868,15 @@ public class level1 : MonoBehaviour
     {
         PlayClickSfx();
         AnimateTutorOut(GetActiveTutor(), EndTutorial);
+        skeepbtn.SetActive(false);
+
+        doorsObjs[0].transform.GetChild(2).gameObject.SetActive(false);//dorehover
+        doorsObjs[0].transform.GetChild(0).gameObject.SetActive(false);//dorecorrect
+        keys[3].key.transform.GetChild(0).gameObject.SetActive(false);//key4activecorrect
+        doorsObjs[1].transform.GetChild(2).gameObject.SetActive(false);//dorehover
+        doorsObjs[0].transform.GetChild(4).gameObject.SetActive(false);//doredone
+
+
     }
 
     public void closebok()
@@ -908,6 +951,7 @@ public class level1 : MonoBehaviour
     public void continiuer()
     {
         PlayClickSfx();
+        skeepbtn.SetActive(false);
         if (catbtn != null)
         {
             RawImage rawImg = catbtn.GetComponent<RawImage>();

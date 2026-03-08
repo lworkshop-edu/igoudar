@@ -23,6 +23,7 @@ public class overlay : MonoBehaviour
     
 
     private GameObject selectedLevel = null;
+    private GameObject currentTurnLevel = null;
    
     public UnityEngine.UI.Slider sliderBarcanfiance;
     public UnityEngine.UI.Slider sliderBarreserves;
@@ -206,6 +207,7 @@ public class overlay : MonoBehaviour
                        cathelp.transform.GetChild(1).gameObject.SetActive(true);
                        cathelp.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(true);
                 cathelp.SetActive(false);
+                RestoreLevelArrowVisibility();
 
                     });
             }
@@ -225,6 +227,7 @@ public class overlay : MonoBehaviour
 
     private void ShowCatHelpPanel()
     {
+            HideAllLevelArrows();
             if (catbtn != null)
         {
             RawImage rawImg = catbtn.GetComponent<RawImage>();
@@ -330,7 +333,7 @@ public class overlay : MonoBehaviour
         }
         else
         {
-            int numPages = Mathf.CeilToInt(helpText.Length / 80f);
+            int numPages = Mathf.CeilToInt(helpText.Length / 200f);
             numPages = Mathf.Min(numPages, 5);
             
             int charsPerPage = Mathf.CeilToInt(helpText.Length / (float)numPages);
@@ -447,7 +450,7 @@ public class overlay : MonoBehaviour
         Transform arrow = levelBtn.transform.Find("arrow");
         
         if (hover != null) hover.gameObject.SetActive(true);
-        if (arrow != null) arrow.gameObject.SetActive(true);
+        if (arrow != null) arrow.gameObject.SetActive(CanShowLevelArrows());
     }
     
     public void OnLevelHoverExit(GameObject levelBtn)
@@ -459,7 +462,11 @@ public class overlay : MonoBehaviour
         Transform arrow = levelBtn.transform.Find("arrow");
         
         if (hover != null) hover.gameObject.SetActive(false);
-        if (arrow != null) arrow.gameObject.SetActive(false);
+        if (arrow != null)
+        {
+            bool keepArrowForTurnLevel = CanShowLevelArrows() && selectedLevel == null && levelBtn == currentTurnLevel;
+            arrow.gameObject.SetActive(keepArrowForTurnLevel);
+        }
     }
     
     public void OnLevelSelect(GameObject levelBtn)
@@ -486,7 +493,7 @@ public class overlay : MonoBehaviour
         
         if (select != null) select.gameObject.SetActive(true);
         if (hover != null) hover.gameObject.SetActive(true);
-        if (arrow != null) arrow.gameObject.SetActive(true);
+        if (arrow != null) arrow.gameObject.SetActive(CanShowLevelArrows());
     }
 
     private void RefreshLevelButtons()
@@ -497,6 +504,13 @@ public class overlay : MonoBehaviour
         }
 
         int unlockedLevelsCount = LevelProgression.GetUnlockedLevelsCount(leveles.Count);
+        currentTurnLevel = null;
+        if (unlockedLevelsCount > 0)
+        {
+            int turnIndex = Mathf.Clamp(unlockedLevelsCount - 1, 0, leveles.Count - 1);
+            currentTurnLevel = leveles[turnIndex];
+        }
+
         for (int i = 0; i < leveles.Count; i++)
         {
             GameObject levelObj = leveles[i];
@@ -542,6 +556,51 @@ public class overlay : MonoBehaviour
                     selectedLevel = null;
                 }
             }
+
+            if (isUnlocked)
+            {
+                Transform arrow = levelObj.transform.Find("arrow");
+                if (arrow != null)
+                {
+                    bool showTurnArrow = CanShowLevelArrows() && selectedLevel == null && levelObj == currentTurnLevel;
+                    arrow.gameObject.SetActive(showTurnArrow);
+                }
+            }
+        }
+    }
+
+    private bool CanShowLevelArrows()
+    {
+        return cathelp == null || !cathelp.activeSelf;
+    }
+
+    private void HideAllLevelArrows()
+    {
+        if (leveles == null) return;
+        for (int i = 0; i < leveles.Count; i++)
+        {
+            GameObject levelObj = leveles[i];
+            if (levelObj == null) continue;
+            Transform arrow = levelObj.transform.Find("arrow");
+            if (arrow != null) arrow.gameObject.SetActive(false);
+        }
+    }
+
+    private void RestoreLevelArrowVisibility()
+    {
+        if (!CanShowLevelArrows()) return;
+
+        if (selectedLevel != null)
+        {
+            Transform selectedArrow = selectedLevel.transform.Find("arrow");
+            if (selectedArrow != null) selectedArrow.gameObject.SetActive(true);
+            return;
+        }
+
+        if (currentTurnLevel != null)
+        {
+            Transform turnArrow = currentTurnLevel.transform.Find("arrow");
+            if (turnArrow != null) turnArrow.gameObject.SetActive(true);
         }
     }
 

@@ -79,6 +79,7 @@ public class level3 : MonoBehaviour
     }
 
     public List<ChoiceFeedback> feedbacks; 
+    public List<ChoiceFeedback> wrongFeedbacks;
 
     private void PlayClickSfx()
     {
@@ -113,6 +114,15 @@ public class level3 : MonoBehaviour
                     feedbacks.Add(feedbacks[feedbacks.Count - 1]); 
                 else
                     feedbacks.Add(new ChoiceFeedback { choiceLetter = "", feedbackText = "" });
+            }
+
+            if (wrongFeedbacks == null) wrongFeedbacks = new List<ChoiceFeedback>();
+            while (wrongFeedbacks.Count < questions.Count)
+            {
+                if (wrongFeedbacks.Count > 0)
+                    wrongFeedbacks.Add(wrongFeedbacks[wrongFeedbacks.Count - 1]);
+                else
+                    wrongFeedbacks.Add(new ChoiceFeedback { choiceLetter = "", feedbackText = "" });
             }
         }
     }
@@ -171,18 +181,31 @@ GameObject[] allObjects = FindObjectsOfType<GameObject>(true);
 
 
        
-        ChoiceFeedback feedback = (feedbacks != null && feedbacks.Count > currentQuestionIndex) ? feedbacks[currentQuestionIndex] : null;
-        string feedbackText = "";
-        if (feedback != null)
+        ChoiceFeedback correctFeedback = (feedbacks != null && feedbacks.Count > currentQuestionIndex) ? feedbacks[currentQuestionIndex] : null;
+        ChoiceFeedback wrongFeedback = (wrongFeedbacks != null && wrongFeedbacks.Count > currentQuestionIndex) ? wrongFeedbacks[currentQuestionIndex] : null;
+
+        string correctFeedbackText;
+        if (correctFeedback != null && !string.IsNullOrEmpty(correctFeedback.feedbackText))
         {
-            feedbackText = $"Décision juste : Choix {answer}\n\n{feedback.feedbackText}";
+            correctFeedbackText = $"Décision juste : Choix {answer}\n\n{correctFeedback.feedbackText}";
         }
         else
         {
-            feedbackText = $"Décision juste : Choix {answer}";
+            correctFeedbackText = $"Décision juste : Choix {answer}";
         }
-        if (corectcatText != null) corectcatText.text = feedbackText;
-        if (wrongcatText != null) wrongcatText.text = feedbackText;
+
+        string wrongFeedbackText;
+        if (wrongFeedback != null && !string.IsNullOrEmpty(wrongFeedback.feedbackText))
+        {
+            wrongFeedbackText = $"Mauvaise décision : Choix {answer}\n\n{wrongFeedback.feedbackText}";
+        }
+        else
+        {
+            wrongFeedbackText = $"Mauvaise décision : Choix {answer}";
+        }
+
+        if (corectcatText != null) corectcatText.text = correctFeedbackText;
+        if (wrongcatText != null) wrongcatText.text = wrongFeedbackText;
 
         if (q.correctAnswer == answer)
         {
