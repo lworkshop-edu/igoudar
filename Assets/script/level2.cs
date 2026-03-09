@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 public class level2 : MonoBehaviour
 {
+    public GameObject skeepbtn;
     public GameObject obj1;
     public GameObject obj2;
     public GameObject obj3;
@@ -167,6 +168,7 @@ public class level2 : MonoBehaviour
 
     public void BeginTutorialSteps()
     {
+        skeepbtn.SetActive(false);
         PlayClickSfx();
         if (!isTutorialActive)
         {
@@ -265,6 +267,7 @@ public class level2 : MonoBehaviour
     {
         PlayClickSfx();
         tutortext.SetActive(false);
+        skeepbtn.SetActive(false);
         if (countdownCoroutine != null)
         {
             StopCoroutine(countdownCoroutine);

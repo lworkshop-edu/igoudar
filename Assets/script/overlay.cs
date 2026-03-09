@@ -368,6 +368,7 @@ public class overlay : MonoBehaviour
         {
             SetButtonInteractable(prevBtn, false);
             SetButtonInteractable(nextBtn, false);
+            UpdateButtonsParentVisibility(prevBtn, nextBtn);
             return;
         }
         
@@ -382,6 +383,36 @@ public class overlay : MonoBehaviour
         {
             SetButtonInteractable(nextBtn, currentPageIndex < textPieces.Count - 1);
         }
+
+        UpdateButtonsParentVisibility(prevBtn, nextBtn);
+    }
+
+    private void UpdateButtonsParentVisibility(Transform prevBtn, Transform nextBtn)
+    {
+        Transform parent = null;
+
+        if (prevBtn != null && nextBtn != null && prevBtn.parent == nextBtn.parent)
+        {
+            parent = prevBtn.parent;
+        }
+        else if (prevBtn != null)
+        {
+            parent = prevBtn.parent;
+        }
+        else if (nextBtn != null)
+        {
+            parent = nextBtn.parent;
+        }
+
+        if (parent == null)
+        {
+            return;
+        }
+
+        bool hasActiveButton = (prevBtn != null && prevBtn.gameObject.activeSelf)
+            || (nextBtn != null && nextBtn.gameObject.activeSelf);
+
+        parent.gameObject.SetActive(hasActiveButton);
     }
 
     private void SetButtonInteractable(Transform buttonTransform, bool interactable)
@@ -397,6 +428,9 @@ public class overlay : MonoBehaviour
         if (button != null)
         {
             button.interactable = interactable;
+            buttonTransform.gameObject.SetActive(interactable);
+
+
         }
     }
 
