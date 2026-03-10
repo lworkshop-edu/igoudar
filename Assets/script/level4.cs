@@ -102,8 +102,13 @@ public class level4 : MonoBehaviour
 
 
     public GameObject cattutor;
-    public List<string> tutorilalisttext ;
-    public TMPro.TextMeshProUGUI tutorialtext;
+    public GameObject turo1;
+    public GameObject turo2;
+    public GameObject turo3;
+    public GameObject turo4;
+    public GameObject tutortext;
+    public bool startWithTutorial = true;
+    private bool isTutorialActive = false;
     private int currentTutorStep = 0;
 
     public GameObject prevtutor, nexttutor;
@@ -180,20 +185,35 @@ public class level4 : MonoBehaviour
 
     private void InitializeTutor()
     {
+        isTutorialActive = true;
+        if (cattutor != null)
+        {
+            cattutor.SetActive(true);
+        }
+        if (tutortext != null)
+        {
+            tutortext.SetActive(true);
+        }
+        if (cathelp != null)
+        {
+            cathelp.SetActive(false);
+        }
+        if (catbtn != null)
+        {
+            catbtn.SetActive(false);
+        }
+        if (ideabtn != null)
+        {
+            ideabtn.SetActive(false);
+        }
         currentTutorStep = 0;
         ApplyTutorStep(currentTutorStep);
     }
 
     private void ApplyTutorStep(int step)
     {
-        int maxSteps = 3;
+        int maxSteps = 4;
         currentTutorStep = Mathf.Clamp(step, 0, maxSteps - 1);
-
-        if (tutorialtext != null && tutorilalisttext != null && tutorilalisttext.Count > 0)
-        {
-            int safeIndex = Mathf.Clamp(currentTutorStep, 0, tutorilalisttext.Count - 1);
-            tutorialtext.text = tutorilalisttext[safeIndex];
-        }
 
         if (prev != null)
         {
@@ -207,9 +227,13 @@ public class level4 : MonoBehaviour
         SetTutorButtonInteractable(prevtutor, currentTutorStep > 0);
         SetTutorButtonInteractable(nexttutor, currentTutorStep < maxSteps - 1);
 
+        SetTutorObjState(turo1, currentTutorStep == 0);
+        SetTutorObjState(turo2, currentTutorStep == 1);
+        SetTutorObjState(turo3, currentTutorStep == 2);
+        SetTutorObjState(turo4, currentTutorStep == 3);
+
         GameObject indicatorLeft = GetTutorNode("indicator left");
         GameObject imageHover = GetTutorNode("image hover");
-        GameObject indicator1 = GetTutorNode("indicator1");
         GameObject jar = GetTutorNode("jar");
         GameObject jarleft = GetTutorNode("jarleft");
 
@@ -217,7 +241,6 @@ public class level4 : MonoBehaviour
         {
             SetTutorObjState(indicatorLeft, false);
             SetTutorObjState(imageHover, false);
-            SetTutorObjState(indicator1, false);
             SetTutorObjState(jar, false);
             SetTutorObjState(jarleft, true);
         }
@@ -225,7 +248,6 @@ public class level4 : MonoBehaviour
         {
             SetTutorObjState(indicatorLeft, true);
             SetTutorObjState(imageHover, true);
-            SetTutorObjState(indicator1, false);
             SetTutorObjState(jar, false);
             SetTutorObjState(jarleft, true);
         }
@@ -233,7 +255,6 @@ public class level4 : MonoBehaviour
         {
             SetTutorObjState(indicatorLeft, false);
             SetTutorObjState(imageHover, false);
-            SetTutorObjState(indicator1, true);
             SetTutorObjState(jar, true);
             SetTutorObjState(jarleft, false);
         }
@@ -285,18 +306,33 @@ public class level4 : MonoBehaviour
     public void TutorNextStep()
     {
         PlayClickSfx();
+        if (!isTutorialActive) return;
         ApplyTutorStep(currentTutorStep + 1);
     }
 
     public void TutorPrevStep()
     {
         PlayClickSfx();
+        if (!isTutorialActive) return;
         ApplyTutorStep(currentTutorStep - 1);
     }
 
     public void CloseTutorAndStart()
     {
+        CloseTutorAndBeginNormal();
+    }
+
+    public void CloseTutorAndBeginNormal()
+    {
         PlayClickSfx();
+        isTutorialActive = false;
+
+        if (turo1 != null) turo1.SetActive(false);
+        if (turo2 != null) turo2.SetActive(false);
+        if (turo3 != null) turo3.SetActive(false);
+        if (turo4 != null) turo4.SetActive(false);
+        if (tutortext != null) tutortext.SetActive(false);
+
         if (cattutor != null)
         {
             cattutor.SetActive(false);
@@ -318,6 +354,12 @@ public class level4 : MonoBehaviour
         }
 
         cathelpbtn();
+    }
+
+    public void BeginTutorialSteps()
+    {
+        PlayClickSfx();
+        InitializeTutor();
     }
 
     private void UpdateJarText(int btnIndex)
@@ -1033,19 +1075,24 @@ public class level4 : MonoBehaviour
         introobj.SetActive(false);
 
         // Show tutorial after intro
-        if (cattutor != null)
+        if (startWithTutorial && cattutor != null)
         {
             cattutor.SetActive(true);
             InitializeTutor();
+
+            if (cathelp != null)
+            {
+                cathelp.SetActive(false);
+            }
+        }
+        else
+        {
+            CloseTutorAndBeginNormal();
         }
 
         if (prev != null) prev.SetActive(false);
         if (next != null) next.SetActive(false);
 
-        if (cathelp != null)
-        {
-            cathelp.SetActive(false);
-        }
     }
 
     private void UpdateIntroButtonStates()
